@@ -3,16 +3,16 @@
 
 	let { locale = 'en' }: { locale: Locale } = $props();
 
-	function onChange(e: Event) {
-		const target = e.target as HTMLSelectElement;
-		const newLocale = target.value;
-		window.location.href = newLocale === 'en' ? '/' : `/${newLocale}`;
+	let selected = $state(locale);
+
+	function onChange() {
+		window.location.href = selected === 'en' ? '/' : `/${selected}`;
 	}
 </script>
 
-<select class="lang-switcher" value={locale} onchange={onChange} aria-label="Language">
+<select class="lang-switcher" bind:value={selected} onchange={onChange} aria-label="Language">
 	{#each locales as loc}
-		<option value={loc} selected={loc === locale}>{localeNames[loc]}</option>
+		<option value={loc}>{localeNames[loc]}</option>
 	{/each}
 </select>
 

@@ -6,7 +6,7 @@
 
 	let { data, children } = $props();
 
-	const locale: Locale = data.locale ?? 'en';
+	let locale: Locale = $derived(data.locale ?? 'en');
 </script>
 
 <Nav {locale} />
