@@ -54,29 +54,29 @@
 			<div class="app-tabs">
 				<button class="tab" class:active={activeTab === 'encrypt'} onclick={() => activeTab = 'encrypt'}>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-					Encrypt
+					{t(locale, 'mockup.tab.encrypt')}
 				</button>
 				<button class="tab" class:active={activeTab === 'decrypt'} onclick={() => activeTab = 'decrypt'}>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 5-5 5 5 0 0 1 5 5"/></svg>
-					Decrypt
+					{t(locale, 'mockup.tab.decrypt')}
 				</button>
 				<button class="tab" class:active={activeTab === 'keys'} onclick={() => activeTab = 'keys'}>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
-					Keys
+					{t(locale, 'mockup.tab.keys')}
 				</button>
 				<button class="tab" class:active={activeTab === 'settings'} onclick={() => activeTab = 'settings'}>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-					Settings
+					{t(locale, 'mockup.tab.settings')}
 				</button>
 			</div>
 			<div class="app-body">
 				{#if activeTab === 'encrypt'}
 					<div class="app-field">
-						<label>Message</label>
-						<div class="app-textarea">Meeting tomorrow at 9am. Bring the documents we discussed.</div>
+						<label>{t(locale, 'mockup.encrypt.message')}</label>
+						<div class="app-textarea">{t(locale, 'mockup.encrypt.example')}</div>
 					</div>
 					<div class="app-field">
-						<label>Recipients</label>
+						<label>{t(locale, 'mockup.encrypt.recipients')}</label>
 						<div class="app-recipients">
 							<span class="recipient selected">
 								<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
@@ -88,23 +88,23 @@
 					<div class="app-actions">
 						<span class="app-btn">
 							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-							Encrypt to Clipboard
+							{t(locale, 'mockup.encrypt.button')}
 						</span>
 						<span class="app-shortcut">Ctrl+Shift+E</span>
 					</div>
 				{:else if activeTab === 'decrypt'}
 					<div class="app-field">
-						<label>Encrypted message</label>
+						<label>{t(locale, 'mockup.decrypt.label')}</label>
 						<div class="app-textarea mono">-----BEGIN PGP MESSAGE-----<br><br>hQEMA8p2E4xLkRl8AQf+N7a2GRkL...<br>qR9f3kMv0bG1jy8YDk5mQ3b+Xz4=<br>=7Yk2<br><br>-----END PGP MESSAGE-----</div>
 					</div>
 					<div class="app-field">
-						<label>Passphrase (optional)</label>
+						<label>{t(locale, 'mockup.decrypt.passphrase')}</label>
 						<div class="app-input password">&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;</div>
 					</div>
 					<div class="app-actions">
 						<span class="app-btn">
 							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 5-5 5 5 0 0 1 5 5"/></svg>
-							Decrypt
+							{t(locale, 'mockup.decrypt.button')}
 						</span>
 						<span class="app-shortcut">Ctrl+Shift+D</span>
 					</div>
@@ -118,7 +118,7 @@
 								<span class="key-name">You &lt;you@example.com&gt;</span>
 								<span class="key-fp">ED25519 &middot; 8A3B 1F2C D9E7 4056</span>
 							</div>
-							<span class="key-badge own-badge">Own key</span>
+							<span class="key-badge own-badge">{t(locale, 'mockup.keys.ownKey')}</span>
 						</div>
 						<div class="key-item">
 							<div class="key-icon">
@@ -128,7 +128,7 @@
 								<span class="key-name">Alice &lt;alice@example.com&gt;</span>
 								<span class="key-fp">ED25519 &middot; 5E91 A0C3 B8F6 2D17</span>
 							</div>
-							<span class="key-badge">Contact</span>
+							<span class="key-badge">{t(locale, 'mockup.keys.contact')}</span>
 						</div>
 						<div class="key-item">
 							<div class="key-icon">
@@ -138,29 +138,29 @@
 								<span class="key-name">Bob &lt;bob@example.com&gt;</span>
 								<span class="key-fp">ED25519 &middot; 3C72 F4D8 A1B9 6E83</span>
 							</div>
-							<span class="key-badge">Contact</span>
+							<span class="key-badge">{t(locale, 'mockup.keys.contact')}</span>
 						</div>
 					</div>
 				{:else}
 					<div class="settings-list">
 						<div class="setting-row">
 							<div class="setting-info">
-								<span class="setting-label">Auto-clear clipboard</span>
-								<span class="setting-desc">Clear decrypted text after 30 seconds</span>
+								<span class="setting-label">{t(locale, 'mockup.settings.autoClear')}</span>
+								<span class="setting-desc">{t(locale, 'mockup.settings.autoClearDesc')}</span>
 							</div>
 							<span class="toggle on"><span class="toggle-dot"></span></span>
 						</div>
 						<div class="setting-row">
 							<div class="setting-info">
-								<span class="setting-label">System tray</span>
-								<span class="setting-desc">Keep running in background</span>
+								<span class="setting-label">{t(locale, 'mockup.settings.tray')}</span>
+								<span class="setting-desc">{t(locale, 'mockup.settings.trayDesc')}</span>
 							</div>
 							<span class="toggle on"><span class="toggle-dot"></span></span>
 						</div>
 						<div class="setting-row">
 							<div class="setting-info">
-								<span class="setting-label">OPSEC mode</span>
-								<span class="setting-desc">Disguise window title, RAM-only keys</span>
+								<span class="setting-label">{t(locale, 'mockup.settings.opsec')}</span>
+								<span class="setting-desc">{t(locale, 'mockup.settings.opsecDesc')}</span>
 							</div>
 							<span class="toggle"><span class="toggle-dot"></span></span>
 						</div>
