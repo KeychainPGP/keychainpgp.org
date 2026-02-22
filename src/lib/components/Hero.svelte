@@ -314,7 +314,7 @@
 		border: 1px solid var(--border);
 		border-radius: 12px;
 		overflow: hidden;
-		box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 16px 48px var(--shadow);
 	}
 
 	.app-titlebar {
@@ -392,7 +392,7 @@
 	}
 
 	.app-textarea {
-		background: rgba(255, 255, 255, 0.03);
+		background: var(--mockup-input-bg);
 		border: 1px solid var(--border);
 		border-radius: 8px;
 		padding: 0.75rem;
@@ -415,7 +415,7 @@
 		font-size: 0.75rem;
 		padding: 0.3rem 0.625rem;
 		border-radius: 6px;
-		background: rgba(255, 255, 255, 0.05);
+		background: var(--mockup-subtle-bg);
 		border: 1px solid var(--border);
 		color: var(--text-secondary);
 		cursor: default;
@@ -452,7 +452,7 @@
 		font-size: 0.6875rem;
 		font-family: 'JetBrains Mono', 'Fira Code', monospace;
 		color: var(--text-muted);
-		background: rgba(255, 255, 255, 0.05);
+		background: var(--mockup-subtle-bg);
 		padding: 0.25rem 0.5rem;
 		border-radius: 4px;
 		border: 1px solid var(--border);
@@ -466,7 +466,7 @@
 	}
 
 	.app-input {
-		background: rgba(255, 255, 255, 0.03);
+		background: var(--mockup-input-bg);
 		border: 1px solid var(--border);
 		border-radius: 8px;
 		padding: 0.5rem 0.75rem;
@@ -493,7 +493,7 @@
 		padding: 0.625rem 0.75rem;
 		border: 1px solid var(--border);
 		border-radius: 8px;
-		background: rgba(255, 255, 255, 0.02);
+		background: var(--mockup-input-bg);
 	}
 
 	.key-item.own {
@@ -538,7 +538,7 @@
 		font-weight: 600;
 		padding: 0.15rem 0.4rem;
 		border-radius: 4px;
-		background: rgba(255, 255, 255, 0.05);
+		background: var(--mockup-subtle-bg);
 		color: var(--text-muted);
 		flex-shrink: 0;
 		text-transform: uppercase;
@@ -590,7 +590,7 @@
 		width: 36px;
 		height: 20px;
 		border-radius: 10px;
-		background: rgba(255, 255, 255, 0.1);
+		background: var(--mockup-toggle-bg);
 		border: 1px solid var(--border);
 		position: relative;
 		flex-shrink: 0;

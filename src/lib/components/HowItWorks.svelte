@@ -100,8 +100,8 @@
 		right: 1rem;
 		font-size: 3rem;
 		font-weight: 900;
-		color: var(--primary-soft-text);
-		opacity: 0.15;
+		color: var(--primary);
+		opacity: 0.3;
 		line-height: 1;
 	}
 
