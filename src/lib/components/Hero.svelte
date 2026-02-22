@@ -6,6 +6,7 @@
 	let { locale = 'en' }: { locale: Locale } = $props();
 
 	let platform = $state(detectPlatform());
+	let activeTab = $state<'encrypt' | 'decrypt' | 'keys' | 'settings'>('encrypt');
 
 	$effect(() => {
 		if (browser) platform = detectPlatform();
@@ -43,17 +44,128 @@
 	</div>
 
 	<div class="hero-visual">
-		<div class="terminal">
-			<div class="terminal-bar">
+		<div class="app-window">
+			<div class="app-titlebar">
 				<span class="dot red"></span>
 				<span class="dot yellow"></span>
 				<span class="dot green"></span>
+				<span class="app-title">KeychainPGP</span>
 			</div>
-			<div class="terminal-body">
-				<div class="line"><span class="prompt">$</span> echo "Secret message" | keychainpgp encrypt --to alice</div>
-				<div class="line output">-----BEGIN PGP MESSAGE-----</div>
-				<div class="line output muted">hQEMA8p2E...</div>
-				<div class="line output">-----END PGP MESSAGE-----</div>
+			<div class="app-tabs">
+				<button class="tab" class:active={activeTab === 'encrypt'} onclick={() => activeTab = 'encrypt'}>
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+					Encrypt
+				</button>
+				<button class="tab" class:active={activeTab === 'decrypt'} onclick={() => activeTab = 'decrypt'}>
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 5-5 5 5 0 0 1 5 5"/></svg>
+					Decrypt
+				</button>
+				<button class="tab" class:active={activeTab === 'keys'} onclick={() => activeTab = 'keys'}>
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+					Keys
+				</button>
+				<button class="tab" class:active={activeTab === 'settings'} onclick={() => activeTab = 'settings'}>
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+					Settings
+				</button>
+			</div>
+			<div class="app-body">
+				{#if activeTab === 'encrypt'}
+					<div class="app-field">
+						<label>Message</label>
+						<div class="app-textarea">Meeting tomorrow at 9am. Bring the documents we discussed.</div>
+					</div>
+					<div class="app-field">
+						<label>Recipients</label>
+						<div class="app-recipients">
+							<span class="recipient selected">
+								<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+								Alice &lt;alice@example.com&gt;
+							</span>
+							<span class="recipient">Bob &lt;bob@example.com&gt;</span>
+						</div>
+					</div>
+					<div class="app-actions">
+						<span class="app-btn">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+							Encrypt to Clipboard
+						</span>
+						<span class="app-shortcut">Ctrl+Shift+E</span>
+					</div>
+				{:else if activeTab === 'decrypt'}
+					<div class="app-field">
+						<label>Encrypted message</label>
+						<div class="app-textarea mono">-----BEGIN PGP MESSAGE-----<br><br>hQEMA8p2E4xLkRl8AQf+N7a2GRkL...<br>qR9f3kMv0bG1jy8YDk5mQ3b+Xz4=<br>=7Yk2<br><br>-----END PGP MESSAGE-----</div>
+					</div>
+					<div class="app-field">
+						<label>Passphrase (optional)</label>
+						<div class="app-input password">&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;</div>
+					</div>
+					<div class="app-actions">
+						<span class="app-btn">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 5-5 5 5 0 0 1 5 5"/></svg>
+							Decrypt
+						</span>
+						<span class="app-shortcut">Ctrl+Shift+D</span>
+					</div>
+				{:else if activeTab === 'keys'}
+					<div class="key-list">
+						<div class="key-item own">
+							<div class="key-icon">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+							</div>
+							<div class="key-info">
+								<span class="key-name">You &lt;you@example.com&gt;</span>
+								<span class="key-fp">ED25519 &middot; 8A3B 1F2C D9E7 4056</span>
+							</div>
+							<span class="key-badge own-badge">Own key</span>
+						</div>
+						<div class="key-item">
+							<div class="key-icon">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+							</div>
+							<div class="key-info">
+								<span class="key-name">Alice &lt;alice@example.com&gt;</span>
+								<span class="key-fp">ED25519 &middot; 5E91 A0C3 B8F6 2D17</span>
+							</div>
+							<span class="key-badge">Contact</span>
+						</div>
+						<div class="key-item">
+							<div class="key-icon">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+							</div>
+							<div class="key-info">
+								<span class="key-name">Bob &lt;bob@example.com&gt;</span>
+								<span class="key-fp">ED25519 &middot; 3C72 F4D8 A1B9 6E83</span>
+							</div>
+							<span class="key-badge">Contact</span>
+						</div>
+					</div>
+				{:else}
+					<div class="settings-list">
+						<div class="setting-row">
+							<div class="setting-info">
+								<span class="setting-label">Auto-clear clipboard</span>
+								<span class="setting-desc">Clear decrypted text after 30 seconds</span>
+							</div>
+							<span class="toggle on"><span class="toggle-dot"></span></span>
+						</div>
+						<div class="setting-row">
+							<div class="setting-info">
+								<span class="setting-label">System tray</span>
+								<span class="setting-desc">Keep running in background</span>
+							</div>
+							<span class="toggle on"><span class="toggle-dot"></span></span>
+						</div>
+						<div class="setting-row">
+							<div class="setting-info">
+								<span class="setting-label">OPSEC mode</span>
+								<span class="setting-desc">Disguise window title, RAM-only keys</span>
+							</div>
+							<span class="toggle"><span class="toggle-dot"></span></span>
+						</div>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>
@@ -168,7 +280,7 @@
 		align-items: center;
 	}
 
-	.terminal {
+	.app-window {
 		width: 100%;
 		background: var(--bg-terminal);
 		border: 1px solid var(--border);
@@ -177,10 +289,11 @@
 		box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
 	}
 
-	.terminal-bar {
+	.app-titlebar {
 		display: flex;
+		align-items: center;
 		gap: 6px;
-		padding: 12px 16px;
+		padding: 10px 14px;
 		background: var(--bg-terminal-bar);
 		border-bottom: 1px solid var(--border);
 	}
@@ -195,29 +308,285 @@
 	.dot.yellow { background: #ffbd2e; }
 	.dot.green { background: #27c93f; }
 
-	.terminal-body {
-		padding: 1.25rem;
-		font-family: 'JetBrains Mono', 'Fira Code', monospace;
-		font-size: 0.8125rem;
-		line-height: 1.8;
+	.app-title {
+		margin-left: 0.5rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: var(--text-muted);
 	}
 
-	.line {
-		color: var(--text);
-		white-space: nowrap;
+	.app-tabs {
+		display: flex;
+		gap: 0;
+		border-bottom: 1px solid var(--border);
+		padding: 0 0.5rem;
 	}
 
-	.prompt {
-		color: var(--primary);
-		margin-right: 0.5rem;
+	.tab {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		padding: 0.625rem 0.875rem;
+		font-size: 0.75rem;
+		font-weight: 500;
+		color: var(--text-muted);
+		border: none;
+		border-bottom: 2px solid transparent;
+		background: none;
+		cursor: pointer;
+		transition: color 0.15s;
 	}
 
-	.output {
+	.tab:hover {
 		color: var(--text-secondary);
 	}
 
-	.muted {
+	.tab.active {
+		color: var(--primary);
+		border-bottom-color: var(--primary);
+	}
+
+	.app-body {
+		padding: 1.25rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.app-field label {
+		display: block;
+		font-size: 0.6875rem;
+		font-weight: 600;
 		color: var(--text-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 0.375rem;
+	}
+
+	.app-textarea {
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		padding: 0.75rem;
+		font-size: 0.8125rem;
+		color: var(--text);
+		line-height: 1.5;
+		min-height: 56px;
+	}
+
+	.app-recipients {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.375rem;
+	}
+
+	.recipient {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		font-size: 0.75rem;
+		padding: 0.3rem 0.625rem;
+		border-radius: 6px;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid var(--border);
+		color: var(--text-secondary);
+		cursor: default;
+	}
+
+	.recipient.selected {
+		background: var(--primary-soft);
+		border-color: var(--primary);
+		color: var(--primary);
+	}
+
+	.app-actions {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		margin-top: 0.25rem;
+	}
+
+	.app-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375rem;
+		background: var(--primary);
+		color: white;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		padding: 0.5rem 1rem;
+		border-radius: 8px;
+		cursor: default;
+	}
+
+	.app-shortcut {
+		font-size: 0.6875rem;
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		color: var(--text-muted);
+		background: rgba(255, 255, 255, 0.05);
+		padding: 0.25rem 0.5rem;
+		border-radius: 4px;
+		border: 1px solid var(--border);
+	}
+
+	.app-textarea.mono {
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		font-size: 0.6875rem;
+		color: var(--text-secondary);
+		line-height: 1.6;
+	}
+
+	.app-input {
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		padding: 0.5rem 0.75rem;
+		font-size: 0.8125rem;
+		color: var(--text);
+	}
+
+	.app-input.password {
+		letter-spacing: 0.15em;
+		color: var(--text-muted);
+	}
+
+	/* Keys tab */
+	.key-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.key-item {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.625rem 0.75rem;
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.key-item.own {
+		border-color: rgba(59, 130, 246, 0.3);
+		background: rgba(59, 130, 246, 0.05);
+	}
+
+	.key-icon {
+		color: var(--text-muted);
+		flex-shrink: 0;
+	}
+
+	.key-item.own .key-icon {
+		color: var(--primary);
+	}
+
+	.key-info {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 0.125rem;
+		min-width: 0;
+	}
+
+	.key-name {
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: var(--text);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.key-fp {
+		font-size: 0.625rem;
+		font-family: 'JetBrains Mono', 'Fira Code', monospace;
+		color: var(--text-muted);
+	}
+
+	.key-badge {
+		font-size: 0.625rem;
+		font-weight: 600;
+		padding: 0.15rem 0.4rem;
+		border-radius: 4px;
+		background: rgba(255, 255, 255, 0.05);
+		color: var(--text-muted);
+		flex-shrink: 0;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+	}
+
+	.key-badge.own-badge {
+		background: var(--primary-soft);
+		color: var(--primary);
+	}
+
+	/* Settings tab */
+	.settings-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.setting-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.625rem 0;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.setting-row:last-child {
+		border-bottom: none;
+	}
+
+	.setting-info {
+		display: flex;
+		flex-direction: column;
+		gap: 0.125rem;
+	}
+
+	.setting-label {
+		font-size: 0.8125rem;
+		font-weight: 600;
+		color: var(--text);
+	}
+
+	.setting-desc {
+		font-size: 0.6875rem;
+		color: var(--text-muted);
+	}
+
+	.toggle {
+		width: 36px;
+		height: 20px;
+		border-radius: 10px;
+		background: rgba(255, 255, 255, 0.1);
+		border: 1px solid var(--border);
+		position: relative;
+		flex-shrink: 0;
+		transition: background 0.2s;
+	}
+
+	.toggle.on {
+		background: var(--primary);
+		border-color: var(--primary);
+	}
+
+	.toggle-dot {
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		background: white;
+		transition: transform 0.2s;
+	}
+
+	.toggle.on .toggle-dot {
+		transform: translateX(16px);
 	}
 
 	@media (max-width: 900px) {
