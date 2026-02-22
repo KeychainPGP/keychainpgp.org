@@ -6,12 +6,42 @@
 	let { locale = 'en' }: { locale: Locale } = $props();
 
 	const RELEASES_URL = 'https://github.com/keychainpgp/keychainpgp/releases/latest';
+	const API_URL = 'https://api.github.com/repos/keychainpgp/keychainpgp/releases/latest';
 	const WEB_APP_URL = 'https://keychainpgp.github.io';
 
 	let platform = $state<Platform>('unknown');
+	let downloadUrls = $state<Record<string, string>>({});
+
+	const assetPatterns: Record<string, RegExp> = {
+		windows: /_x64-setup\.exe$/i,
+		macos: /_aarch64\.dmg$/i,
+		linux: /_amd64\.AppImage$/i,
+		android: /-arm64\.apk$/i,
+	};
+
+	async function fetchLatestRelease() {
+		try {
+			const res = await fetch(API_URL);
+			if (!res.ok) return;
+			const data = await res.json();
+			const assets: { name: string; browser_download_url: string }[] = data.assets ?? [];
+
+			const urls: Record<string, string> = {};
+			for (const [plat, pattern] of Object.entries(assetPatterns)) {
+				const asset = assets.find(a => pattern.test(a.name));
+				if (asset) urls[plat] = asset.browser_download_url;
+			}
+			downloadUrls = urls;
+		} catch {
+			// Fallback: cards will link to the releases page
+		}
+	}
 
 	$effect(() => {
-		if (browser) platform = detectPlatform();
+		if (browser) {
+			platform = detectPlatform();
+			fetchLatestRelease();
+		}
 	});
 
 	type PlatformInfo = { id: Platform; label: string; svg: string };
@@ -36,7 +66,7 @@
 		<div class="platforms">
 			{#each platforms as p}
 				<a
-					href={RELEASES_URL}
+					href={downloadUrls[p.id] ?? RELEASES_URL}
 					target="_blank"
 					rel="noopener"
 					class="platform-card"

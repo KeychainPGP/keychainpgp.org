@@ -7,12 +7,40 @@
 
 	let platform = $state(detectPlatform());
 	let activeTab = $state<'encrypt' | 'decrypt' | 'keys' | 'settings'>('encrypt');
+	let downloadUrl = $state('');
+
+	const RELEASES_URL = 'https://github.com/keychainpgp/keychainpgp/releases/latest';
+	const API_URL = 'https://api.github.com/repos/keychainpgp/keychainpgp/releases/latest';
+
+	const assetPatterns: Record<string, RegExp> = {
+		windows: /_x64-setup\.exe$/i,
+		macos: /_aarch64\.dmg$/i,
+		linux: /_amd64\.AppImage$/i,
+		android: /-arm64\.apk$/i,
+	};
+
+	async function fetchLatestRelease() {
+		try {
+			const res = await fetch(API_URL);
+			if (!res.ok) return;
+			const data = await res.json();
+			const assets: { name: string; browser_download_url: string }[] = data.assets ?? [];
+			const asset = assets.find(a => assetPatterns[platform]?.test(a.name));
+			if (asset) downloadUrl = asset.browser_download_url;
+		} catch {
+			// Fallback: button scrolls to #download section
+		}
+	}
 
 	$effect(() => {
-		if (browser) platform = detectPlatform();
+		if (browser) {
+			platform = detectPlatform();
+			fetchLatestRelease();
+		}
 	});
 
 	const platformName = $derived(platformLabels[platform]);
+	const heroDownloadHref = $derived(downloadUrl || '#download');
 </script>
 
 <section class="hero">
@@ -23,7 +51,7 @@
 		<p class="hero-description">{t(locale, 'hero.description')}</p>
 
 		<div class="hero-actions">
-			<a href="#download" class="btn btn-primary">
+			<a href={heroDownloadHref} target={downloadUrl ? '_blank' : undefined} rel={downloadUrl ? 'noopener' : undefined} class="btn btn-primary">
 				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
 					<polyline points="7 10 12 15 17 10" />
