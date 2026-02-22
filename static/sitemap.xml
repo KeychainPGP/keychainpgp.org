@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://keychainpgp.org/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://keychainpgp.org/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://keychainpgp.org/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://keychainpgp.org/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://keychainpgp.org/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://keychainpgp.org/pt-BR/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://keychainpgp.org/pt-PT/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://keychainpgp.org/it/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://keychainpgp.org/nl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://keychainpgp.org/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://keychainpgp.org/uk/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://keychainpgp.org/zh-CN/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://keychainpgp.org/zh-TW/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://keychainpgp.org/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://keychainpgp.org/ko/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://keychainpgp.org/ar/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://keychainpgp.org/he/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://keychainpgp.org/tr/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://keychainpgp.org/pl/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://keychainpgp.org/hi/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://keychainpgp.org/th/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://keychainpgp.org/"/>
+    <priority>1.0</priority>
+  </url>
+  <url><loc>https://keychainpgp.org/fr/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/de/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/es/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/pt-BR/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/pt-PT/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/it/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/nl/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/ru/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/uk/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/zh-CN/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/zh-TW/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/ja/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/ko/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/ar/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/he/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/tr/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/pl/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/hi/</loc><priority>0.8</priority></url>
+  <url><loc>https://keychainpgp.org/th/</loc><priority>0.8</priority></url>
+</urlset>

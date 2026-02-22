@@ -1,0 +1,100 @@
+# KeychainPGP — Full Documentation for LLMs
+
+> Simple, cross-platform OpenPGP encryption for your clipboard.
+
+## Project Summary
+
+KeychainPGP is a free, open-source application that makes PGP encryption accessible through a clipboard-first workflow. Instead of managing files and command-line tools, users simply copy text, press a hotkey to encrypt or decrypt, and paste the result.
+
+## Architecture
+
+KeychainPGP is built as a Rust workspace with 6 crates:
+
+- **keychainpgp-core**: Cryptographic engine using Sequoia-PGP. Pure computation, no I/O.
+- **keychainpgp-keys**: Keyring management with SQLite + OS credential store + file fallback.
+- **keychainpgp-clipboard**: Clipboard monitoring, PGP content detection, auto-clear.
+- **keychainpgp-ui**: Tauri v2 desktop/mobile app with Svelte 5 frontend.
+- **keychainpgp-cli**: Command-line interface binary.
+- **keychainpgp-wasm**: WebAssembly bindings for browser use.
+
+## Platforms & Downloads
+
+| Platform | Format | Download |
+|----------|--------|----------|
+| Windows | .msi, .exe (NSIS) | GitHub Releases |
+| macOS | .dmg | GitHub Releases |
+| Linux | .deb, .AppImage | GitHub Releases |
+| Android | .apk (per-ABI) | GitHub Releases |
+| Web | Browser app (WASM) | https://keychainpgp.github.io |
+
+All downloads: https://github.com/keychainpgp/keychainpgp/releases
+
+## Cryptography
+
+- **Key type**: Ed25519 (signing) + X25519 (encryption) — modern elliptic curve cryptography
+- **Library**: Sequoia-PGP (Rust implementation of OpenPGP RFC 4880)
+- **Backend**: crypto-rust (pure Rust, no OpenSSL dependency)
+- **Key storage**: SQLite database + OS credential store (Windows Credential Manager, macOS Keychain, Linux Secret Service)
+- **Passphrase handling**: Optional passphrase protection with zeroization on drop
+
+## Features
+
+### Core
+- Generate PGP key pairs (Ed25519 + X25519)
+- Encrypt messages to one or multiple recipients
+- Decrypt messages with automatic key matching
+- Sign messages with detached signatures
+- Verify signatures with automatic signer detection
+- Import/export keys (ASCII-armored)
+
+### Desktop
+- Global hotkeys: Ctrl+Shift+E (encrypt), Ctrl+Shift+D (decrypt)
+- System tray with quick actions
+- Clipboard auto-clear after 30 seconds
+- Clipboard monitoring for automatic PGP detection
+
+### Security
+- OPSEC mode: disguise window title, RAM-only keys, panic wipe button
+- Tor proxy support for network operations
+- No telemetry, no tracking, no user accounts
+- Passphrase cache with configurable timeout
+
+### Mobile (Android)
+- Same core functionality as desktop
+- QR code key exchange
+- Key sync with desktop via encrypted export/import
+
+### Web App
+- Full PGP operations in the browser via WebAssembly
+- IndexedDB key storage with AES-256-GCM encryption
+- Session-based wrapping key (keys cleared on tab close)
+- No server communication — everything runs locally
+
+## Internationalization
+
+20 languages: English, French, German, Spanish, Portuguese (BR), Portuguese (PT), Italian, Dutch, Russian, Ukrainian, Simplified Chinese, Traditional Chinese, Japanese, Korean, Arabic, Hebrew, Turkish, Polish, Hindi, Thai.
+
+## How to Use
+
+1. Install KeychainPGP for your platform
+2. Generate a key pair (name + email, optional passphrase)
+3. Share your public key with contacts
+4. Import contacts' public keys
+5. Copy text → Press Ctrl+Shift+E → Select recipient → Paste encrypted message
+6. Copy encrypted message → Press Ctrl+Shift+D → Read decrypted text
+
+## Links
+
+- Website: https://keychainpgp.org
+- Web App: https://keychainpgp.github.io
+- Source Code: https://github.com/keychainpgp/keychainpgp
+- Releases: https://github.com/keychainpgp/keychainpgp/releases
+- License: MIT / Apache-2.0
+
+## Donations
+
+KeychainPGP is free and open source. Donations are accepted in cryptocurrency:
+
+- Bitcoin: bc1qed0rtdgxq5t9g5lrsztxqvw9gnz4s2wd3gner3
+- Ethereum: 0xD2Ca6c40f03Db5A0493012C7D2792e69C8C493D8
+- Monero: 898XvFtvBMmes31kNwF4AJiNHsaWZA5aGLqf1jZT5ZZXPGCL4AgNAgZUgw9o6d3tg17fks3q1i4tWJ69tHAhh9MpQLLFGrf

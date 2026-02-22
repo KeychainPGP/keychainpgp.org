@@ -1,0 +1,33 @@
+# KeychainPGP
+
+> Simple, cross-platform OpenPGP encryption for your clipboard.
+
+KeychainPGP is a free, open-source desktop and mobile application that makes PGP encryption accessible to everyone through a clipboard-first workflow.
+
+## Overview
+
+- **What**: PGP encryption/decryption tool with a clipboard-first workflow
+- **Platforms**: Windows, macOS, Linux, Android, Web
+- **License**: MIT / Apache-2.0
+- **Tech**: Rust, Tauri v2, Svelte 5, Sequoia-PGP
+- **Crypto**: Ed25519 + X25519 (modern, zero-config)
+- **Website**: https://keychainpgp.org
+- **Web App**: https://keychainpgp.github.io
+- **Source**: https://github.com/keychainpgp/keychainpgp
+- **Downloads**: https://github.com/keychainpgp/keychainpgp/releases
+
+## Key Features
+
+- Clipboard-first: Copy text → Encrypt → Paste encrypted message
+- Global hotkeys: Ctrl+Shift+E (encrypt), Ctrl+Shift+D (decrypt)
+- Modern crypto: Ed25519 + X25519 keys, no configuration needed
+- Cross-platform: Windows (.msi/.exe), macOS (.dmg), Linux (.deb/.AppImage), Android (.apk)
+- Web app: WASM-based, runs entirely in the browser
+- OPSEC mode: Window title masking, RAM-only keys, panic wipe
+- i18n: 20 languages supported
+- System tray with auto-clear clipboard (30s)
+- No telemetry, no tracking, no accounts
+
+## Documentation
+
+- [Full details](https://keychainpgp.org/llms-full.txt)
