@@ -6,7 +6,8 @@
 	let selected = $state(locale);
 
 	function onChange() {
-		window.location.href = selected === 'en' ? '/' : `/${selected}`;
+		localStorage.setItem('locale', selected);
+		window.location.href = selected === 'en' ? '/' : `/${selected}/`;
 	}
 </script>
 

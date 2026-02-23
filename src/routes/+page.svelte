@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
+	import { onMount } from 'svelte';
+	import { t, detectLocale } from '$lib/i18n';
 	import Hero from '$lib/components/Hero.svelte';
 	import Features from '$lib/components/Features.svelte';
 	import HowItWorks from '$lib/components/HowItWorks.svelte';
@@ -8,7 +9,14 @@
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
-	const locale = data.locale ?? 'en';
+	let locale = $derived(data.locale ?? 'en');
+
+	onMount(() => {
+		const detected = detectLocale();
+		if (detected) {
+			window.location.replace(`/${detected}/`);
+		}
+	});
 </script>
 
 <svelte:head>

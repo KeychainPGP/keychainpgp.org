@@ -65,3 +65,49 @@ export function t(locale: string, key: string): string {
 export function isRtl(locale: string): boolean {
 	return locale === 'ar' || locale === 'he';
 }
+
+/**
+ * Detect the best matching locale from the browser's language preferences.
+ * Returns null if the best match is English (no redirect needed).
+ */
+export function detectLocale(): Locale | null {
+	const stored = localStorage.getItem('locale');
+	if (stored) {
+		return stored === 'en' ? null : (locales.includes(stored as Locale) ? stored as Locale : null);
+	}
+
+	const browserLangs = navigator.languages ?? [navigator.language];
+
+	for (const lang of browserLangs) {
+		const normalized = lang.trim();
+
+		// Exact match (e.g. "pt-BR" → "pt-BR")
+		if (locales.includes(normalized as Locale)) {
+			return normalized === 'en' ? null : normalized as Locale;
+		}
+
+		// Try with region variants for Chinese/Portuguese
+		const lower = normalized.toLowerCase();
+		if (lower.startsWith('zh-hans') || lower === 'zh-cn') {
+			return 'zh-CN';
+		}
+		if (lower.startsWith('zh-hant') || lower === 'zh-tw' || lower === 'zh-hk') {
+			return 'zh-TW';
+		}
+		if (lower.startsWith('pt-br')) {
+			return 'pt-BR';
+		}
+		if (lower.startsWith('pt')) {
+			return 'pt-PT';
+		}
+
+		// Prefix match (e.g. "fr-FR" → "fr", "de-AT" → "de")
+		const prefix = normalized.split('-')[0];
+		if (prefix === 'en') return null;
+		if (locales.includes(prefix as Locale)) {
+			return prefix as Locale;
+		}
+	}
+
+	return null;
+}

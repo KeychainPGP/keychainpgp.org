@@ -8,7 +8,7 @@
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
-	const locale = data.locale as Locale;
+	let locale = $derived(data.locale as Locale);
 </script>
 
 <svelte:head>
