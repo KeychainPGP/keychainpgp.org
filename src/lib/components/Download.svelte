@@ -10,13 +10,31 @@
 	const WEB_APP_URL = 'https://keychainpgp.github.io';
 
 	let platform = $state<Platform>('unknown');
-	let downloadUrls = $state<Record<string, string>>({});
+	let downloadUrls = $state<Record<string, Record<string, string>>>({});
+	let selectedVariants = $state<Record<string, string>>({});
 
-	const assetPatterns: Record<string, RegExp> = {
-		windows: /_x64-setup\.exe$/i,
-		macos: /_aarch64\.dmg$/i,
-		linux: /_amd64\.AppImage$/i,
-		android: /-arm64\.apk$/i,
+	type AssetVariant = { key: string; label: string; pattern: RegExp };
+
+	const assetVariants: Record<string, AssetVariant[]> = {
+		windows: [
+			{ key: 'setup', label: 'Setup (.exe)', pattern: /_x64-setup\.exe$/i },
+			{ key: 'msi', label: 'MSI (.msi)', pattern: /\.msi$/i },
+			{ key: 'portable', label: 'Portable (.zip)', pattern: /portable.*\.zip$/i },
+		],
+		macos: [
+			{ key: 'dmg-arm', label: 'Apple Silicon (.dmg)', pattern: /_aarch64\.dmg$/i },
+			{ key: 'dmg-intel', label: 'Intel (.dmg)', pattern: /_x64\.dmg$/i },
+		],
+		linux: [
+			{ key: 'appimage', label: 'AppImage', pattern: /_amd64\.AppImage$/i },
+			{ key: 'deb', label: 'Debian (.deb)', pattern: /_amd64\.deb$/i },
+		],
+		android: [
+			{ key: 'arm64', label: 'ARM64', pattern: /-arm64\.apk$/i },
+			{ key: 'arm', label: 'ARM', pattern: /-arm\.apk$/i },
+			{ key: 'x86_64', label: 'x86_64', pattern: /-x86_64\.apk$/i },
+			{ key: 'x86', label: 'x86', pattern: /-x86\.apk$/i },
+		],
 	};
 
 	async function fetchLatestRelease() {
@@ -26,12 +44,22 @@
 			const data = await res.json();
 			const assets: { name: string; browser_download_url: string }[] = data.assets ?? [];
 
-			const urls: Record<string, string> = {};
-			for (const [plat, pattern] of Object.entries(assetPatterns)) {
-				const asset = assets.find(a => pattern.test(a.name));
-				if (asset) urls[plat] = asset.browser_download_url;
+			const urls: Record<string, Record<string, string>> = {};
+			for (const [plat, variants] of Object.entries(assetVariants)) {
+				urls[plat] = {};
+				for (const variant of variants) {
+					const asset = assets.find(a => variant.pattern.test(a.name));
+					if (asset) urls[plat][variant.key] = asset.browser_download_url;
+				}
 			}
 			downloadUrls = urls;
+
+			const selected: Record<string, string> = {};
+			for (const [plat, variants] of Object.entries(assetVariants)) {
+				const first = variants.find(v => urls[plat]?.[v.key]);
+				if (first) selected[plat] = first.key;
+			}
+			selectedVariants = selected;
 		} catch {
 			// Fallback: cards will link to the releases page
 		}
@@ -65,28 +93,41 @@
 
 		<div class="platforms">
 			{#each platforms as p}
-				<a
-					href={downloadUrls[p.id] ?? RELEASES_URL}
-					target="_blank"
-					rel="noopener"
-					class="platform-card"
-					class:recommended={p.id === platform}
-				>
-					{@html p.svg}
-					<span class="platform-name">{t(locale, p.label)}</span>
+				{@const platUrls = downloadUrls[p.id] ?? {}}
+				{@const variants = (assetVariants[p.id] ?? []).filter(v => platUrls[v.key])}
+				{@const url = platUrls[selectedVariants[p.id]] ?? RELEASES_URL}
+
+				<div class="platform-card" class:recommended={p.id === platform}>
+					<a href={url} target="_blank" rel="noopener" class="card-link">
+						{@html p.svg}
+						<span class="platform-name">{t(locale, p.label)}</span>
+					</a>
+					{#if variants.length > 1}
+						<select
+							class="variant-select"
+							value={selectedVariants[p.id]}
+							onchange={(e) => { selectedVariants[p.id] = e.currentTarget.value; }}
+						>
+							{#each variants as v}
+								<option value={v.key}>{v.label}</option>
+							{/each}
+						</select>
+					{/if}
 					{#if p.id === platform}
 						<span class="badge">Recommended</span>
 					{/if}
-				</a>
+				</div>
 			{/each}
 
-			<a href={WEB_APP_URL} target="_blank" rel="noopener" class="platform-card">
-				<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-					<circle cx="12" cy="12" r="10" />
-					<path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-				</svg>
-				<span class="platform-name">{t(locale, 'download.webApp')}</span>
-			</a>
+			<div class="platform-card">
+				<a href={WEB_APP_URL} target="_blank" rel="noopener" class="card-link">
+					<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="12" cy="12" r="10" />
+						<path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+					</svg>
+					<span class="platform-name">{t(locale, 'download.webApp')}</span>
+				</a>
+			</div>
 		</div>
 
 		<a href="https://github.com/keychainpgp/keychainpgp/releases" target="_blank" rel="noopener" class="all-releases">
@@ -148,10 +189,10 @@
 		background: var(--bg-card);
 		border: 1px solid var(--border);
 		border-radius: 16px;
-		text-decoration: none;
 		color: var(--text-secondary);
 		transition: all 0.2s;
 		position: relative;
+		cursor: pointer;
 	}
 
 	.platform-card:hover {
@@ -167,15 +208,52 @@
 		color: var(--primary);
 	}
 
+	.card-link {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.card-link::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+	}
+
 	.platform-name {
 		font-weight: 600;
 		font-size: 0.9375rem;
+	}
+
+	.variant-select {
+		position: relative;
+		z-index: 2;
+		background: var(--bg);
+		color: var(--text-secondary);
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		padding: 0.25rem 0.5rem;
+		font-size: 0.75rem;
+		font-weight: 500;
+		cursor: pointer;
+		outline: none;
+		max-width: 100%;
+	}
+
+	.variant-select:hover,
+	.variant-select:focus {
+		border-color: var(--primary);
 	}
 
 	.badge {
 		position: absolute;
 		top: -8px;
 		right: -8px;
+		z-index: 2;
 		background: var(--primary);
 		color: white;
 		font-size: 0.6875rem;
