@@ -7,7 +7,8 @@
 
 	function onChange() {
 		localStorage.setItem('locale', selected);
-		window.location.href = selected === 'en' ? '/' : `/${selected}/`;
+		const hash = window.location.hash;
+		window.location.href = (selected === 'en' ? '/' : `/${selected}/`) + hash;
 	}
 </script>
 

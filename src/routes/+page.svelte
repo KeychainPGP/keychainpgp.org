@@ -14,7 +14,7 @@
 	onMount(() => {
 		const detected = detectLocale();
 		if (detected) {
-			window.location.replace(`/${detected}/`);
+			window.location.replace(`/${detected}/${window.location.hash}`);
 		}
 	});
 </script>
