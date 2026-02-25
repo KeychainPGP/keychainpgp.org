@@ -30,4 +30,13 @@ KeychainPGP is a free, open-source desktop and mobile application that makes PGP
 
 ## Documentation
 
+- [Online PGP Tool](https://keychainpgp.org/pgp-online-encrypt/)
+- [What is PGP?](https://keychainpgp.org/docs/what-is-pgp/)
+- [How to Use PGP](https://keychainpgp.org/docs/how-to-use-pgp/)
+- [PGP vs GPG](https://keychainpgp.org/docs/pgp-vs-gpg/)
+- [PGP Tools Overview](https://keychainpgp.org/docs/pgp-tools/)
+- [PGP for Beginners](https://keychainpgp.org/docs/pgp-for-beginners/)
+- [Clipboard Encryption](https://keychainpgp.org/docs/clipboard-encryption/)
+- [Best PGP Tools 2026](https://keychainpgp.org/blog/best-pgp-tools-2026/)
+- [PGP Software Comparison](https://keychainpgp.org/blog/pgp-software-comparison/)
 - [Full details](https://keychainpgp.org/llms-full.txt)

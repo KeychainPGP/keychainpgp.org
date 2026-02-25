@@ -11,6 +11,15 @@
 			<span>KeychainPGP</span>
 		</div>
 
+		<div class="footer-content-links">
+			<a href="/pgp-online-encrypt/">Online PGP Tool</a>
+			<a href="/docs/what-is-pgp/">What is PGP?</a>
+			<a href="/docs/how-to-use-pgp/">How to Use PGP</a>
+			<a href="/docs/pgp-vs-gpg/">PGP vs GPG</a>
+			<a href="/docs/pgp-for-beginners/">PGP for Beginners</a>
+			<a href="/blog/best-pgp-tools-2026/">Best PGP Tools</a>
+		</div>
+
 		<div class="footer-links">
 			<a href="https://github.com/keychainpgp/keychainpgp" target="_blank" rel="noopener">{t(locale, 'footer.source')}</a>
 			<a href="https://keychainpgp.github.io" target="_blank" rel="noopener">{t(locale, 'footer.webapp')}</a>
@@ -43,6 +52,27 @@
 		font-size: 1rem;
 		color: var(--text);
 		margin-bottom: 1rem;
+	}
+
+	.footer-content-links {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		margin-bottom: 1.25rem;
+		flex-wrap: wrap;
+	}
+
+	.footer-content-links a {
+		color: var(--text-secondary);
+		text-decoration: none;
+		font-size: 0.8125rem;
+		font-weight: 500;
+		transition: color 0.2s;
+	}
+
+	.footer-content-links a:hover {
+		color: var(--primary);
 	}
 
 	.footer-links {

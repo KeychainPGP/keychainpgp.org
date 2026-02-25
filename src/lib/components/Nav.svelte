@@ -26,12 +26,13 @@
 		</button>
 
 		<div class="nav-links" class:open={mobileOpen}>
-			<a href="#features" onclick={() => mobileOpen = false}>{t(locale, 'nav.features')}</a>
-			<a href="#how-it-works" onclick={() => mobileOpen = false}>{t(locale, 'nav.howItWorks')}</a>
-			<a href="#download" onclick={() => mobileOpen = false}>{t(locale, 'nav.download')}</a>
-			<a href="#donate" onclick={() => mobileOpen = false}>{t(locale, 'nav.donate')}</a>
+			<a href={locale === 'en' ? '/#features' : `/${locale}/#features`} onclick={() => mobileOpen = false}>{t(locale, 'nav.features')}</a>
+			<a href={locale === 'en' ? '/#how-it-works' : `/${locale}/#how-it-works`} onclick={() => mobileOpen = false}>{t(locale, 'nav.howItWorks')}</a>
+			<a href={locale === 'en' ? '/#download' : `/${locale}/#download`} onclick={() => mobileOpen = false}>{t(locale, 'nav.download')}</a>
+			<a href="/docs/" onclick={() => mobileOpen = false}>Docs</a>
+			<a href="/blog/" onclick={() => mobileOpen = false}>Blog</a>
 			<a href="https://github.com/keychainpgp/keychainpgp" target="_blank" rel="noopener">{t(locale, 'nav.github')}</a>
-			<a href="https://keychainpgp.github.io" target="_blank" rel="noopener" class="nav-cta">{t(locale, 'nav.tryBrowser')}</a>
+			<a href="/pgp-online-encrypt/" onclick={() => mobileOpen = false} class="nav-cta">Online Tool</a>
 			<div class="nav-controls">
 				<LanguageSwitcher {locale} />
 				<ThemeToggle />

@@ -1,0 +1,163 @@
+---
+layout: docs
+title: "Clipboard Encryption with PGP: The Clipboard-First Approach to Secure Messaging"
+description: "Learn how clipboard-based PGP encryption works, why it outperforms file-based encryption for daily OPSEC, and how KeychainPGP uses the clipboard to encrypt messages in any app."
+slug: "/docs/clipboard-encryption/"
+lastUpdated: "2026-02-25"
+toc:
+  - { id: "what-is-clipboard-encryption", text: "What Is Clipboard Encryption?", level: 2 }
+  - { id: "why-clipboard-first", text: "Why Clipboard-First?", level: 2 }
+  - { id: "how-keychainpgp-uses-the-clipboard", text: "How KeychainPGP Uses the Clipboard", level: 2 }
+  - { id: "the-encryption-workflow", text: "The Encryption Workflow", level: 3 }
+  - { id: "decryption-in-reverse", text: "Decryption in Reverse", level: 3 }
+  - { id: "security-considerations", text: "Security Considerations", level: 2 }
+  - { id: "clipboard-history-and-managers", text: "Clipboard History and Managers", level: 3 }
+  - { id: "auto-clear-after-30-seconds", text: "Auto-Clear After 30 Seconds", level: 3 }
+  - { id: "memory-handling-and-zeroization", text: "Memory Handling and Zeroization", level: 3 }
+  - { id: "opsec-mode", text: "OPSEC Mode", level: 2 }
+  - { id: "window-title-disguise", text: "Window Title Disguise", level: 3 }
+  - { id: "ram-only-keys", text: "RAM-Only Keys", level: 3 }
+  - { id: "panic-wipe", text: "Panic Wipe", level: 3 }
+  - { id: "tor-proxy-support", text: "Tor Proxy Support", level: 3 }
+  - { id: "clipboard-encryption-vs-file-encryption", text: "Clipboard Encryption vs. File Encryption", level: 2 }
+  - { id: "threat-model", text: "Threat Model", level: 2 }
+  - { id: "what-clipboard-encryption-protects-against", text: "What Clipboard Encryption Protects Against", level: 3 }
+  - { id: "what-clipboard-encryption-does-not-protect-against", text: "What Clipboard Encryption Does Not Protect Against", level: 3 }
+  - { id: "best-practices", text: "Best Practices for Clipboard PGP", level: 2 }
+---
+
+# Clipboard Encryption with PGP
+
+## What Is Clipboard Encryption?
+
+Clipboard-based PGP encryption is a method of encrypting and decrypting text by reading directly from and writing directly to the operating system clipboard, rather than operating on files stored on disk. Instead of saving a plaintext message to a `.txt` file, feeding it into a command-line tool, and retrieving an encrypted `.asc` output, you simply copy your text, trigger encryption with a hotkey, and paste the encrypted PGP message wherever you need it. The clipboard acts as both the input buffer and the output buffer, making encryption a seamless part of any text-based workflow. This approach is the foundation of how [KeychainPGP](/pgp-online-encrypt/) works on desktop and is what allows it to integrate with every application that supports copy and paste -- email clients, chat apps, note-taking tools, web forms, and anything else.
+
+If you are new to PGP altogether, start with [What Is PGP?](/docs/what-is-pgp/) for an introduction to the underlying cryptographic concepts before diving into clipboard-specific workflows.
+
+## Why Clipboard-First?
+
+Traditional PGP tools like GnuPG were designed around files. You pipe a file into `gpg --encrypt`, receive an encrypted file, and manually attach or transfer it. That model made sense in the 1990s when PGP was primarily used for email attachments and file archives. It makes far less sense today, when most sensitive communication happens inside web-based platforms, ephemeral messaging apps, and services that do not expose a filesystem interface.
+
+The clipboard-first approach solves several problems at once:
+
+- **Application independence.** Because the clipboard is an OS-level abstraction, clipboard encryption works with any application. You are not locked into a specific email client, browser extension, or plugin ecosystem. If you can copy and paste, you can encrypt.
+- **No plaintext files on disk.** File-based encryption necessarily creates plaintext artifacts on your filesystem -- the original unencrypted file, temporary files, editor swap files, and potentially the decrypted output. Each of these is a forensic liability. Clipboard encryption keeps the plaintext in volatile memory only.
+- **Lower friction.** The fewer steps between "I want to encrypt this" and "it is encrypted," the more likely a user is to actually encrypt their messages. A three-step workflow (copy, hotkey, paste) has dramatically less friction than a file-based pipeline.
+- **Compatibility with modern communication.** Web-based email, Signal desktop, Slack, Discord, Matrix clients -- none of these natively support PGP, but all of them support pasting text. Clipboard PGP bridges that gap without requiring protocol-level integration.
+
+For a step-by-step guide to using this workflow, see [How to Use PGP](/docs/how-to-use-pgp/).
+
+## How KeychainPGP Uses the Clipboard
+
+KeychainPGP is built from the ground up around the clipboard-first philosophy. Rather than treating clipboard access as a convenience feature bolted onto a file-encryption tool, the entire architecture -- from the cryptographic pipeline to the user interface -- assumes the clipboard is the primary data channel.
+
+### The Encryption Workflow
+
+The process of encrypting a message with KeychainPGP takes three steps:
+
+1. **Copy** your plaintext message from any application (email draft, chat window, text editor, web form).
+2. **Press `Ctrl+Shift+E`** (the default global hotkey). KeychainPGP reads your clipboard contents, encrypts the text using the selected recipient's public key, and writes the resulting PGP-armored ciphertext back to the clipboard.
+3. **Paste** the encrypted message into the destination. What arrives is a standard OpenPGP ASCII-armored block that begins with `-----BEGIN PGP MESSAGE-----` and can be decrypted by any OpenPGP-compatible tool.
+
+Under the hood, KeychainPGP uses the [Sequoia-PGP](https://sequoia-pgp.org/) library, a modern Rust implementation of the OpenPGP standard. Keys default to Ed25519 for signing and X25519 for encryption -- elliptic curve algorithms that provide strong security with compact key sizes and fast operations. There are no algorithm selection dialogs or key-size decisions. The cryptography is secure out of the box.
+
+### Decryption in Reverse
+
+Decryption mirrors the encryption flow. When you receive a PGP-encrypted message, you copy the entire armored block, press `Ctrl+Shift+D` (the default decrypt hotkey), and KeychainPGP replaces the clipboard contents with the decrypted plaintext. You can then paste it into any application to read it. The decrypted text exists only in memory and in the clipboard buffer, which is automatically cleared after a configurable timeout.
+
+## Security Considerations
+
+Using the clipboard as a data channel introduces specific security considerations that KeychainPGP addresses with several defensive mechanisms.
+
+### Clipboard History and Managers
+
+Modern operating systems and third-party tools often maintain clipboard history. Windows 10 and later include a built-in clipboard history feature (`Win+V`). macOS does not natively maintain history, but popular tools like Alfred, Raycast, and Paste do. On Linux, clipboard managers like CopyQ, Clipman, and GPaste are common.
+
+These clipboard managers can capture both the plaintext before encryption and the decrypted output after decryption, defeating the purpose of encryption entirely. When using clipboard-based PGP encryption, you should:
+
+- Disable clipboard history on your operating system (on Windows, go to Settings > System > Clipboard and turn off Clipboard History).
+- Avoid third-party clipboard managers on machines where you handle sensitive content, or configure exclusion rules if the manager supports them.
+- Rely on KeychainPGP's built-in auto-clear feature to minimize the exposure window.
+
+### Auto-Clear After 30 Seconds
+
+KeychainPGP automatically clears the clipboard 30 seconds after writing decrypted plaintext to it. This timer is configurable in the application settings. The auto-clear ensures that decrypted content does not persist in the clipboard indefinitely, reducing the risk that a subsequent paste operation or a clipboard manager captures sensitive text long after you finished reading it.
+
+The 30-second default strikes a balance between usability and security. It gives you enough time to paste the decrypted text where you need it, but limits the window during which the plaintext is accessible. For high-security environments, you can reduce this to as low as 5 seconds.
+
+### Memory Handling and Zeroization
+
+Clipboard encryption means sensitive data -- private keys, passphrases, decrypted plaintext -- resides in process memory. KeychainPGP is written in Rust and leverages Sequoia-PGP's zeroization-on-drop guarantees. When a secret value goes out of scope, its memory is overwritten with zeros before being freed. This is not a best-effort wipe; Rust's ownership model ensures that the zeroization destructor runs deterministically. Combined with the `zeroize` crate's compiler barriers that prevent the optimizer from eliding the overwrite, this provides strong assurance that secrets do not linger in memory after use.
+
+This stands in contrast to tools written in garbage-collected languages (Java, Python, JavaScript), where secret data may persist in memory indefinitely until the garbage collector reclaims and (maybe) overwrites it.
+
+## OPSEC Mode
+
+For users who operate in adversarial environments -- journalists communicating with sources, activists under surveillance, security researchers handling sensitive disclosures -- KeychainPGP includes an OPSEC mode that hardens the application beyond its default security posture.
+
+### Window Title Disguise
+
+When OPSEC mode is enabled, KeychainPGP changes its window title to something innocuous, such as "Calculator" or "Notes." This prevents casual shoulder-surfing and defeats automated screen-capture tools that log window titles. An adversary reviewing screenshots or screen recordings will not see "KeychainPGP" or "PGP" in any window title bar.
+
+### RAM-Only Keys
+
+In OPSEC mode, private keys are held exclusively in RAM and are never written to the filesystem. This means that if the device is seized or the disk is imaged, there are no key files to recover. The trade-off is that keys must be re-imported every time the application starts, typically from a hardware token, a QR code, or a secure transfer from another device.
+
+### Panic Wipe
+
+The panic wipe button (or its associated hotkey) immediately zeroizes all key material in memory, clears the clipboard, and optionally closes the application. This is designed for situations where you need to destroy all sensitive state instantly -- for example, if you anticipate an imminent device seizure. The wipe is immediate and irreversible; any RAM-only keys that have not been backed up elsewhere are permanently lost.
+
+### Tor Proxy Support
+
+OPSEC mode includes the ability to route key-server lookups and other network traffic through a Tor SOCKS proxy. This prevents your ISP or a network-level adversary from observing that you are fetching PGP public keys, which could be used as metadata to identify your communication partners. When Tor proxy support is enabled, all outbound connections from KeychainPGP are routed through the configured SOCKS5 proxy (typically `127.0.0.1:9050` if Tor is running locally).
+
+## Clipboard Encryption vs. File Encryption
+
+Both clipboard-based and file-based PGP encryption use the same underlying OpenPGP standard and produce interoperable ciphertext. The difference is in the workflow and the security properties that follow from it.
+
+| Aspect | Clipboard Encryption | File Encryption |
+|---|---|---|
+| **Input/output** | OS clipboard (volatile memory) | Files on disk (persistent storage) |
+| **Plaintext artifacts** | None on disk; cleared from clipboard after timeout | Original file, temp files, editor backups may persist |
+| **Application support** | Any app that supports copy/paste | Requires filesystem access or CLI integration |
+| **Workflow steps** | 3 (copy, hotkey, paste) | 5+ (save file, run CLI, specify output, open output, transfer) |
+| **Batch processing** | Not practical for large volumes | Well-suited for bulk encryption of files and archives |
+| **Large data** | Limited to text that fits in clipboard | Handles files of arbitrary size |
+| **Forensic footprint** | Minimal (RAM only) | Significant (disk artifacts, filesystem metadata) |
+
+Clipboard encryption is the better choice for message-level encryption in everyday communication. File encryption remains necessary when you need to encrypt binary data, large archives, or when the recipient expects a `.pgp` file attachment. KeychainPGP supports both modes, but the clipboard workflow is where it excels.
+
+## Threat Model
+
+Understanding what clipboard PGP encryption does and does not protect against is essential for making sound security decisions. No single tool addresses every threat.
+
+### What Clipboard Encryption Protects Against
+
+- **Network surveillance.** Messages encrypted before they leave your device are opaque to anyone monitoring the network -- your ISP, a Wi-Fi eavesdropper, or a state-level actor performing deep packet inspection. The PGP ciphertext can traverse any number of untrusted networks without compromising the plaintext.
+- **Email and messaging interception.** If an adversary gains access to your email server, your chat provider's database, or a message in transit, they obtain only ciphertext. Without the recipient's private key, the content is computationally infeasible to recover.
+- **Storage compromise.** If an adversary obtains a copy of your email archive, chat logs, or cloud backups, messages encrypted with PGP remain protected. This is particularly relevant for clipboard encryption, where the plaintext never touches the disk in the first place.
+- **Metadata reduction (with OPSEC mode).** While PGP does not encrypt email headers or message metadata, OPSEC mode features like Tor proxy support and window title disguise reduce the observable metadata around your use of encryption.
+
+### What Clipboard Encryption Does Not Protect Against
+
+- **Endpoint compromise with a keylogger.** If an adversary has installed a keylogger or screen-capture malware on your device, they can capture the plaintext before encryption or after decryption. Clipboard encryption assumes a trusted endpoint. If your device is compromised at the OS level, no application-level encryption can help.
+- **Physical access to an unlocked device.** If an adversary has physical access to your device while it is unlocked and KeychainPGP is running with keys loaded, they can decrypt messages. RAM-only keys and the panic wipe button mitigate this to a degree, but they require you to act before the adversary gains access.
+- **Compromised private keys.** If your private key is exfiltrated (from a backup, a compromised device, or a weak passphrase), all messages encrypted to that key -- past and future -- are compromised. Use a strong passphrase and keep your private key on as few devices as possible.
+- **Traffic analysis.** PGP encrypts message content, not communication patterns. An adversary who can observe your network traffic can determine that you are communicating, how often, and potentially with whom (based on key-server queries), even without reading the content. Tor proxy support in OPSEC mode partially addresses this.
+
+For a broader introduction to these concepts, [PGP for Beginners](/docs/pgp-for-beginners/) covers the fundamentals of public-key cryptography and key management.
+
+## Best Practices for Clipboard PGP
+
+Following these practices will maximize the security benefits of clipboard-based PGP encryption:
+
+1. **Disable clipboard history.** Turn off the OS-level clipboard history and remove third-party clipboard managers from machines where you handle encrypted communications.
+2. **Keep auto-clear enabled.** Do not disable the clipboard auto-clear timer. Reduce it to the shortest interval you find usable. Five to fifteen seconds is sufficient for most workflows.
+3. **Use OPSEC mode when warranted.** If you operate in an environment where the use of encryption itself is a risk, enable OPSEC mode for window title disguise, RAM-only keys, and Tor routing.
+4. **Verify recipient keys out-of-band.** Before encrypting a message to someone's public key, verify the key fingerprint through a separate channel (in person, over a voice call, via a signed message from a known key). This prevents man-in-the-middle attacks on key distribution.
+5. **Use strong passphrases.** Protect your private key with a passphrase that is both long and difficult to guess. A four-to-six word passphrase generated randomly is more secure and easier to type than a short string of mixed characters.
+6. **Keep your endpoint clean.** Clipboard encryption assumes a trusted device. Run an up-to-date operating system, avoid installing untrusted software, and use full-disk encryption to protect data at rest.
+7. **Prefer Ed25519/X25519 keys.** KeychainPGP defaults to these modern elliptic curve algorithms for good reason. They are fast, compact, and resistant to a range of implementation-level attacks that affect older RSA and DSA keys. If you are migrating from an older key, generate a new Ed25519/X25519 key pair and transition your contacts.
+8. **Test your workflow.** Before relying on clipboard encryption for critical communication, practice the full cycle: generate keys, exchange public keys, encrypt a test message, decrypt it on the other end. Familiarity with the process reduces the chance of mistakes under pressure.
+
+Clipboard PGP encryption is not a silver bullet, but when combined with sound operational security practices, it offers a practical, low-friction path to encrypted communication that integrates with the tools you already use. [Try KeychainPGP in your browser](/pgp-online-encrypt/) to see the clipboard-first workflow in action.

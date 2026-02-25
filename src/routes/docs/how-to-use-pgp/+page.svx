@@ -1,0 +1,341 @@
+---
+layout: docs
+title: "How to Use PGP: Step-by-Step Encryption Tutorial (2026)"
+description: "Learn how to use PGP encryption step by step. Generate keys, encrypt and decrypt messages, sign and verify data with this complete PGP tutorial for beginners."
+slug: "/docs/how-to-use-pgp/"
+lastUpdated: "2026-02-25"
+toc:
+  - { id: "how-to-use-pgp-overview", text: "How to Use PGP", level: 1 }
+  - { id: "what-you-need-before-you-start", text: "What You Need Before You Start", level: 2 }
+  - { id: "step-1-generate-a-pgp-key-pair", text: "Step 1: Generate a Key Pair", level: 2 }
+  - { id: "step-2-share-your-public-key", text: "Step 2: Share Your Public Key", level: 2 }
+  - { id: "step-3-import-your-contacts-public-keys", text: "Step 3: Import Contacts' Keys", level: 2 }
+  - { id: "step-4-encrypt-a-message", text: "Step 4: Encrypt a Message", level: 2 }
+  - { id: "step-5-decrypt-a-message", text: "Step 5: Decrypt a Message", level: 2 }
+  - { id: "step-6-sign-a-message", text: "Step 6: Sign a Message", level: 2 }
+  - { id: "step-7-verify-a-signature", text: "Step 7: Verify a Signature", level: 2 }
+  - { id: "keychainpgp-clipboard-workflow", text: "KeychainPGP Clipboard Workflow", level: 2 }
+  - { id: "web-app-vs-desktop-app", text: "Web App vs Desktop App", level: 2 }
+  - { id: "frequently-asked-questions", text: "FAQ", level: 2 }
+---
+
+# How to Use PGP
+
+To use PGP, you generate a key pair (a public key and a private key), share your public key with the people you want to communicate with, import their public keys, and then use those keys to encrypt, decrypt, sign, and verify messages. PGP encryption ensures that only the intended recipient can read your message, while digital signatures prove that a message genuinely came from you. Tools like [KeychainPGP](/pgp-online-encrypt/) make this entire process accessible through a clipboard-first workflow -- no command line required.
+
+This PGP tutorial walks you through every step, from generating your first key pair to sending and receiving encrypted messages. Whether you are a journalist protecting a source, a developer signing commits, or someone who simply wants private communication, this guide covers everything you need to know. If you are brand new to the concept of public-key cryptography, consider reading [What is PGP?](/docs/what-is-pgp/) or [PGP for Beginners](/docs/pgp-for-beginners/) first.
+
+---
+
+## What You Need Before You Start
+
+Before you encrypt your first message with PGP, you need a PGP application. There are several options:
+
+- **KeychainPGP web app** -- Open the [online PGP tool](/pgp-online-encrypt/) in any modern browser. Everything runs locally via WebAssembly compiled from Rust. No installation, no account, no data sent to a server.
+- **KeychainPGP desktop app** -- Download the native app for Windows, macOS, Linux, or Android from the [GitHub releases page](https://github.com/keychainpgp/keychainpgp/releases/latest). The desktop app adds global hotkeys, system tray integration, clipboard auto-clear, OS credential store support, and QR code key sync with mobile.
+- **KeychainPGP CLI** -- The `keychainpgp` CLI provides commands for key generation, encryption, decryption, signing, verification, and keyring management. Ideal for scripting and automation.
+- **GnuPG (GPG)** -- The traditional command-line tool. Powerful but requires terminal familiarity. See [PGP vs GPG](/docs/pgp-vs-gpg/) for a detailed comparison.
+
+You also need the public key of anyone you want to send encrypted messages to. They need yours as well. This mutual key exchange is the foundation of PGP communication.
+
+> **Tip:** If you just want to try PGP encryption right now without installing anything, open the [online PGP tool](/pgp-online-encrypt/) and follow along with this tutorial.
+
+---
+
+## Step 1: Generate a PGP Key Pair
+
+A PGP key pair consists of two mathematically linked keys:
+
+- **Public key** -- You share this freely. Anyone can use it to encrypt messages to you or verify your signatures.
+- **Private key** -- You keep this secret. It decrypts messages encrypted to your public key and creates digital signatures.
+
+### Generating a key in KeychainPGP
+
+1. Open KeychainPGP (either the web app or desktop app).
+2. Navigate to the **Keys** tab.
+3. Click **Generate New Key**.
+4. Enter your name and email address. These become part of your key's identity (called a User ID).
+5. Click **Generate**. KeychainPGP creates an **Ed25519 + X25519** key pair -- the most modern and secure algorithm available in OpenPGP.
+
+The entire process takes a few seconds. There is no need to choose algorithm types, key sizes, or expiration dates. KeychainPGP uses secure defaults so you do not have to make cryptographic decisions.
+
+### Generating a key with GPG (command line)
+
+If you prefer the command line, GnuPG works as well:
+
+```bash
+gpg --full-generate-key
+```
+
+Select the key type (RSA or ECC), key size, and expiration period when prompted. For modern security, choose Ed25519 if your version of GPG supports it.
+
+Regardless of the tool you use, the output is the same: you now have a public key to share and a private key to protect.
+
+---
+
+## Step 2: Share Your Public Key
+
+Your public key is a block of text that looks like this:
+
+```
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mDMEZx...
+(base64 encoded data)
+...
+-----END PGP PUBLIC KEY BLOCK-----
+```
+
+This is called **ASCII-armored** format. You can share it anywhere:
+
+- **Email** -- Paste it in the body of an email or attach it as a `.asc` file.
+- **Messaging apps** -- Send it through Signal, WhatsApp, Matrix, or any chat platform.
+- **Your website or social media** -- Publish it on your personal site, GitHub profile, or Twitter bio.
+- **Key servers** -- Upload it to a public key server like `keys.openpgp.org` so anyone can look it up by your email address.
+
+### Exporting your public key in KeychainPGP
+
+1. Go to the **Keys** tab.
+2. Select your key.
+3. Click **Export Public Key** (or use the copy button).
+4. The ASCII-armored public key block is copied to your clipboard, ready to paste anywhere.
+
+**Important:** Only share your **public** key. Never share your private key with anyone, under any circumstances. Your private key is what keeps your messages secure.
+
+---
+
+## Step 3: Import Your Contacts' Public Keys
+
+Before you can send someone an encrypted message, you need their public key. Ask your contact to send you their ASCII-armored public key, or look it up on a key server.
+
+### Importing a key in KeychainPGP
+
+1. Copy the contact's public key block to your clipboard (the entire text from `-----BEGIN PGP PUBLIC KEY BLOCK-----` to `-----END PGP PUBLIC KEY BLOCK-----`).
+2. Open KeychainPGP and go to the **Keys** tab.
+3. Click **Import Key** and paste the key, or KeychainPGP may detect it from your clipboard automatically.
+4. The contact appears in your key list with their name and email.
+
+### Importing a key with GPG
+
+```bash
+gpg --import contact-public-key.asc
+```
+
+Once imported, you can encrypt messages to that contact. You should verify the key's fingerprint through a separate, trusted channel (such as a phone call or in-person meeting) to confirm it genuinely belongs to the person you think it does.
+
+---
+
+## Step 4: Encrypt a Message
+
+With your key pair generated and your contact's public key imported, you are ready to encrypt. PGP encryption ensures that only the holder of the corresponding private key can read the message.
+
+### Encrypting in KeychainPGP (web or desktop)
+
+1. Go to the **Encrypt** tab.
+2. Type or paste the message you want to encrypt.
+3. Select the recipient from your key list. You can select multiple recipients if the message is for more than one person.
+4. Click **Encrypt to Clipboard**. The encrypted message (an ASCII-armored PGP message block) is copied to your clipboard.
+5. Paste the encrypted message into your email, chat, or any other communication channel.
+
+The encrypted output looks like this:
+
+```
+-----BEGIN PGP MESSAGE-----
+
+hF4D...
+(encrypted data)
+...
+-----END PGP MESSAGE-----
+```
+
+Only the selected recipient(s) can decrypt this text. Even if someone intercepts it, the message is unreadable without the recipient's private key.
+
+### Encrypting with the desktop hotkey
+
+If you are using the KeychainPGP desktop app, the process is even faster thanks to the [clipboard-first workflow](/docs/clipboard-encryption/):
+
+1. Type your message in any application (email client, chat window, text editor).
+2. Select and copy the text (`Ctrl+C`).
+3. Press **`Ctrl+Shift+E`** -- KeychainPGP encrypts the clipboard contents to your default recipient.
+4. Paste the encrypted message (`Ctrl+V`).
+
+This works from any application on your system, with no need to switch windows. The entire encrypt-and-replace cycle takes about one second.
+
+---
+
+## Step 5: Decrypt a Message
+
+When someone sends you a PGP-encrypted message, you need your private key to decrypt it.
+
+### Decrypting in KeychainPGP (web or desktop)
+
+1. Copy the entire encrypted message block (from `-----BEGIN PGP MESSAGE-----` to `-----END PGP MESSAGE-----`).
+2. Go to the **Decrypt** tab in KeychainPGP.
+3. Paste the encrypted text.
+4. Click **Decrypt**. If the message was encrypted to your public key, the decrypted plaintext appears immediately.
+
+### Decrypting with the desktop hotkey
+
+1. Select and copy the encrypted message block from any application (`Ctrl+C`).
+2. Press **`Ctrl+Shift+D`** -- KeychainPGP decrypts the clipboard contents using your private key.
+3. The decrypted plaintext replaces the encrypted text on your clipboard. Paste it wherever you need.
+
+The desktop app also features **clipboard auto-clear**: after 30 seconds, the decrypted text is automatically wiped from your clipboard to prevent accidental exposure.
+
+### Decrypting with GPG
+
+```bash
+gpg --decrypt message.asc
+```
+
+GPG prompts for your passphrase (if your key is passphrase-protected) and outputs the decrypted text.
+
+---
+
+## Step 6: Sign a Message
+
+A PGP digital signature proves two things:
+
+1. **Authenticity** -- The message was written by the holder of the signing key.
+2. **Integrity** -- The message has not been altered since it was signed.
+
+Signing does not encrypt the message. Anyone can read a signed message, but they can verify it genuinely came from you and was not tampered with.
+
+### Signing in KeychainPGP
+
+1. Go to the **Sign** tab (or use the sign option in the Encrypt tab).
+2. Enter or paste the message you want to sign.
+3. Select your key.
+4. Click **Sign**. The signed output includes your original message wrapped in a PGP signature block.
+
+A cleartext signature looks like this:
+
+```
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Your original message here.
+-----BEGIN PGP SIGNATURE-----
+
+iHUE...
+(signature data)
+...
+-----END PGP SIGNATURE-----
+```
+
+### When to sign messages
+
+- Announcing software releases or security advisories
+- Verifying your identity on public forums
+- Signing emails to prove they came from you
+- Git commit signing for code integrity
+
+---
+
+## Step 7: Verify a Signature
+
+When you receive a signed message, you can verify that it is authentic and unmodified.
+
+### Verifying in KeychainPGP
+
+1. Copy the entire signed message (including the signature block).
+2. Go to the **Verify** tab.
+3. Paste the signed message.
+4. Click **Verify**. If you have the sender's public key in your keyring, KeychainPGP confirms whether the signature is valid.
+
+A successful verification tells you:
+
+- The message was signed by the key with a specific fingerprint.
+- The message has not been modified since it was signed.
+- The signing key belongs to the name and email associated with it.
+
+### Verifying with GPG
+
+```bash
+gpg --verify signed-message.asc
+```
+
+GPG outputs the signing key's fingerprint and whether the signature is valid.
+
+---
+
+## KeychainPGP Clipboard Workflow
+
+What sets KeychainPGP apart from traditional PGP tools is its [clipboard-based encryption workflow](/docs/clipboard-encryption/). Instead of operating on files or requiring a dedicated email client, KeychainPGP works with any application through the system clipboard.
+
+Here is the full workflow summary:
+
+| Action | Web App | Desktop App |
+|---|---|---|
+| Encrypt | Paste text, click Encrypt to Clipboard | Copy text, press `Ctrl+Shift+E` |
+| Decrypt | Paste ciphertext, click Decrypt | Copy ciphertext, press `Ctrl+Shift+D` |
+| Sign | Paste text, click Sign | Available in app window |
+| Verify | Paste signed text, click Verify | Available in app window |
+
+The desktop app's global hotkeys (`Ctrl+Shift+E` for encrypt, `Ctrl+Shift+D` for decrypt) work from any application -- email clients, web browsers, chat apps, text editors, or anything else that handles text. This eliminates the need to copy text back and forth between your PGP tool and your communication app.
+
+Additional security features in the desktop app include:
+
+- **Clipboard auto-clear** -- Decrypted text is wiped from the clipboard after 30 seconds.
+- **OPSEC mode** -- Disguised window title, RAM-only key storage, and a panic wipe button.
+- **OS credential store** -- Private keys are stored securely using Windows Credential Manager, macOS Keychain, or Linux Secret Service.
+
+---
+
+## Web App vs Desktop App
+
+KeychainPGP is available in two forms. Both implement the same OpenPGP standard using the Sequoia-PGP library (written in Rust), so encrypted messages are fully interoperable.
+
+**Web app** ([online PGP tool](/pgp-online-encrypt/)):
+
+- Runs entirely in the browser via WebAssembly
+- No installation, no account required
+- Perfect for quick encryption tasks or when you are on a shared or unfamiliar computer
+- Keys are stored in browser local storage (cleared when you clear site data)
+
+**Desktop app** (Windows, macOS, Linux, Android):
+
+- Global hotkeys for encrypt (`Ctrl+Shift+E`) and decrypt (`Ctrl+Shift+D`)
+- System tray integration -- always running in the background
+- Clipboard auto-clear for decrypted text
+- OPSEC mode with RAM-only keys and panic wipe
+- Secure key storage via OS credential manager
+- Better suited for daily use and long-term key management
+
+Both apps are free, open source (MIT / Apache-2.0), and have zero telemetry or tracking. Download the desktop app from the [GitHub releases page](https://github.com/keychainpgp/keychainpgp/releases/latest).
+
+---
+
+## Frequently Asked Questions
+
+### Do I need to share my private key?
+
+No. You must **never** share your private key with anyone. Your private key is what allows you to decrypt messages sent to you and create digital signatures. If someone else obtains your private key, they can read all messages encrypted to you and impersonate you. Only share your **public** key. If you suspect your private key has been compromised, generate a new key pair immediately and notify your contacts.
+
+### What happens if I lose my private key?
+
+If you lose your private key, you permanently lose the ability to decrypt any messages that were encrypted to the corresponding public key. There is no recovery mechanism -- this is by design, as it ensures that no backdoor exists. Always keep a secure backup of your private key, such as an encrypted USB drive stored in a safe location. KeychainPGP's desktop app stores keys in your OS credential manager, but you should still maintain an independent backup.
+
+### Can I encrypt files with PGP?
+
+Yes. PGP can encrypt both text messages and binary files. While KeychainPGP focuses on text-based clipboard encryption, tools like GnuPG support file encryption directly:
+
+```bash
+gpg --encrypt --recipient recipient@example.com document.pdf
+```
+
+This produces an encrypted file (`document.pdf.gpg`) that only the recipient can decrypt. File encryption is useful for protecting sensitive documents, archives, and backups. For a detailed comparison of PGP tools and their file encryption capabilities, see the [PGP vs GPG](/docs/pgp-vs-gpg/) guide.
+
+### How secure is PGP encryption?
+
+PGP encryption with modern algorithms is extremely secure. KeychainPGP uses Ed25519 for signatures and X25519 for key agreement -- both are elliptic curve algorithms that provide security equivalent to RSA-3072 at a fraction of the key size. The underlying mathematics have not been broken, and no practical attack against properly implemented PGP is known. The main risks are not cryptographic but operational: weak passphrases, compromised devices, or careless key management. Using a dedicated tool like KeychainPGP with clipboard auto-clear and OPSEC mode mitigates many of these risks.
+
+### What is a PGP fingerprint?
+
+A PGP fingerprint is a 40-character hexadecimal string that uniquely identifies a PGP key. It looks like this:
+
+```
+E4B7 C614 3A5F 7D28 9B06  6A2F 8E1D 4C95 A703 B8F2
+```
+
+Fingerprints are used to verify that a public key genuinely belongs to the person you think it does. When you receive someone's public key, compare its fingerprint with the fingerprint the owner provides through a separate trusted channel (phone call, in-person meeting, or verified social media profile). This prevents **man-in-the-middle attacks** where an attacker substitutes their own public key for the real one. In KeychainPGP, you can view a key's fingerprint in the Keys tab by selecting the key and checking its details.

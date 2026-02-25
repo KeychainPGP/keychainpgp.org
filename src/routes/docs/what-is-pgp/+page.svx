@@ -1,0 +1,166 @@
+---
+layout: docs
+title: "What Is PGP? A Complete Guide to Pretty Good Privacy Encryption"
+description: "Learn what PGP (Pretty Good Privacy) is, how PGP encryption works using public-key cryptography, the OpenPGP standard, digital signatures, and modern uses."
+slug: "/docs/what-is-pgp/"
+lastUpdated: "2026-02-25"
+toc:
+  - { id: "what-is-pgp-encryption", text: "What Is PGP Encryption?", level: 2 }
+  - { id: "history-of-pgp", text: "History of PGP", level: 2 }
+  - { id: "how-pgp-encryption-works", text: "How PGP Encryption Works", level: 2 }
+  - { id: "public-key-cryptography", text: "Public-Key Cryptography", level: 3 }
+  - { id: "the-hybrid-encryption-model", text: "The Hybrid Encryption Model", level: 3 }
+  - { id: "pgp-digital-signatures", text: "PGP Digital Signatures", level: 2 }
+  - { id: "the-openpgp-standard", text: "The OpenPGP Standard", level: 2 }
+  - { id: "web-of-trust", text: "Web of Trust", level: 2 }
+  - { id: "pgp-algorithms-and-key-types", text: "PGP Algorithms and Key Types", level: 2 }
+  - { id: "classic-algorithms", text: "Classic Algorithms", level: 3 }
+  - { id: "modern-algorithms", text: "Modern Algorithms", level: 3 }
+  - { id: "common-use-cases-for-pgp", text: "Common Use Cases for PGP", level: 2 }
+  - { id: "pgp-today", text: "PGP Today", level: 2 }
+  - { id: "getting-started-with-pgp", text: "Getting Started with PGP", level: 2 }
+---
+
+# What Is PGP? A Complete Guide to Pretty Good Privacy Encryption
+
+## What Is PGP Encryption?
+
+**PGP (Pretty Good Privacy)** is an encryption program that provides cryptographic privacy and authentication for data communication. PGP encryption uses a combination of symmetric-key cryptography and public-key cryptography to allow users to encrypt messages, files, and other data so that only the intended recipient can read them. Originally created by Phil Zimmermann in 1991, PGP has become the most widely used email encryption standard in the world and forms the basis of the **OpenPGP** specification defined in RFC 4880. Whether you need to send a confidential email, verify the identity of a software publisher, or protect sensitive files at rest, PGP provides a battle-tested cryptographic framework trusted by journalists, security researchers, governments, and everyday users alike.
+
+If you want to try PGP encryption right now without installing any software, KeychainPGP provides an [online PGP tool](/pgp-online-encrypt/) that runs entirely in your browser.
+
+## History of PGP
+
+Phil Zimmermann released PGP 1.0 in June 1991 as free software, motivated by the belief that strong cryptography should be available to all citizens -- not just governments and militaries. At the time, strong encryption was classified as a munition under U.S. export regulations, and Zimmermann faced a three-year criminal investigation by the U.S. Customs Service for distributing PGP internationally. The investigation was eventually dropped in 1996 without an indictment, and the case became a landmark moment in the history of digital civil liberties.
+
+PGP evolved through several commercial incarnations. Zimmermann founded PGP Inc. in 1996, which was acquired by Network Associates (later McAfee) in 1997, and eventually by Symantec in 2010. Throughout these transitions, the underlying cryptographic protocol was standardized as **OpenPGP** through the Internet Engineering Task Force (IETF), ensuring that the protocol remained open and interoperable regardless of corporate ownership.
+
+The publication of the OpenPGP standard meant that anyone could create compatible implementations. This led to the creation of the GNU Privacy Guard (GnuPG or GPG), a free and open-source implementation that remains one of the most widely used PGP tools today. To understand the differences between these implementations, see our guide on [PGP vs GPG](/docs/pgp-vs-gpg/).
+
+## How PGP Encryption Works
+
+PGP encryption relies on a sophisticated combination of cryptographic techniques. Rather than using a single method, PGP employs a **hybrid encryption model** that combines the speed of symmetric encryption with the key-distribution advantages of asymmetric (public-key) encryption.
+
+### Public-Key Cryptography
+
+At the heart of PGP is **public-key cryptography**, also known as asymmetric cryptography. Every PGP user generates a **key pair** consisting of two mathematically related keys:
+
+- **Public key** -- shared openly with anyone. Others use this key to encrypt messages addressed to you and to verify your digital signatures.
+- **Private key** (also called a secret key) -- kept strictly confidential. You use this key to decrypt messages sent to you and to create digital signatures.
+
+The fundamental property of this system is that data encrypted with a public key can only be decrypted with the corresponding private key, and vice versa. This eliminates the need to securely transmit a shared secret between parties before they can communicate privately, which was the central weakness of earlier symmetric-only encryption systems.
+
+### The Hybrid Encryption Model
+
+While public-key cryptography solves the key distribution problem, asymmetric algorithms like RSA are computationally expensive for encrypting large amounts of data. PGP solves this by using a hybrid approach:
+
+1. **Session key generation** -- PGP generates a random, one-time **symmetric session key** (typically 128 or 256 bits) for each message.
+2. **Data encryption** -- The actual message content is encrypted using a fast symmetric cipher (such as AES-256) with the session key.
+3. **Session key encryption** -- The session key itself is then encrypted using the recipient's public key (an asymmetric operation).
+4. **Packaging** -- The encrypted message and the encrypted session key are bundled together and sent to the recipient.
+
+When the recipient receives the message, the process is reversed:
+
+1. The recipient uses their **private key** to decrypt the session key.
+2. The decrypted session key is then used to decrypt the actual message content.
+
+This hybrid approach combines the best of both worlds: the efficiency of symmetric encryption for bulk data and the convenience of public-key cryptography for secure key exchange. If a message is encrypted to multiple recipients, PGP simply encrypts the same session key once for each recipient's public key, keeping the overall message size manageable.
+
+## PGP Digital Signatures
+
+Beyond encryption, PGP provides **digital signatures** that serve two critical functions: **authentication** (proving who sent a message) and **integrity** (proving that the message was not altered in transit).
+
+The signing process works as follows:
+
+1. PGP computes a **cryptographic hash** (a fixed-length digest) of the message content using an algorithm such as SHA-256 or SHA-512.
+2. The hash is then encrypted with the sender's **private key**, producing the digital signature.
+3. The signature is attached to the message.
+
+Any recipient can verify the signature by:
+
+1. Decrypting the signature with the sender's **public key** to recover the original hash.
+2. Independently computing the hash of the received message.
+3. Comparing the two hashes. If they match, the message is authentic and unmodified.
+
+Digital signatures are essential for software distribution (verifying that a download has not been tampered with), secure email communication, and any scenario where the identity of the sender matters. PGP allows users to sign a message without encrypting it, encrypt without signing, or both sign and encrypt in a single operation.
+
+## The OpenPGP Standard
+
+**OpenPGP** is the open standard that defines the message formats, algorithms, and procedures used by PGP-compatible software. It is not a software product itself but rather a specification that any developer can implement.
+
+The key standards documents are:
+
+- **RFC 4880** (November 2007) -- The current primary specification for the OpenPGP message format, defining packet structures, key formats, encryption and signing procedures, and algorithm identifiers.
+- **RFC 6637** (June 2012) -- Extends OpenPGP with Elliptic Curve Cryptography (ECC) support, adding ECDSA and ECDH.
+- **RFC 9580** (2024) -- The latest revision (sometimes called "crypto-refresh"), which modernizes the standard with mandatory support for Ed25519/X25519, AEAD encryption modes, and improved key fingerprints using SHA-256.
+
+OpenPGP ensures interoperability: a message encrypted with KeychainPGP can be decrypted by GnuPG, Mailvelope, or any other compliant implementation. This vendor-neutral approach is one of PGP's greatest strengths and a key reason it has endured for over three decades.
+
+## Web of Trust
+
+One of PGP's distinctive features is its decentralized **Web of Trust** model for establishing the authenticity of public keys. Unlike the centralized Certificate Authority (CA) model used by TLS/SSL (where a trusted third party vouches for identities), PGP allows users themselves to vouch for each other.
+
+The Web of Trust works through **key signing**: when you verify someone's identity and confirm they control a particular public key, you sign their key with your own. This signature is a public assertion that you believe the key genuinely belongs to the person it claims to represent. Over time, a web of cross-signed keys emerges, creating paths of trust between users who have never directly met.
+
+For example, if you trust Alice and Alice has signed Bob's key, you may decide to trust Bob's key as well, even though you have never met Bob personally. PGP allows users to assign different **trust levels** (unknown, marginal, full, ultimate) to control how trust propagates through the web.
+
+In practice, the Web of Trust has proven difficult to scale for the general public. Modern workflows increasingly rely on verifying key fingerprints through out-of-band channels (such as in-person exchange, phone calls, or trusted websites) or using services like keys.openpgp.org for email-verified key distribution. Tools like [KeychainPGP](/pgp-online-encrypt/) simplify this by letting users work with keys directly through an intuitive interface, using [clipboard-based encryption](/docs/clipboard-encryption/) to easily share encrypted messages and public keys.
+
+## PGP Algorithms and Key Types
+
+PGP supports a range of cryptographic algorithms that have evolved as the field of cryptography has advanced.
+
+### Classic Algorithms
+
+- **RSA (Rivest-Shamir-Adleman)** -- The most widely deployed asymmetric algorithm in PGP's history. RSA keys of 2048 bits are considered the minimum for security today, with 4096-bit keys recommended for long-term protection. RSA can be used for both encryption and signing.
+- **DSA (Digital Signature Algorithm)** -- Used for signatures in combination with ElGamal for encryption. DSA was common in older PGP implementations but is now considered less favorable than RSA or ECC alternatives.
+- **ElGamal** -- An asymmetric encryption algorithm based on the Diffie-Hellman key exchange. Historically paired with DSA for signing.
+- **AES (Advanced Encryption Standard)** -- The dominant symmetric cipher used for encrypting message content. AES-128 and AES-256 are both supported and widely used.
+- **SHA-2 family (SHA-256, SHA-384, SHA-512)** -- Cryptographic hash functions used for computing message digests in digital signatures. SHA-256 is the most common choice in modern configurations.
+
+### Modern Algorithms
+
+The latest generation of OpenPGP implementations supports **Elliptic Curve Cryptography (ECC)**, which provides equivalent security to RSA at dramatically smaller key sizes, resulting in faster operations and smaller messages:
+
+- **Ed25519** -- An Edwards-curve Digital Signature Algorithm based on Curve25519. Produces fast, compact signatures and is now the recommended signing algorithm in RFC 9580. Ed25519 keys are only 256 bits long but offer security comparable to a 3072-bit RSA key.
+- **X25519 (Curve25519 ECDH)** -- Used for key agreement (encryption). Like Ed25519, it operates on Curve25519 and provides excellent performance with strong security properties.
+- **NIST P-256 / P-384 / P-521** -- Elliptic curves standardized by NIST. These are supported by OpenPGP but are generally less favored in the open-source community compared to Curve25519-based algorithms, due to concerns about the curve generation process and their more complex implementation requirements.
+
+Modern tools like KeychainPGP support these contemporary algorithms, making it straightforward to generate keys using Ed25519 and X25519 for optimal security and performance.
+
+## Common Use Cases for PGP
+
+PGP encryption serves a broad range of practical purposes:
+
+- **Secure email** -- The original and most well-known use case. PGP allows users to encrypt email content so that only the intended recipient can read it, and to sign emails to prove authenticity. Both the PGP/MIME and PGP/Inline formats are widely supported by email clients and browser extensions.
+- **File encryption** -- PGP can encrypt individual files or entire archives for secure storage or transfer. This is commonly used for protecting backups, sensitive documents, and configuration files.
+- **Software verification** -- Open-source projects routinely sign their releases with PGP keys. Users can verify these signatures to confirm that a download is authentic and has not been tampered with. Linux distributions, for example, sign their package repositories with PGP.
+- **Secure messaging** -- Beyond email, PGP can be used to encrypt any text-based message. This is particularly useful for communicating through platforms that do not offer end-to-end encryption natively.
+- **Identity verification** -- PGP key fingerprints serve as verifiable digital identities. Developers on platforms like GitHub can associate PGP keys with their accounts to sign commits, proving that code changes genuinely came from them.
+- **Document signing** -- Legal and compliance workflows sometimes use PGP signatures to establish non-repudiation for digital documents.
+
+## PGP Today
+
+More than three decades after its creation, PGP remains one of the most important cryptographic tools available. The OpenPGP standard continues to evolve, with RFC 9580 introducing significant modernizations including mandatory support for modern elliptic curve algorithms, Authenticated Encryption with Associated Data (AEAD) modes, and improved key management.
+
+The ecosystem of PGP tools has grown considerably. GnuPG remains the reference implementation for command-line use on Linux, macOS, and Windows. Modern tools like KeychainPGP provide native desktop apps (Windows, macOS, Linux), an Android app, a CLI for scripting, and a browser-based web app -- all built on the same Sequoia-PGP Rust engine. This cross-platform coverage makes PGP accessible whether you prefer a GUI with global hotkeys, a mobile app with QR code key sync, a command-line interface for automation, or a zero-install web tool for quick tasks.
+
+Some critics have argued that PGP's complexity is a barrier to adoption. While there is validity to this concern for raw command-line tooling, modern graphical and browser-based implementations have significantly reduced the learning curve. The core cryptographic protocol remains sound, and for use cases like email encryption, file protection, and software signing, PGP offers a level of interoperability and decentralization that few alternatives can match.
+
+The ongoing work on the OpenPGP standard, combined with modern implementations that prioritize usability, ensures that PGP will continue to play a central role in the privacy and security landscape for years to come.
+
+## Getting Started with PGP
+
+Ready to start using PGP encryption? Here are the best next steps:
+
+1. **Try it in your browser** -- Use the KeychainPGP [online PGP tool](/pgp-online-encrypt/) to generate a key pair, encrypt a message, or verify a signature without installing anything. All operations run locally in your browser.
+
+2. **Read the beginner's guide** -- If you are new to cryptography, our [PGP for Beginners](/docs/pgp-for-beginners/) guide walks you through the core concepts step by step.
+
+3. **Learn the practical workflow** -- Our [How to Use PGP](/docs/how-to-use-pgp/) guide covers key generation, encrypting and decrypting messages, managing your keyring, and best practices for key security.
+
+4. **Understand clipboard encryption** -- For quick, ad-hoc encrypted communication, learn about [clipboard-based PGP encryption](/docs/clipboard-encryption/), which lets you encrypt and decrypt text directly from your clipboard.
+
+5. **Know the tools** -- Understand the [differences between PGP and GPG](/docs/pgp-vs-gpg/) so you can choose the right tool for your workflow.
+
+PGP encryption has protected sensitive communications for over thirty years. With modern tools and standards, it is more accessible than ever. Whether you are a developer signing code, a journalist protecting sources, or simply someone who values privacy, PGP provides a proven, open, and decentralized approach to cryptographic security.
