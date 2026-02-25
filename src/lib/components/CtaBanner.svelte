@@ -1,11 +1,14 @@
 <script lang="ts">
+	import { contentLocales } from '$lib/content';
+
 	let {
 		heading = 'Try PGP Encryption Now',
 		description = 'Encrypt and decrypt messages directly in your browser. No installation required.',
 		ctaText = 'Open Online PGP Tool',
 		ctaHref = 'https://keychainpgp.github.io',
 		secondaryText = 'Download KeychainPGP',
-		secondaryHref = '/pgp-online-encrypt/'
+		secondaryHref,
+		locale = 'en'
 	}: {
 		heading?: string;
 		description?: string;
@@ -13,7 +16,11 @@
 		ctaHref?: string;
 		secondaryText?: string;
 		secondaryHref?: string;
+		locale?: string;
 	} = $props();
+
+	const clp = $derived(locale !== 'en' && contentLocales.includes(locale) ? `/${locale}` : '');
+	const resolvedSecondaryHref = $derived(secondaryHref ?? `${clp}/pgp-online-encrypt/`);
 </script>
 
 <aside class="cta-banner">
@@ -21,7 +28,7 @@
 	<p>{description}</p>
 	<div class="cta-actions">
 		<a href={ctaHref} target="_blank" rel="noopener" class="btn-primary">{ctaText}</a>
-		<a href={secondaryHref} class="btn-secondary">{secondaryText}</a>
+		<a href={resolvedSecondaryHref} class="btn-secondary">{secondaryText}</a>
 	</div>
 </aside>
 

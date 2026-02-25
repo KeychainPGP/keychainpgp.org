@@ -109,39 +109,6 @@
 	</div>
 </section>
 
-<!-- Why KeychainPGP -->
-<section class="landing-section">
-	<div class="landing-inner">
-		<h2>{c.featuresTitle}</h2>
-		<div class="features-grid">
-			{#each c.features as feature}
-				<div class="feature-card">
-					<div class="feature-icon">{feature.icon}</div>
-					<h3>{feature.title}</h3>
-					<p>{feature.text}</p>
-				</div>
-			{/each}
-		</div>
-	</div>
-</section>
-
-<!-- Desktop App -->
-<section class="landing-section landing-section-alt">
-	<div class="landing-inner">
-		<h2>{c.desktopTitle}</h2>
-		<p>{c.desktopText}</p>
-		<ul>
-			{#each c.desktopFeatures as feat}
-				<li>{feat}</li>
-			{/each}
-		</ul>
-		<div class="landing-ctas" style="margin-top: 1.5rem;">
-			<a href="https://github.com/keychainpgp/keychainpgp/releases/latest" target="_blank" rel="noopener" class="btn-primary">{c.ctaDownload}</a>
-			<a href="/{locale}/#download" class="btn-secondary">{c.ctaAllPlatforms}</a>
-		</div>
-	</div>
-</section>
-
 <!-- FAQ -->
 <section class="landing-section" id="faq">
 	<div class="landing-inner">
@@ -364,44 +331,6 @@
 		margin: 0;
 	}
 
-	.features-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: 1.5rem;
-		margin-top: 2rem;
-	}
-
-	.feature-card {
-		padding: 1.5rem;
-		background: var(--bg-card);
-		border: 1px solid var(--border);
-		border-radius: 16px;
-		transition: border-color 0.2s;
-	}
-
-	.feature-card:hover {
-		border-color: var(--primary);
-	}
-
-	.feature-icon {
-		font-size: 2rem;
-		margin-bottom: 1rem;
-	}
-
-	.feature-card h3 {
-		font-size: 1.0625rem;
-		font-weight: 600;
-		color: var(--text);
-		margin-bottom: 0.5rem;
-	}
-
-	.feature-card p {
-		font-size: 0.9375rem;
-		color: var(--text-secondary);
-		line-height: 1.6;
-		margin: 0;
-	}
-
 	.faq-list {
 		margin-top: 1.5rem;
 	}
@@ -515,8 +444,5 @@
 			gap: 0.75rem;
 		}
 
-		.features-grid {
-			grid-template-columns: 1fr;
-		}
 	}
 </style>

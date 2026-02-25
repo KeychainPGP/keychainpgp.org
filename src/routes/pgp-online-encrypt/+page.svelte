@@ -214,78 +214,6 @@
 	</div>
 </section>
 
-<!-- Why KeychainPGP -->
-<section class="landing-section">
-	<div class="landing-inner">
-		<h2>Why Use KeychainPGP for PGP Encryption?</h2>
-		<div class="features-grid">
-			<div class="feature-card">
-				<div class="feature-icon">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg>
-				</div>
-				<h3>100% Browser-Based</h3>
-				<p>Everything runs locally in your browser using WebAssembly compiled from Rust. Zero server communication. Your messages and keys never leave your device.</p>
-			</div>
-			<div class="feature-card">
-				<div class="feature-icon">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-				</div>
-				<h3>Modern Cryptography</h3>
-				<p>Ed25519 + X25519 elliptic curve keys by default. Powered by <strong>Sequoia-PGP</strong>, a Rust implementation of OpenPGP with no OpenSSL dependency.</p>
-			</div>
-			<div class="feature-card">
-				<div class="feature-icon">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-				</div>
-				<h3>Cross-Platform</h3>
-				<p>Available as a <a href="https://keychainpgp.github.io" target="_blank" rel="noopener">web app</a>, plus native desktop apps for Windows, macOS, Linux, and Android. Your keys, everywhere.</p>
-			</div>
-			<div class="feature-card">
-				<div class="feature-icon">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-				</div>
-				<h3>Open Source</h3>
-				<p>Fully auditable code under MIT / Apache-2.0 license. No telemetry, no tracking, no accounts. <a href="https://github.com/keychainpgp/keychainpgp" target="_blank" rel="noopener">View on GitHub</a>.</p>
-			</div>
-			<div class="feature-card">
-				<div class="feature-icon">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
-				</div>
-				<h3>Clipboard-First</h3>
-				<p>Copy text, encrypt with a hotkey (<code>Ctrl+Shift+E</code>), paste the encrypted message. Works with any application — email, chat, notes, anywhere.</p>
-			</div>
-			<div class="feature-card">
-				<div class="feature-icon">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-				</div>
-				<h3>Zero Configuration</h3>
-				<p>No algorithm choices, no key size decisions, no configuration files. Secure by default. Generate a key and start encrypting in seconds.</p>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- Desktop App -->
-<section class="landing-section landing-section-alt">
-	<div class="landing-inner">
-		<h2>Get the Desktop App for Daily Use</h2>
-		<p>While the web app is perfect for quick encryption, the desktop app provides a complete PGP experience with additional security features:</p>
-		<ul>
-			<li><strong>Global hotkeys</strong> — Ctrl+Shift+E to encrypt, Ctrl+Shift+D to decrypt, from any application</li>
-			<li><strong>System tray</strong> — Always available in your taskbar, runs quietly in the background</li>
-			<li><strong>Clipboard auto-clear</strong> — Decrypted text is automatically wiped from clipboard after 30 seconds</li>
-			<li><strong>OPSEC mode</strong> — Disguise the window title, RAM-only keys, and a panic wipe button</li>
-			<li><strong>OS credential store</strong> — Keys stored securely in Windows Credential Manager, macOS Keychain, or Linux Secret Service</li>
-			<li><strong>Android app</strong> — Same interface on mobile, with QR code key sync between devices</li>
-			<li><strong>CLI</strong> — <code>keychainpgp</code> command-line tool for scripting and automation</li>
-		</ul>
-		<div class="landing-ctas" style="margin-top: 1.5rem;">
-			<a href="https://github.com/keychainpgp/keychainpgp/releases/latest" target="_blank" rel="noopener" class="btn-primary">Download KeychainPGP</a>
-			<a href="/#download" class="btn-secondary">All Platforms</a>
-		</div>
-	</div>
-</section>
-
 <!-- FAQ -->
 <section class="landing-section" id="faq">
 	<div class="landing-inner">
@@ -527,52 +455,6 @@
 		margin: 0;
 	}
 
-	/* Features Grid */
-	.features-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: 1.5rem;
-		margin-top: 2rem;
-	}
-
-	.feature-card {
-		padding: 1.5rem;
-		background: var(--bg-card);
-		border: 1px solid var(--border);
-		border-radius: 16px;
-		transition: border-color 0.2s;
-	}
-
-	.feature-card:hover {
-		border-color: var(--primary);
-	}
-
-	.feature-icon {
-		width: 48px;
-		height: 48px;
-		background: var(--primary-soft);
-		border-radius: 12px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-bottom: 1rem;
-		color: var(--primary);
-	}
-
-	.feature-card h3 {
-		font-size: 1.0625rem;
-		font-weight: 600;
-		color: var(--text);
-		margin-bottom: 0.5rem;
-	}
-
-	.feature-card p {
-		font-size: 0.9375rem;
-		color: var(--text-secondary);
-		line-height: 1.6;
-		margin: 0;
-	}
-
 	/* FAQ */
 	.faq-list {
 		margin-top: 1.5rem;
@@ -688,8 +570,5 @@
 			gap: 0.75rem;
 		}
 
-		.features-grid {
-			grid-template-columns: 1fr;
-		}
 	}
 </style>

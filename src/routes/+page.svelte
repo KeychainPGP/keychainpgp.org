@@ -4,6 +4,7 @@
 	import Hero from '$lib/components/Hero.svelte';
 	import Features from '$lib/components/Features.svelte';
 	import HowItWorks from '$lib/components/HowItWorks.svelte';
+	import Faq from '$lib/components/Faq.svelte';
 	import Download from '$lib/components/Download.svelte';
 	import Donate from '$lib/components/Donate.svelte';
 	import type { PageData } from './$types';
@@ -36,7 +37,7 @@
 	<meta name="twitter:title" content={t(locale, 'meta.title')} />
 	<meta name="twitter:description" content={t(locale, 'meta.description')} />
 
-	<!-- JSON-LD -->
+	<!-- JSON-LD: SoftwareApplication -->
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "SoftwareApplication",
@@ -58,6 +59,20 @@
 			"price": "0",
 			"priceCurrency": "USD"
 		}
+	})}</script>`}
+
+	<!-- JSON-LD: FAQPage -->
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"mainEntity": Array.from({ length: 10 }, (_, i) => ({
+			"@type": "Question",
+			"name": t(locale, `faq.q${i + 1}`),
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": t(locale, `faq.a${i + 1}`)
+			}
+		}))
 	})}</script>`}
 
 	<!-- Hreflang -->
@@ -89,5 +104,6 @@
 <Hero {locale} />
 <Features {locale} />
 <HowItWorks {locale} />
+<Faq {locale} />
 <Download {locale} />
 <Donate {locale} />

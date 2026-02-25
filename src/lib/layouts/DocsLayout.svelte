@@ -66,7 +66,7 @@
 			<div class="prose">
 				{@render children()}
 			</div>
-			<CtaBanner />
+			<CtaBanner {locale} />
 		</div>
 		{#if toc.length > 0}
 			<aside class="docs-sidebar">

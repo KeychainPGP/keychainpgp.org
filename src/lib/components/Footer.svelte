@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { t, type Locale } from '$lib/i18n';
+	import { contentLocales } from '$lib/content';
 
 	let { locale = 'en' }: { locale: Locale } = $props();
+
+	const clp = $derived(locale !== 'en' && contentLocales.includes(locale) ? `/${locale}` : '');
 </script>
 
 <footer class="footer">
@@ -12,12 +15,12 @@
 		</div>
 
 		<div class="footer-content-links">
-			<a href="/pgp-online-encrypt/">Online PGP Tool</a>
-			<a href="/docs/what-is-pgp/">What is PGP?</a>
-			<a href="/docs/how-to-use-pgp/">How to Use PGP</a>
-			<a href="/docs/pgp-vs-gpg/">PGP vs GPG</a>
-			<a href="/docs/pgp-for-beginners/">PGP for Beginners</a>
-			<a href="/blog/best-pgp-tools-2026/">Best PGP Tools</a>
+			<a href={`${clp}/pgp-online-encrypt/`}>Online PGP Tool</a>
+			<a href={`${clp}/docs/what-is-pgp/`}>What is PGP?</a>
+			<a href={`${clp}/docs/how-to-use-pgp/`}>How to Use PGP</a>
+			<a href={`${clp}/docs/pgp-vs-gpg/`}>PGP vs GPG</a>
+			<a href={`${clp}/docs/pgp-for-beginners/`}>PGP for Beginners</a>
+			<a href={`${clp}/blog/best-pgp-tools-2026/`}>Best PGP Tools</a>
 		</div>
 
 		<div class="footer-links">

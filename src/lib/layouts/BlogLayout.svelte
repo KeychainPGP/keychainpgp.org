@@ -66,7 +66,7 @@
 		<div class="prose">
 			{@render children()}
 		</div>
-		<CtaBanner />
+		<CtaBanner {locale} />
 	</div>
 </article>
 
