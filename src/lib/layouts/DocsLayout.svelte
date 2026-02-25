@@ -11,6 +11,7 @@
 		slug = '',
 		lastUpdated = '',
 		toc = [],
+		locale = 'en',
 		children
 	}: {
 		title: string;
@@ -18,14 +19,17 @@
 		slug: string;
 		lastUpdated: string;
 		toc: { id: string; text: string; level: number }[];
+		locale?: string;
 		children: Snippet;
 	} = $props();
 
 	let canonical = $derived(`https://keychainpgp.org${slug}`);
+	let homeHref = $derived(locale === 'en' ? '/' : `/${locale}/`);
+	let docsHref = $derived(locale === 'en' ? '/docs/' : `/${locale}/docs/`);
 
 	const breadcrumbs = $derived([
-		{ label: 'Home', href: '/' },
-		{ label: 'Docs', href: '/docs/' },
+		{ label: 'Home', href: homeHref },
+		{ label: 'Docs', href: docsHref },
 		{ label: title, href: slug }
 	]);
 

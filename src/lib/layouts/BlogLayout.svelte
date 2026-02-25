@@ -9,20 +9,24 @@
 		description = '',
 		slug = '',
 		lastUpdated = '',
+		locale = 'en',
 		children
 	}: {
 		title: string;
 		description: string;
 		slug: string;
 		lastUpdated: string;
+		locale?: string;
 		children: Snippet;
 	} = $props();
 
 	let canonical = $derived(`https://keychainpgp.org${slug}`);
+	let homeHref = $derived(locale === 'en' ? '/' : `/${locale}/`);
+	let blogHref = $derived(locale === 'en' ? '/blog/' : `/${locale}/blog/`);
 
 	const breadcrumbs = $derived([
-		{ label: 'Home', href: '/' },
-		{ label: 'Blog', href: '/blog/' },
+		{ label: 'Home', href: homeHref },
+		{ label: 'Blog', href: blogHref },
 		{ label: title, href: slug }
 	]);
 
