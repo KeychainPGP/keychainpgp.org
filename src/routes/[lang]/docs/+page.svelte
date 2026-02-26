@@ -46,7 +46,7 @@
 			{/each}
 		</div>
 
-		<CtaBanner />
+		<CtaBanner {locale} />
 	</div>
 </div>
 
