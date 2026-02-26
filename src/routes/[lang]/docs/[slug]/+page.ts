@@ -5,7 +5,7 @@ import type { PageLoad } from './$types';
 
 export const prerender = true;
 
-export const load: PageLoad = ({ params }) => {
+export const load: PageLoad = async ({ params }) => {
 	const lang = params.lang as Locale;
 	const slug = params.slug;
 
@@ -13,7 +13,7 @@ export const load: PageLoad = ({ params }) => {
 		error(404, 'Not found');
 	}
 
-	const localeContent = getContent(lang);
+	const localeContent = await getContent(lang);
 	if (!localeContent) {
 		error(404, 'Not found');
 	}

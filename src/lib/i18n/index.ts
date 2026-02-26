@@ -1,23 +1,17 @@
 import en from './en.json';
-import fr from './fr.json';
-import de from './de.json';
-import es from './es.json';
-import ptBR from './pt-BR.json';
-import ptPT from './pt-PT.json';
-import it from './it.json';
-import nl from './nl.json';
-import ru from './ru.json';
-import uk from './uk.json';
-import zhCN from './zh-CN.json';
-import zhTW from './zh-TW.json';
-import ja from './ja.json';
-import ko from './ko.json';
-import ar from './ar.json';
-import he from './he.json';
-import tr from './tr.json';
-import pl from './pl.json';
-import hi from './hi.json';
-import th from './th.json';
+
+const localeModules = import.meta.glob<Record<string, string>>(['./*.json', '!./en.json'], { import: 'default' });
+
+const loaded: Record<string, Record<string, string>> = { en };
+
+export async function loadTranslations(locale: string): Promise<void> {
+	if (loaded[locale]) return;
+	const path = `./${locale}.json`;
+	const loader = localeModules[path];
+	if (loader) {
+		loaded[locale] = await loader();
+	}
+}
 
 export const locales = [
 	'en', 'fr', 'de', 'es', 'pt-BR', 'pt-PT', 'it', 'nl',
@@ -50,16 +44,8 @@ export const localeNames: Record<Locale, string> = {
 	'th': '\u0e44\u0e17\u0e22'
 };
 
-const messages: Record<string, Record<string, string>> = {
-	en, fr, de, es,
-	'pt-BR': ptBR, 'pt-PT': ptPT,
-	it, nl, ru, uk,
-	'zh-CN': zhCN, 'zh-TW': zhTW,
-	ja, ko, ar, he, tr, pl, hi, th
-};
-
 export function t(locale: string, key: string): string {
-	return messages[locale]?.[key] ?? messages.en[key] ?? key;
+	return loaded[locale]?.[key] ?? loaded.en[key] ?? key;
 }
 
 export function isRtl(locale: string): boolean {
