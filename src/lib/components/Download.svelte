@@ -105,6 +105,7 @@
 					{#if variants.length > 1}
 						<select
 							class="variant-select"
+							aria-label={t(locale, p.label)}
 							value={selectedVariants[p.id]}
 							onchange={(e) => { selectedVariants[p.id] = e.currentTarget.value; }}
 						>
@@ -205,7 +206,7 @@
 	.platform-card.recommended {
 		border-color: var(--primary);
 		background: var(--primary-soft);
-		color: var(--primary);
+		color: var(--primary-on-soft);
 	}
 
 	.card-link {
@@ -254,7 +255,7 @@
 		top: -8px;
 		right: -8px;
 		z-index: 2;
-		background: var(--primary);
+		background: var(--primary-bg);
 		color: white;
 		font-size: 0.6875rem;
 		font-weight: 700;

@@ -67,7 +67,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
-		background: var(--primary);
+		background: var(--primary-bg);
 		color: white;
 		padding: 0.75rem 1.5rem;
 		border-radius: 10px;

@@ -219,7 +219,7 @@
 	.hero-badge {
 		display: inline-block;
 		background: var(--primary-soft);
-		color: var(--primary);
+		color: var(--primary-on-soft);
 		font-size: 0.75rem;
 		font-weight: 700;
 		letter-spacing: 0.05em;
@@ -273,7 +273,7 @@
 	}
 
 	.btn-primary {
-		background: var(--primary);
+		background: var(--primary-bg);
 		color: white;
 	}
 
@@ -424,7 +424,7 @@
 	.recipient.selected {
 		background: var(--primary-soft);
 		border-color: var(--primary);
-		color: var(--primary);
+		color: var(--primary-on-soft);
 	}
 
 	.app-actions {
@@ -439,7 +439,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.375rem;
-		background: var(--primary);
+		background: var(--primary-bg);
 		color: white;
 		font-size: 0.8125rem;
 		font-weight: 600;
@@ -547,7 +547,7 @@
 
 	.key-badge.own-badge {
 		background: var(--primary-soft);
-		color: var(--primary);
+		color: var(--primary-on-soft);
 	}
 
 	/* Settings tab */

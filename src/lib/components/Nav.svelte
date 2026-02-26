@@ -106,7 +106,7 @@
 	}
 
 	.nav-cta {
-		background: var(--primary);
+		background: var(--primary-bg);
 		color: white !important;
 		padding: 0.5rem 1rem;
 		border-radius: 8px;

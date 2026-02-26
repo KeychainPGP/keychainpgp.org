@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
-
 :root {
 	--primary: #3b82f6;
-	--primary-hover: #2563eb;
+	--primary-bg: #2563eb;
+	--primary-hover: #1d4ed8;
 	--primary-shadow: rgba(59, 130, 246, 0.25);
 	--primary-soft: rgba(59, 130, 246, 0.1);
 	--primary-soft-text: rgba(59, 130, 246, 0.4);
+	--primary-on-soft: #60a5fa;
 
 	--bg: #0f172a;
 	--bg-nav: rgba(15, 23, 42, 0.85);
@@ -19,7 +19,7 @@
 
 	--text: #f1f5f9;
 	--text-secondary: #94a3b8;
-	--text-muted: #64748b;
+	--text-muted: #8494a7;
 
 	--border: #1e293b;
 	--shadow: rgba(0, 0, 0, 0.3);
@@ -39,6 +39,7 @@
 	--text: #0f172a;
 	--text-secondary: #475569;
 	--text-muted: #94a3b8;
+	--primary-on-soft: #2563eb;
 
 	--border: #e2e8f0;
 	--shadow: rgba(0, 0, 0, 0.08);
@@ -67,7 +68,7 @@ body {
 }
 
 ::selection {
-	background: var(--primary);
+	background: var(--primary-bg);
 	color: white;
 }
 

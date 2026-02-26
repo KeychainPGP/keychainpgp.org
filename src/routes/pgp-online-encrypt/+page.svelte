@@ -269,7 +269,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
-		background: var(--primary);
+		background: var(--primary-bg);
 		color: white;
 		padding: 0.875rem 1.75rem;
 		border-radius: 12px;
@@ -394,7 +394,7 @@
 		flex-shrink: 0;
 		width: 40px;
 		height: 40px;
-		background: var(--primary);
+		background: var(--primary-bg);
 		color: white;
 		border-radius: 12px;
 		display: flex;
