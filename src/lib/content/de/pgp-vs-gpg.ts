@@ -40,7 +40,7 @@ const doc: DocContent = {
 
 <p><strong>OpenPGP</strong> ist weder ein Produkt noch eine Software. Es ist ein offener Standard, der die Nachrichtenformate, Schluesselformate und kryptografischen Verfahren definiert, denen PGP-kompatible Tools folgen muessen. Die IETF veroeffentlichte die urspruengliche Spezifikation als <strong>RFC 2440</strong> im Jahr 1998, und die am haeufigsten referenzierte Version ist <strong>RFC 4880</strong> (2007). Ein grosses Update, <strong>RFC 9580</strong> (2024), modernisiert den Standard mit Ed25519-Unterstuetzung und AEAD-Verschluesselung.</p>
 
-<p>Die Existenz von OpenPGP macht Interoperabilitaet moeglich. Da PGP und GPG denselben Standard implementieren, kann eine mit GPG verschluesselte Nachricht von PGP entschluesselt werden -- und umgekehrt.</p>
+<p>Die Existenz von OpenPGP macht Interoperabilitaet moeglich. Da PGP und GPG denselben Standard implementieren, kann eine mit GPG verschluesselte Nachricht von PGP entschluesselt werden — und umgekehrt.</p>
 
 <h2 id="pgp-vs-gpg-comparison-table">Vergleichstabelle PGP vs GPG</h2>
 
@@ -100,7 +100,7 @@ const doc: DocContent = {
 
 <h3>Koennen GPG- und PGP-Schluessel zusammen verwendet werden?</h3>
 
-<p>Ja. GPG und PGP verwenden das OpenPGP-Schluesselformat, das vom IETF-Standard definiert wird. Sie koennen einen oeffentlichen Schluessel aus GPG exportieren und in PGP importieren -- oder in jedes andere OpenPGP-konforme Tool wie KeychainPGP.</p>
+<p>Ja. GPG und PGP verwenden das OpenPGP-Schluesselformat, das vom IETF-Standard definiert wird. Sie koennen einen oeffentlichen Schluessel aus GPG exportieren und in PGP importieren — oder in jedes andere OpenPGP-konforme Tool wie KeychainPGP.</p>
 
 <h3>Ist GPG 2026 noch sicher?</h3>
 

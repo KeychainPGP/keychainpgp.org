@@ -6,7 +6,7 @@ const doc: DocContent = {
 	lastUpdated: '2026-02-25',
 	toc: [
 		{ id: 'why-encryption-matters', text: 'Warum Verschluesselung wichtig ist', level: 2 },
-		{ id: 'what-is-pgp-explained-simply', text: 'Was ist PGP -- einfach erklaert', level: 2 },
+		{ id: 'what-is-pgp-explained-simply', text: 'Was ist PGP — einfach erklaert', level: 2 },
 		{ id: 'key-concepts-you-need-to-know', text: 'Wichtige Konzepte', level: 2 },
 		{ id: 'public-key-your-address', text: 'Oeffentlicher Schluessel: Ihre Adresse', level: 3 },
 		{ id: 'private-key-your-password', text: 'Privater Schluessel: Ihr Passwort', level: 3 },
@@ -21,17 +21,17 @@ const doc: DocContent = {
 	html: `
 <h1>PGP fuer Einsteiger: Einfache Anleitung zum Einstieg</h1>
 
-<p>Der Einstieg in PGP ist einfacher, als Sie denken. Sie generieren ein Schluesselpaar -- einen oeffentlichen und einen privaten Schluessel --, teilen den oeffentlichen Schluessel mit den Personen, mit denen Sie kommunizieren moechten, und verwenden den privaten Schluessel, um Nachrichten zu entschluesseln, die man Ihnen sendet. Sie muessen keine Software installieren, um es auszuprobieren. Mit einem kostenlosen <a href="/de/pgp-online-encrypt/">Online-PGP-Tool</a> wie KeychainPGP koennen Sie Ihre erste Nachricht in weniger als fuenf Minuten verschluesseln -- direkt im Browser.</p>
+<p>Der Einstieg in PGP ist einfacher, als Sie denken. Sie generieren ein Schluesselpaar — einen oeffentlichen und einen privaten Schluessel --, teilen den oeffentlichen Schluessel mit den Personen, mit denen Sie kommunizieren moechten, und verwenden den privaten Schluessel, um Nachrichten zu entschluesseln, die man Ihnen sendet. Sie muessen keine Software installieren, um es auszuprobieren. Mit einem kostenlosen <a href="/de/pgp-online-encrypt/">Online-PGP-Tool</a> wie KeychainPGP koennen Sie Ihre erste Nachricht in weniger als fuenf Minuten verschluesseln — direkt im Browser.</p>
 
 <h2 id="why-encryption-matters">Warum Verschluesselung wichtig ist</h2>
 
-<p>Jeden Tag werden Milliarden von Nachrichten ueber das Internet gesendet. E-Mails, Chat-Nachrichten, Dokumente -- die meisten davon im Klartext, was bedeutet, dass jeder, der sie abfaengt, sie lesen kann. Dazu gehoeren Internetanbieter, Hacker in oeffentlichen WLANs und sogar staatliche Ueberwachungsprogramme.</p>
+<p>Jeden Tag werden Milliarden von Nachrichten ueber das Internet gesendet. E-Mails, Chat-Nachrichten, Dokumente — die meisten davon im Klartext, was bedeutet, dass jeder, der sie abfaengt, sie lesen kann. Dazu gehoeren Internetanbieter, Hacker in oeffentlichen WLANs und sogar staatliche Ueberwachungsprogramme.</p>
 
 <p><strong>Datenlecks sind keine seltenen Ereignisse.</strong> Sie passieren staendig. Wenn Ihre Nachrichten nicht verschluesselt sind, liegen sie in lesbarem Klartext in Datenbanken und warten auf das naechste Leck.</p>
 
 <p>Verschluesselung loest dieses Problem. Wenn Sie eine Nachricht mit PGP verschluesseln, wird sie in unlesbaren Zeichensalat verwandelt. Nur die Person mit dem richtigen privaten Schluessel kann sie wieder lesbar machen.</p>
 
-<h2 id="what-is-pgp-explained-simply">Was ist PGP -- einfach erklaert</h2>
+<h2 id="what-is-pgp-explained-simply">Was ist PGP — einfach erklaert</h2>
 
 <p>PGP steht fuer <strong>Pretty Good Privacy</strong>. Es wurde 1991 von Phil Zimmermann entwickelt und ist zum weltweiten Standard fuer die Verschluesselung von Nachrichten und Dateien geworden.</p>
 
@@ -44,7 +44,7 @@ const doc: DocContent = {
 <li>Der <strong>Briefkastenschluessel</strong> ist Ihr <strong>privater Schluessel</strong>. Sie geben ihn niemals an andere weiter.</li>
 </ul>
 
-<p>Das nennt man <strong>asymmetrische Verschluesselung</strong> -- ein Schluessel sperrt, ein anderer entsperrt. Fuer eine tiefergehende technische Erklaerung lesen Sie unseren umfassenden Leitfaden darueber, <a href="/de/docs/what-is-pgp/">was PGP ist</a>.</p>
+<p>Das nennt man <strong>asymmetrische Verschluesselung</strong> — ein Schluessel sperrt, ein anderer entsperrt. Fuer eine tiefergehende technische Erklaerung lesen Sie unseren umfassenden Leitfaden darueber, <a href="/de/docs/what-is-pgp/">was PGP ist</a>.</p>
 
 <h2 id="key-concepts-you-need-to-know">Wichtige Konzepte</h2>
 
@@ -61,8 +61,8 @@ const doc: DocContent = {
 <p>PGP kann zwei Dinge tun: <strong>verschluesseln</strong> und <strong>signieren</strong>.</p>
 
 <ul>
-<li><strong>Verschluesselung</strong> -- verwandelt eine Nachricht in unlesbaren Text, den nur der Empfaenger lesen kann. Sie verwenden den oeffentlichen Schluessel des Empfaengers zum Verschluesseln, und dieser nutzt seinen privaten Schluessel zum Entschluesseln.</li>
-<li><strong>Signatur</strong> -- beweist, dass eine Nachricht von Ihnen stammt und nicht veraendert wurde. Sie verwenden Ihren eigenen privaten Schluessel zum Signieren, und jeder mit Ihrem oeffentlichen Schluessel kann die Signatur ueberpruefen.</li>
+<li><strong>Verschluesselung</strong> — verwandelt eine Nachricht in unlesbaren Text, den nur der Empfaenger lesen kann. Sie verwenden den oeffentlichen Schluessel des Empfaengers zum Verschluesseln, und dieser nutzt seinen privaten Schluessel zum Entschluesseln.</li>
+<li><strong>Signatur</strong> — beweist, dass eine Nachricht von Ihnen stammt und nicht veraendert wurde. Sie verwenden Ihren eigenen privaten Schluessel zum Signieren, und jeder mit Ihrem oeffentlichen Schluessel kann die Signatur ueberpruefen.</li>
 </ul>
 
 <h3 id="key-fingerprints">Schluessel-Fingerprints</h3>
@@ -97,7 +97,7 @@ const doc: DocContent = {
 
 <p><strong>1. Privaten Schluessel teilen.</strong> Ihr privater Schluessel darf niemals an andere gesendet werden. Teilen Sie nur Ihren <strong>oeffentlichen</strong> Schluessel.</p>
 
-<p><strong>2. Fingerprints nicht ueberpruefen.</strong> Verifizieren Sie den Schluessel-Fingerprint immer ueber einen separaten, vertrauenswuerdigen Kanal -- ein Telefonat, einen Videoanruf oder ein persoenliches Treffen.</p>
+<p><strong>2. Fingerprints nicht ueberpruefen.</strong> Verifizieren Sie den Schluessel-Fingerprint immer ueber einen separaten, vertrauenswuerdigen Kanal — ein Telefonat, einen Videoanruf oder ein persoenliches Treffen.</p>
 
 <p><strong>3. Privaten Schluessel ohne Backup verlieren.</strong> Wenn Sie Ihren privaten Schluessel verlieren, sind alle damit verschluesselten Nachrichten fuer immer verloren. Sichern Sie Ihren privaten Schluessel an einem geschuetzten Ort.</p>
 
@@ -124,13 +124,13 @@ const doc: DocContent = {
 <p>Nicht unbedingt. Sie koennen das <a href="/de/pgp-online-encrypt/">Online-PGP-Tool</a> von KeychainPGP direkt im Browser verwenden. Es laeuft vollstaendig auf Ihrem Geraet ueber WebAssembly.</p>
 
 <h3>Kann jemand meine PGP-verschluesselten Nachrichten knacken?</h3>
-<p>Mit modernen Algorithmen (wie Ed25519 + X25519 in KeychainPGP) wuerde das Knacken der Verschluesselung per Brute Force laenger dauern als das Alter des Universums -- mit der heutigen Technologie. Die tatsaechlichen Risiken sind praktischer Natur: privaten Schluessel verlieren, schwache Passphrase verwenden oder Malware auf dem Geraet haben.</p>
+<p>Mit modernen Algorithmen (wie Ed25519 + X25519 in KeychainPGP) wuerde das Knacken der Verschluesselung per Brute Force laenger dauern als das Alter des Universums — mit der heutigen Technologie. Die tatsaechlichen Risiken sind praktischer Natur: privaten Schluessel verlieren, schwache Passphrase verwenden oder Malware auf dem Geraet haben.</p>
 
 <h3>Was ist der Unterschied zwischen PGP, GPG und OpenPGP?</h3>
 <p><strong>PGP</strong> ist das 1991 entwickelte Originalprogramm. <strong>OpenPGP</strong> ist der offene Standard (RFC 4880), der die Formate definiert. <strong>GPG</strong> (GNU Privacy Guard) ist eine freie Implementierung des OpenPGP-Standards. KeychainPGP ist eine weitere Implementierung, gebaut auf Sequoia-PGP in Rust. Alle sind kompatibel, da sie demselben Standard folgen.</p>
 
 <h3>Wie teile ich meinen oeffentlichen Schluessel?</h3>
-<p>Exportieren Sie Ihren oeffentlichen Schluessel im ASCII-Armor-Format -- ein Textblock, der mit <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> beginnt. Fuegen Sie ihn in eine E-Mail ein, veroeffentlichen Sie ihn auf Ihrer Website, teilen Sie ihn in einem Chat oder laden Sie ihn auf einen Schluesselserver hoch. Vergessen Sie nicht, die Fingerprints mit Ihren Kontakten ueber einen separaten Kanal abzugleichen.</p>
+<p>Exportieren Sie Ihren oeffentlichen Schluessel im ASCII-Armor-Format — ein Textblock, der mit <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> beginnt. Fuegen Sie ihn in eine E-Mail ein, veroeffentlichen Sie ihn auf Ihrer Website, teilen Sie ihn in einem Chat oder laden Sie ihn auf einen Schluesselserver hoch. Vergessen Sie nicht, die Fingerprints mit Ihren Kontakten ueber einen separaten Kanal abzugleichen.</p>
 `
 };
 

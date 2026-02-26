@@ -2,7 +2,7 @@ import type { DocContent } from '../types';
 
 const doc: DocContent = {
 	title: 'PGP verwenden: Schritt-fuer-Schritt-Anleitung zur Verschluesselung (2026)',
-	description: 'Lernen Sie Schritt fuer Schritt, PGP-Verschluesselung zu nutzen. Schluessel generieren, Nachrichten ver- und entschluesseln, signieren und verifizieren -- mit dieser umfassenden PGP-Anleitung.',
+	description: 'Lernen Sie Schritt fuer Schritt, PGP-Verschluesselung zu nutzen. Schluessel generieren, Nachrichten ver- und entschluesseln, signieren und verifizieren — mit dieser umfassenden PGP-Anleitung.',
 	lastUpdated: '2026-02-25',
 	toc: [
 		{ id: 'how-to-use-pgp-overview', text: 'PGP verwenden', level: 1 },
@@ -21,7 +21,7 @@ const doc: DocContent = {
 	html: `
 <h1>PGP verwenden</h1>
 
-<p>Um PGP zu nutzen, generieren Sie ein Schluesselpaar (einen oeffentlichen und einen privaten Schluessel), teilen Ihren oeffentlichen Schluessel mit den Personen, mit denen Sie kommunizieren moechten, importieren deren oeffentliche Schluessel und verwenden diese Schluessel dann zum Ver- und Entschluesseln, Signieren und Verifizieren von Nachrichten. PGP-Verschluesselung stellt sicher, dass nur der vorgesehene Empfaenger Ihre Nachricht lesen kann, waehrend digitale Signaturen beweisen, dass eine Nachricht tatsaechlich von Ihnen stammt. Tools wie <a href="/de/pgp-online-encrypt/">KeychainPGP</a> machen diesen Prozess dank eines Zwischenablage-Workflows zugaenglich -- ganz ohne Kommandozeile.</p>
+<p>Um PGP zu nutzen, generieren Sie ein Schluesselpaar (einen oeffentlichen und einen privaten Schluessel), teilen Ihren oeffentlichen Schluessel mit den Personen, mit denen Sie kommunizieren moechten, importieren deren oeffentliche Schluessel und verwenden diese Schluessel dann zum Ver- und Entschluesseln, Signieren und Verifizieren von Nachrichten. PGP-Verschluesselung stellt sicher, dass nur der vorgesehene Empfaenger Ihre Nachricht lesen kann, waehrend digitale Signaturen beweisen, dass eine Nachricht tatsaechlich von Ihnen stammt. Tools wie <a href="/de/pgp-online-encrypt/">KeychainPGP</a> machen diesen Prozess dank eines Zwischenablage-Workflows zugaenglich — ganz ohne Kommandozeile.</p>
 
 <p>Diese PGP-Anleitung fuehrt Sie durch jeden Schritt, von der Erzeugung Ihres ersten Schluesselpaars bis zum Senden und Empfangen verschluesselter Nachrichten. Wenn Ihnen das Konzept der Public-Key-Kryptografie neu ist, lesen Sie zunaechst <a href="/de/docs/what-is-pgp/">Was ist PGP?</a> oder <a href="/de/docs/pgp-for-beginners/">PGP fuer Einsteiger</a>.</p>
 
@@ -32,10 +32,10 @@ const doc: DocContent = {
 <p>Bevor Sie Ihre erste PGP-Nachricht verschluesseln, brauchen Sie eine PGP-Anwendung:</p>
 
 <ul>
-<li><strong>KeychainPGP-Web-App</strong> -- Oeffnen Sie das <a href="/de/pgp-online-encrypt/">Online-PGP-Tool</a> in einem beliebigen modernen Browser. Alles laeuft lokal ueber WebAssembly, kompiliert aus Rust. Keine Installation, kein Konto, keine Daten werden an einen Server gesendet.</li>
-<li><strong>KeychainPGP-Desktop-App</strong> -- Laden Sie die native App fuer Windows, macOS, Linux oder Android von der <a href="https://github.com/keychainpgp/keychainpgp/releases/latest">GitHub-Release-Seite</a> herunter. Die Desktop-App bietet globale Tastenkuerzel, Taskleisten-Integration, automatische Zwischenablage-Loesung und QR-Code-Synchronisierung.</li>
-<li><strong>KeychainPGP CLI</strong> -- Das CLI <code>keychainpgp</code> bietet Befehle fuer Schluesselerzeugung, Verschluesselung, Entschluesselung, Signatur, Verifikation und Schluesselbundverwaltung. Ideal fuer Scripting und Automatisierung.</li>
-<li><strong>GnuPG (GPG)</strong> -- Das traditionelle Kommandozeilen-Tool. Maechtig, erfordert aber Vertrautheit mit dem Terminal. Siehe <a href="/de/docs/pgp-vs-gpg/">PGP vs GPG</a> fuer einen detaillierten Vergleich.</li>
+<li><strong>KeychainPGP-Web-App</strong> — Oeffnen Sie das <a href="/de/pgp-online-encrypt/">Online-PGP-Tool</a> in einem beliebigen modernen Browser. Alles laeuft lokal ueber WebAssembly, kompiliert aus Rust. Keine Installation, kein Konto, keine Daten werden an einen Server gesendet.</li>
+<li><strong>KeychainPGP-Desktop-App</strong> — Laden Sie die native App fuer Windows, macOS, Linux oder Android von der <a href="https://github.com/keychainpgp/keychainpgp/releases/latest">GitHub-Release-Seite</a> herunter. Die Desktop-App bietet globale Tastenkuerzel, Taskleisten-Integration, automatische Zwischenablage-Loesung und QR-Code-Synchronisierung.</li>
+<li><strong>KeychainPGP CLI</strong> — Das CLI <code>keychainpgp</code> bietet Befehle fuer Schluesselerzeugung, Verschluesselung, Entschluesselung, Signatur, Verifikation und Schluesselbundverwaltung. Ideal fuer Scripting und Automatisierung.</li>
+<li><strong>GnuPG (GPG)</strong> — Das traditionelle Kommandozeilen-Tool. Maechtig, erfordert aber Vertrautheit mit dem Terminal. Siehe <a href="/de/docs/pgp-vs-gpg/">PGP vs GPG</a> fuer einen detaillierten Vergleich.</li>
 </ul>
 
 <blockquote><p><strong>Tipp:</strong> Wenn Sie PGP-Verschluesselung jetzt einfach ausprobieren moechten, ohne etwas zu installieren, oeffnen Sie das <a href="/de/pgp-online-encrypt/">Online-PGP-Tool</a> und folgen Sie dieser Anleitung.</p></blockquote>
@@ -47,8 +47,8 @@ const doc: DocContent = {
 <p>Ein PGP-Schluesselpaar besteht aus zwei mathematisch verknuepften Schluesseln:</p>
 
 <ul>
-<li><strong>Oeffentlicher Schluessel</strong> -- Diesen teilen Sie frei. Jeder kann ihn verwenden, um Nachrichten an Sie zu verschluesseln oder Ihre Signaturen zu ueberpruefen.</li>
-<li><strong>Privater Schluessel</strong> -- Diesen halten Sie geheim. Er entschluesselt Nachrichten, die mit Ihrem oeffentlichen Schluessel verschluesselt wurden, und erstellt digitale Signaturen.</li>
+<li><strong>Oeffentlicher Schluessel</strong> — Diesen teilen Sie frei. Jeder kann ihn verwenden, um Nachrichten an Sie zu verschluesseln oder Ihre Signaturen zu ueberpruefen.</li>
+<li><strong>Privater Schluessel</strong> — Diesen halten Sie geheim. Er entschluesselt Nachrichten, die mit Ihrem oeffentlichen Schluessel verschluesselt wurden, und erstellt digitale Signaturen.</li>
 </ul>
 
 <h3>Schluessel in KeychainPGP generieren</h3>
@@ -58,7 +58,7 @@ const doc: DocContent = {
 <li>Navigieren Sie zum Tab <strong>Schluessel</strong>.</li>
 <li>Klicken Sie auf <strong>Neuen Schluessel generieren</strong>.</li>
 <li>Geben Sie Ihren Namen und Ihre E-Mail-Adresse ein.</li>
-<li>Klicken Sie auf <strong>Generieren</strong>. KeychainPGP erstellt ein <strong>Ed25519- + X25519</strong>-Schluesselpaar -- den modernsten und sichersten in OpenPGP verfuegbaren Algorithmus.</li>
+<li>Klicken Sie auf <strong>Generieren</strong>. KeychainPGP erstellt ein <strong>Ed25519- + X25519</strong>-Schluesselpaar — den modernsten und sichersten in OpenPGP verfuegbaren Algorithmus.</li>
 </ol>
 
 <h3>Schluessel mit GPG generieren (Kommandozeile)</h3>
@@ -74,10 +74,10 @@ const doc: DocContent = {
 <p>Ihr oeffentlicher Schluessel ist ein Textblock im <strong>ASCII-Armor</strong>-Format. Sie koennen ihn ueberall teilen:</p>
 
 <ul>
-<li><strong>E-Mail</strong> -- Fuegen Sie ihn in den E-Mail-Text ein oder haengen Sie ihn als <code>.asc</code>-Datei an.</li>
-<li><strong>Messaging-Apps</strong> -- Senden Sie ihn ueber Signal, WhatsApp, Matrix oder eine beliebige Chat-Plattform.</li>
-<li><strong>Ihre Website</strong> -- Veroeffentlichen Sie ihn auf Ihrer persoenlichen Seite, Ihrem GitHub-Profil oder Ihrer Twitter-Bio.</li>
-<li><strong>Schluesselserver</strong> -- Laden Sie ihn auf einen oeffentlichen Schluesselserver wie <code>keys.openpgp.org</code> hoch.</li>
+<li><strong>E-Mail</strong> — Fuegen Sie ihn in den E-Mail-Text ein oder haengen Sie ihn als <code>.asc</code>-Datei an.</li>
+<li><strong>Messaging-Apps</strong> — Senden Sie ihn ueber Signal, WhatsApp, Matrix oder eine beliebige Chat-Plattform.</li>
+<li><strong>Ihre Website</strong> — Veroeffentlichen Sie ihn auf Ihrer persoenlichen Seite, Ihrem GitHub-Profil oder Ihrer Twitter-Bio.</li>
+<li><strong>Schluesselserver</strong> — Laden Sie ihn auf einen oeffentlichen Schluesselserver wie <code>keys.openpgp.org</code> hoch.</li>
 </ul>
 
 <p><strong>Wichtig:</strong> Teilen Sie nur Ihren <strong>oeffentlichen</strong> Schluessel. Geben Sie Ihren privaten Schluessel unter keinen Umstaenden an Dritte weiter.</p>
@@ -118,7 +118,7 @@ const doc: DocContent = {
 <ol>
 <li>Tippen Sie Ihre Nachricht in einer beliebigen Anwendung.</li>
 <li>Markieren und kopieren Sie den Text (<code>Ctrl+C</code>).</li>
-<li>Druecken Sie <strong><code>Ctrl+Shift+E</code></strong> -- KeychainPGP verschluesselt den Inhalt der Zwischenablage.</li>
+<li>Druecken Sie <strong><code>Ctrl+Shift+E</code></strong> — KeychainPGP verschluesselt den Inhalt der Zwischenablage.</li>
 <li>Fuegen Sie die verschluesselte Nachricht ein (<code>Ctrl+V</code>).</li>
 </ol>
 
@@ -139,7 +139,7 @@ const doc: DocContent = {
 
 <ol>
 <li>Markieren und kopieren Sie den verschluesselten Nachrichtenblock (<code>Ctrl+C</code>).</li>
-<li>Druecken Sie <strong><code>Ctrl+Shift+D</code></strong> -- KeychainPGP entschluesselt den Inhalt der Zwischenablage.</li>
+<li>Druecken Sie <strong><code>Ctrl+Shift+D</code></strong> — KeychainPGP entschluesselt den Inhalt der Zwischenablage.</li>
 <li>Der Klartext ersetzt den verschluesselten Text in Ihrer Zwischenablage. Fuegen Sie ihn dort ein, wo Sie ihn benoetigen.</li>
 </ol>
 
@@ -152,8 +152,8 @@ const doc: DocContent = {
 <p>Eine digitale PGP-Signatur beweist zweierlei:</p>
 
 <ol>
-<li><strong>Authentizitaet</strong> -- Die Nachricht wurde vom Inhaber des Signaturschluessels verfasst.</li>
-<li><strong>Integritaet</strong> -- Die Nachricht wurde seit der Signierung nicht veraendert.</li>
+<li><strong>Authentizitaet</strong> — Die Nachricht wurde vom Inhaber des Signaturschluessels verfasst.</li>
+<li><strong>Integritaet</strong> — Die Nachricht wurde seit der Signierung nicht veraendert.</li>
 </ol>
 
 <p>Signieren verschluesselt die Nachricht nicht. Jeder kann eine signierte Nachricht lesen, aber ueberpruefen, dass sie tatsaechlich von Ihnen stammt und nicht manipuliert wurde.</p>
@@ -199,9 +199,9 @@ const doc: DocContent = {
 <p>Zusaetzliche Sicherheitsfunktionen der Desktop-App:</p>
 
 <ul>
-<li><strong>Automatische Zwischenablage-Loesung</strong> -- Entschluesselter Text wird nach 30 Sekunden aus der Zwischenablage entfernt.</li>
-<li><strong>OPSEC-Modus</strong> -- Getarnter Fenstertitel, Schluesselspeicherung nur im RAM und Notfall-Loeschtaste.</li>
-<li><strong>Betriebssystem-Anmeldeinformationsspeicher</strong> -- Private Schluessel werden sicher ueber Windows Credential Manager, macOS Keychain oder Linux Secret Service gespeichert.</li>
+<li><strong>Automatische Zwischenablage-Loesung</strong> — Entschluesselter Text wird nach 30 Sekunden aus der Zwischenablage entfernt.</li>
+<li><strong>OPSEC-Modus</strong> — Getarnter Fenstertitel, Schluesselspeicherung nur im RAM und Notfall-Loeschtaste.</li>
+<li><strong>Betriebssystem-Anmeldeinformationsspeicher</strong> — Private Schluessel werden sicher ueber Windows Credential Manager, macOS Keychain oder Linux Secret Service gespeichert.</li>
 </ul>
 
 <hr>
@@ -248,7 +248,7 @@ const doc: DocContent = {
 
 <h3>Ist PGP-Verschluesselung sicher?</h3>
 
-<p>PGP-Verschluesselung mit modernen Algorithmen ist aeusserst sicher. KeychainPGP verwendet Ed25519 fuer Signaturen und X25519 fuer den Schluesselaustausch -- Elliptische-Kurven-Algorithmen, die eine Sicherheit vergleichbar mit RSA-3072 bei einem Bruchteil der Schluesselgroesse bieten. Die groessten Risiken sind nicht kryptografischer, sondern operativer Natur: schwache Passphrasen, kompromittierte Geraete oder nachlassige Schluesselverwaltung.</p>
+<p>PGP-Verschluesselung mit modernen Algorithmen ist aeusserst sicher. KeychainPGP verwendet Ed25519 fuer Signaturen und X25519 fuer den Schluesselaustausch — Elliptische-Kurven-Algorithmen, die eine Sicherheit vergleichbar mit RSA-3072 bei einem Bruchteil der Schluesselgroesse bieten. Die groessten Risiken sind nicht kryptografischer, sondern operativer Natur: schwache Passphrasen, kompromittierte Geraete oder nachlassige Schluesselverwaltung.</p>
 
 <h3>Was ist ein PGP-Fingerprint?</h3>
 

@@ -1,7 +1,7 @@
 import type { DocContent } from '../types';
 
 const doc: DocContent = {
-	title: 'Die besten PGP-Tools und Verschluesselungssoftware 2026 -- Umfassender Leitfaden',
+	title: 'Die besten PGP-Tools und Verschluesselungssoftware 2026 — Umfassender Leitfaden',
 	description: 'Umfassender Leitfaden zu PGP-Tools und Verschluesselungssoftware. Vergleichen Sie OpenPGP-Tools fuer Desktop, Web, Mobilgeraete und CLI, um das richtige fuer Ihre Anforderungen zu finden.',
 	lastUpdated: '2026-02-25',
 	toc: [
@@ -61,7 +61,7 @@ const doc: DocContent = {
 
 <h3 id="keychainpgp-desktop">KeychainPGP Desktop</h3>
 
-<p><strong>KeychainPGP</strong> verfolgt einen grundlegend anderen Ansatz bei der PGP-Verschluesselung. Statt GnuPG in eine grafische Oberflaeche einzubetten, nutzt es die in Rust geschriebene <strong>Sequoia-PGP</strong>-Bibliothek, um einen modernen, zwischenablagebasierten Workflow zu ermoeglichen. Sie kopieren Text, druecken ein globales Tastenkuerzel (<code>Ctrl+Shift+E</code> zum Verschluesseln, <code>Ctrl+Shift+D</code> zum Entschluesseln) und fuegen das Ergebnis ein -- das funktioniert mit jeder Anwendung auf Ihrem System.</p>
+<p><strong>KeychainPGP</strong> verfolgt einen grundlegend anderen Ansatz bei der PGP-Verschluesselung. Statt GnuPG in eine grafische Oberflaeche einzubetten, nutzt es die in Rust geschriebene <strong>Sequoia-PGP</strong>-Bibliothek, um einen modernen, zwischenablagebasierten Workflow zu ermoeglichen. Sie kopieren Text, druecken ein globales Tastenkuerzel (<code>Ctrl+Shift+E</code> zum Verschluesseln, <code>Ctrl+Shift+D</code> zum Entschluesseln) und fuegen das Ergebnis ein — das funktioniert mit jeder Anwendung auf Ihrem System.</p>
 
 <ul>
 <li><strong>Plattformen:</strong> Windows, macOS, Linux, Android, Web, CLI</li>
@@ -102,7 +102,7 @@ const doc: DocContent = {
 <h2 id="choosing-the-right-pgp-tool">Das richtige PGP-Tool waehlen</h2>
 
 <h3>Benutzerfreundlichkeit</h3>
-<p>Traditionelle Tools wie GnuPG sind fuer technisch versierte Nutzer konzipiert. KeychainPGP eliminiert Algorithmenwahl und Konfigurationsdateien -- generieren Sie einen Schluessel und beginnen Sie sofort mit der Verschluesselung.</p>
+<p>Traditionelle Tools wie GnuPG sind fuer technisch versierte Nutzer konzipiert. KeychainPGP eliminiert Algorithmenwahl und Konfigurationsdateien — generieren Sie einen Schluessel und beginnen Sie sofort mit der Verschluesselung.</p>
 
 <h3>Sicherheit und kryptografische Standardwerte</h3>
 <p>Moderne Tools wie KeychainPGP und Sequoias <code>sq</code> verwenden standardmaessig <strong>Ed25519/X25519</strong>, die bei deutlich kleineren Schluesseln vergleichbare oder hoehere Sicherheit bieten. Auch die zugrundeliegende Bibliothek zaehlt: Sequoia-PGP (Rust) bietet starke Garantien fuer Speichersicherheit.</p>

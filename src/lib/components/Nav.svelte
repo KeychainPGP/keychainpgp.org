@@ -37,7 +37,7 @@
 			<a href={`${clp}/docs/`} onclick={() => mobileOpen = false}>Docs</a>
 			<a href={`${clp}/blog/`} onclick={() => mobileOpen = false}>Blog</a>
 			<a href="https://github.com/keychainpgp/keychainpgp" target="_blank" rel="noopener">{t(locale, 'nav.github')}</a>
-			<a href={`${clp}/pgp-online-encrypt/`} onclick={() => mobileOpen = false} class="nav-cta">Online Tool</a>
+			<a href={`${clp}/pgp-online-encrypt/`} onclick={() => mobileOpen = false} class="nav-cta">{t(locale, 'nav.onlineTool')}</a>
 			<div class="nav-controls">
 				<LanguageSwitcher {locale} />
 				<ThemeToggle />

@@ -15,12 +15,12 @@
 		</div>
 
 		<div class="footer-content-links">
-			<a href={`${clp}/pgp-online-encrypt/`}>Online PGP Tool</a>
-			<a href={`${clp}/docs/what-is-pgp/`}>What is PGP?</a>
-			<a href={`${clp}/docs/how-to-use-pgp/`}>How to Use PGP</a>
-			<a href={`${clp}/docs/pgp-vs-gpg/`}>PGP vs GPG</a>
-			<a href={`${clp}/docs/pgp-for-beginners/`}>PGP for Beginners</a>
-			<a href={`${clp}/blog/best-pgp-tools-2026/`}>Best PGP Tools</a>
+			<a href={`${clp}/pgp-online-encrypt/`}>{t(locale, 'footer.link.onlineTool')}</a>
+			<a href={`${clp}/docs/what-is-pgp/`}>{t(locale, 'footer.link.whatIsPgp')}</a>
+			<a href={`${clp}/docs/how-to-use-pgp/`}>{t(locale, 'footer.link.howToUsePgp')}</a>
+			<a href={`${clp}/docs/pgp-vs-gpg/`}>{t(locale, 'footer.link.pgpVsGpg')}</a>
+			<a href={`${clp}/docs/pgp-for-beginners/`}>{t(locale, 'footer.link.pgpForBeginners')}</a>
+			<a href={`${clp}/blog/best-pgp-tools-2026/`}>{t(locale, 'footer.link.bestPgpTools')}</a>
 		</div>
 
 		<div class="footer-links">
