@@ -56,7 +56,7 @@
 <style>
 	.donate {
 		padding: 6rem 1.5rem;
-		background: var(--bg-alt);
+		background: var(--bg);
 	}
 
 	.section-inner {

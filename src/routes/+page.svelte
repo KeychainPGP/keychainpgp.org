@@ -104,6 +104,6 @@
 <Hero {locale} />
 <Features {locale} />
 <HowItWorks {locale} />
-<Faq {locale} />
 <Download {locale} />
+<Faq {locale} />
 <Donate {locale} />

@@ -38,6 +38,7 @@
 <style>
 	.footer {
 		padding: 3rem 1.5rem;
+		background: var(--bg-alt);
 		border-top: 1px solid var(--border);
 	}
 
