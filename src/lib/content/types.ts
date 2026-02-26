@@ -19,11 +19,6 @@ export interface BlogContent {
 	html: string;
 }
 
-export interface FaqItem {
-	question: string;
-	answer: string;
-}
-
 export interface LandingContent {
 	heroTitle: string;
 	heroSubtitle: string;
@@ -41,8 +36,6 @@ export interface LandingContent {
 	desktopFeatures: string[];
 	ctaDownload: string;
 	ctaAllPlatforms: string;
-	faqTitle: string;
-	faqItems: FaqItem[];
 	learnMoreTitle: string;
 	learnMoreLinks: { href: string; title: string; text: string }[];
 }

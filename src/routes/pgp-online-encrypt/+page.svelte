@@ -1,58 +1,19 @@
 <script lang="ts">
 	import SeoHead from '$lib/components/SeoHead.svelte';
+	import { t } from '$lib/i18n';
 
-	const faqItems = [
-		{
-			question: 'Is it safe to encrypt PGP messages online?',
-			answer: 'Yes, when using KeychainPGP\'s web app. All encryption and decryption happens locally in your browser using WebAssembly compiled from Rust. No data is ever sent to a server. The entire application runs client-side, so your messages and keys never leave your device.'
-		},
-		{
-			question: 'What is PGP encryption used for?',
-			answer: 'PGP (Pretty Good Privacy) encryption is used to protect private messages, emails, files, and digital signatures. It uses public-key cryptography, meaning you encrypt a message with someone\'s public key, and only their private key can decrypt it. PGP is widely used by journalists, activists, security professionals, and anyone who values private communication.'
-		},
-		{
-			question: 'How does PGP encryption work?',
-			answer: 'PGP uses a combination of symmetric and asymmetric cryptography. When you encrypt a message, PGP generates a random session key, encrypts the message with that key using a fast symmetric cipher, then encrypts the session key with the recipient\'s public key. The recipient uses their private key to decrypt the session key, then decrypts the message. KeychainPGP uses modern Ed25519 + X25519 keys for this process.'
-		},
-		{
-			question: 'What is the difference between PGP and GPG?',
-			answer: 'PGP (Pretty Good Privacy) is the original encryption standard created by Phil Zimmermann in 1991. GPG (GNU Privacy Guard, or GnuPG) is a free, open-source implementation of the OpenPGP standard. OpenPGP is the IETF standard (RFC 4880) that defines the message format. KeychainPGP implements the OpenPGP standard using the Sequoia-PGP library written in Rust.'
-		},
-		{
-			question: 'Can I use PGP without installing software?',
-			answer: 'Yes. KeychainPGP offers a web-based PGP tool that runs entirely in your browser using WebAssembly. You can generate keys, encrypt and decrypt messages, and manage contacts without installing anything. For daily use, KeychainPGP also has native desktop apps (Windows, macOS, Linux) with global hotkeys and system tray integration, an Android app with QR code key sync, and a CLI for scripting and automation.'
-		},
-		{
-			question: 'What encryption algorithm does KeychainPGP use?',
-			answer: 'KeychainPGP uses Ed25519 for digital signatures and X25519 for key agreement — both are modern elliptic curve cryptography algorithms. These provide equivalent security to RSA-3072 at a fraction of the key size. The cryptographic operations are powered by Sequoia-PGP, a Rust implementation of OpenPGP with no OpenSSL dependency.'
-		},
-		{
-			question: 'Is PGP encryption still secure in 2026?',
-			answer: 'Yes. PGP encryption with modern algorithms (like Ed25519/X25519 used by KeychainPGP) remains one of the strongest available encryption standards. The mathematical foundations of elliptic curve cryptography have not been broken. PGP\'s security depends on proper key management, strong passphrases, and using up-to-date implementations.'
-		},
-		{
-			question: 'How do I share my PGP public key?',
-			answer: 'You can share your PGP public key by exporting it in ASCII-armored format (a text block starting with -----BEGIN PGP PUBLIC KEY BLOCK-----). Send it via email, paste it in a chat, publish it on your website, or share it on a key server. In KeychainPGP, go to the Keys tab and use the export function to copy your public key.'
-		},
-		{
-			question: 'What is clipboard-based PGP encryption?',
-			answer: 'Clipboard-based PGP encryption is a workflow where you copy text to your clipboard, encrypt or decrypt it with a hotkey or button press, and paste the result. This approach works with any application — email, chat, notes, or any text field. KeychainPGP pioneered this approach with global hotkeys: Ctrl+Shift+E to encrypt and Ctrl+Shift+D to decrypt.'
-		},
-		{
-			question: 'Is KeychainPGP really free and open source?',
-			answer: 'Yes. KeychainPGP is 100% free and open source under dual MIT/Apache-2.0 license. The source code is publicly available on GitHub. There are no paid tiers, no premium features, no accounts, no telemetry, and no tracking. The project is funded by voluntary cryptocurrency donations.'
-		}
-	];
+	const locale = 'en';
+	const faqKeys = Array.from({ length: 10 }, (_, i) => i + 1);
 
 	const faqSchema = {
 		"@context": "https://schema.org",
 		"@type": "FAQPage",
-		"mainEntity": faqItems.map(item => ({
+		"mainEntity": faqKeys.map(i => ({
 			"@type": "Question",
-			"name": item.question,
+			"name": t(locale, `faq.q${i}`),
 			"acceptedAnswer": {
 				"@type": "Answer",
-				"text": item.answer
+				"text": t(locale, `faq.a${i}`)
 			}
 		}))
 	};
@@ -217,12 +178,12 @@
 <!-- FAQ -->
 <section class="landing-section" id="faq">
 	<div class="landing-inner">
-		<h2>Frequently Asked Questions</h2>
+		<h2>{t(locale, 'faq.title')}</h2>
 		<div class="faq-list">
-			{#each faqItems as item}
+			{#each faqKeys as i}
 				<details class="faq-item">
-					<summary>{item.question}</summary>
-					<p>{item.answer}</p>
+					<summary>{t(locale, `faq.q${i}`)}</summary>
+					<p>{t(locale, `faq.a${i}`)}</p>
 				</details>
 			{/each}
 		</div>

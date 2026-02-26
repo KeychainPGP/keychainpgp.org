@@ -39,19 +39,6 @@ export const landing: LandingContent = {
 	],
 	ctaDownload: 'KeychainPGPをダウンロード',
 	ctaAllPlatforms: 'すべてのプラットフォーム',
-	faqTitle: 'よくある質問',
-	faqItems: [
-		{ question: 'オンラインでPGPメッセージを暗号化するのは安全ですか？', answer: 'はい、KeychainPGPウェブアプリなら安全です。すべての暗号化と復号はRustからコンパイルされたWebAssemblyを介してブラウザ内でローカルに行われます。サーバーにデータは送信されません。アプリは完全にクライアントサイドで動作し、メッセージと鍵がデバイスから外に出ることはありません。' },
-		{ question: 'PGP暗号化は何に使われますか？', answer: 'PGP（Pretty Good Privacy）は、プライベートメッセージ、メール、ファイル、デジタル署名を保護するために使用されます。公開鍵暗号を使用します：誰かの公開鍵でメッセージを暗号化し、その人の秘密鍵だけが復号できます。PGPはジャーナリスト、活動家、セキュリティ専門家、そしてプライバシーを重視するすべての人に広く利用されています。' },
-		{ question: 'PGP暗号化の仕組みは？', answer: 'PGPは対称暗号と非対称暗号の組み合わせを使用します。暗号化時、PGPはランダムなセッション鍵を生成し、高速な対称暗号でメッセージを暗号化し、次に受信者の公開鍵でセッション鍵を暗号化します。受信者は秘密鍵でセッション鍵を復号し、その後メッセージを復号します。KeychainPGPはこのプロセスにモダンなEd25519 + X25519鍵を使用します。' },
-		{ question: 'PGPとGPGの違いは？', answer: 'PGP（Pretty Good Privacy）は1991年にPhil Zimmermannが作成したオリジナルの暗号化標準です。GPG（GNU Privacy Guard、GnuPG）はOpenPGP標準のフリーでオープンソースの実装です。OpenPGPはメッセージ形式を定義するIETF標準（RFC 4880）です。KeychainPGPはRustで書かれたSequoia-PGPライブラリを通じてOpenPGP標準を実装しています。' },
-		{ question: 'ソフトウェアをインストールせずにPGPを使えますか？', answer: 'はい。KeychainPGPはWebAssemblyを介してブラウザ内で完全に動作するオンラインPGPツールを提供しています。鍵の生成、メッセージの暗号化・復号、連絡先の管理がインストールなしで行えます。日常的な使用には、グローバルショートカット付きのネイティブデスクトップアプリ（Windows、macOS、Linux）、QRコード同期のAndroidアプリ、スクリプティング用のCLIもあります。' },
-		{ question: 'KeychainPGPはどの暗号化アルゴリズムを使用していますか？', answer: 'KeychainPGPはデジタル署名にEd25519、鍵交換にX25519を使用しています — どちらもモダンな楕円曲線暗号アルゴリズムです。鍵サイズの数分の一でRSA-3072と同等のセキュリティを提供します。暗号操作はOpenSSLに依存しないRustによるOpenPGP実装、Sequoia-PGPを搭載しています。' },
-		{ question: '2026年でもPGP暗号化は安全ですか？', answer: 'はい。KeychainPGPが使用するEd25519/X25519のようなモダンなアルゴリズムによるPGP暗号化は、利用可能な最も堅牢な暗号化標準の一つです。楕円曲線暗号の数学的基盤は破られていません。PGPのセキュリティは、適切な鍵管理、強力なパスフレーズ、最新の実装に依存します。' },
-		{ question: 'PGP公開鍵はどうやって共有しますか？', answer: 'PGP公開鍵はASCII形式（-----BEGIN PGP PUBLIC KEY BLOCK-----で始まるテキストブロック）でエクスポートして共有できます。メールで送信したり、チャットに貼り付けたり、ウェブサイトに公開したり、鍵サーバーで共有したりできます。KeychainPGPでは「鍵」タブからエクスポート機能を使って公開鍵をコピーできます。' },
-		{ question: 'PGPクリップボード暗号化とは？', answer: 'PGPクリップボード暗号化は、テキストをクリップボードにコピーし、ショートカットやボタンで暗号化または復号し、結果を貼り付けるワークフローです。このアプローチはメール、チャット、メモ、あらゆるテキストフィールドなど、どのアプリケーションでも動作します。KeychainPGPはこのアプローチを中心に設計されており、グローバルショートカット：Ctrl+Shift+Eで暗号化、Ctrl+Shift+Dで復号を提供します。' },
-		{ question: 'KeychainPGPは本当に無料でオープンソースですか？', answer: 'はい。KeychainPGPはMIT/Apache-2.0デュアルライセンスの100%無料のオープンソースソフトウェアです。ソースコードはGitHubで公開されています。有料版なし、プレミアム機能なし、アカウント不要、テレメトリなし、トラッキングなしです。' }
-	],
 	learnMoreTitle: 'PGP暗号化について詳しく学ぶ',
 	learnMoreLinks: [
 		{ href: '/ja/docs/what-is-pgp/', title: 'PGPとは？', text: 'Pretty Good Privacy、公開鍵暗号、デジタル署名に関する包括的なガイド。' },

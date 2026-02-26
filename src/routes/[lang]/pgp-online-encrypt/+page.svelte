@@ -1,20 +1,23 @@
 <script lang="ts">
 	import SeoHead from '$lib/components/SeoHead.svelte';
+	import { t, type Locale } from '$lib/i18n';
 
 	let { data } = $props();
 	let c = $derived(data.content);
-	let locale = $derived(data.locale);
+	let locale = $derived(data.locale as Locale);
 	let canonical = $derived(`https://keychainpgp.org/${locale}/pgp-online-encrypt/`);
+
+	const faqKeys = Array.from({ length: 10 }, (_, i) => i + 1);
 
 	let faqSchema = $derived({
 		"@context": "https://schema.org",
 		"@type": "FAQPage",
-		"mainEntity": c.faqItems.map(item => ({
+		"mainEntity": faqKeys.map(i => ({
 			"@type": "Question",
-			"name": item.question,
+			"name": t(locale, `faq.q${i}`),
 			"acceptedAnswer": {
 				"@type": "Answer",
-				"text": item.answer
+				"text": t(locale, `faq.a${i}`)
 			}
 		}))
 	});
@@ -112,12 +115,12 @@
 <!-- FAQ -->
 <section class="landing-section" id="faq">
 	<div class="landing-inner">
-		<h2>{c.faqTitle}</h2>
+		<h2>{t(locale, 'faq.title')}</h2>
 		<div class="faq-list">
-			{#each c.faqItems as item}
+			{#each faqKeys as i}
 				<details class="faq-item">
-					<summary>{item.question}</summary>
-					<p>{item.answer}</p>
+					<summary>{t(locale, `faq.q${i}`)}</summary>
+					<p>{t(locale, `faq.a${i}`)}</p>
 				</details>
 			{/each}
 		</div>

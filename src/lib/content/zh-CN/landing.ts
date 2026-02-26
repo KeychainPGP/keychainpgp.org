@@ -39,19 +39,6 @@ export const landing: LandingContent = {
 	],
 	ctaDownload: '下载 KeychainPGP',
 	ctaAllPlatforms: '所有平台',
-	faqTitle: '常见问题',
-	faqItems: [
-		{ question: '在线加密 PGP 消息安全吗？', answer: '是的，使用 KeychainPGP 网页应用完全安全。所有加密和解密操作都通过由 Rust 编译的 WebAssembly 在浏览器本地完成。没有任何数据被发送到服务器。该应用完全在客户端运行，您的消息和密钥永远不会离开您的设备。' },
-		{ question: 'PGP 加密有什么用？', answer: 'PGP（Pretty Good Privacy）用于保护私人消息、电子邮件、文件和数字签名。它使用公钥密码学：您用某人的公钥加密消息，只有其私钥才能解密。PGP 被记者、活动人士、安全专业人员以及所有关注通信隐私的人广泛使用。' },
-		{ question: 'PGP 加密是如何工作的？', answer: 'PGP 结合使用对称和非对称密码学。加密时，PGP 会生成一个随机的会话密钥，使用该密钥通过快速对称加密算法加密消息，然后用收件人的公钥加密会话密钥。收件人使用其私钥解密会话密钥，再用会话密钥解密消息内容。KeychainPGP 使用现代的 Ed25519 + X25519 密钥来完成此过程。' },
-		{ question: 'PGP 和 GPG 有什么区别？', answer: 'PGP（Pretty Good Privacy）是 Phil Zimmermann 于 1991 年创建的原始加密标准。GPG（GNU Privacy Guard，又称 GnuPG）是 OpenPGP 标准的免费开源实现。OpenPGP 是 IETF 标准 (RFC 4880)，定义了消息格式。KeychainPGP 通过 Rust 编写的 Sequoia-PGP 库实现 OpenPGP 标准。' },
-		{ question: '可以不安装软件就使用 PGP 吗？', answer: '可以。KeychainPGP 提供完全在浏览器中通过 WebAssembly 运行的在线 PGP 工具。您可以生成密钥、加密和解密消息、管理联系人，无需安装任何软件。如需日常使用，KeychainPGP 还提供带全局快捷键的原生桌面应用（Windows、macOS、Linux）、支持 QR 码同步的 Android 应用以及用于脚本的 CLI。' },
-		{ question: 'KeychainPGP 使用什么加密算法？', answer: 'KeychainPGP 使用 Ed25519 进行数字签名，使用 X25519 进行密钥交换——两种现代的椭圆曲线密码学算法。它们以极小的密钥尺寸提供等同于 RSA-3072 的安全性。密码学操作由 Sequoia-PGP 提供支持——一个不依赖 OpenSSL 的 Rust 语言 OpenPGP 实现。' },
-		{ question: '2026 年 PGP 加密还安全吗？', answer: '是的。使用现代算法（如 KeychainPGP 所用的 Ed25519/X25519）的 PGP 加密仍然是目前最强大的加密标准之一。椭圆曲线密码学的数学基础尚未被攻破。PGP 的安全性取决于良好的密钥管理、强密码短语和及时更新的实现。' },
-		{ question: '如何分享我的 PGP 公钥？', answer: '您可以将 PGP 公钥导出为 ASCII 格式（以 -----BEGIN PGP PUBLIC KEY BLOCK----- 开头的文本块）进行分享。通过电子邮件发送、粘贴到聊天中、发布在网站上，或上传到密钥服务器。在 KeychainPGP 中，进入"密钥"选项卡，使用导出功能复制您的公钥。' },
-		{ question: '什么是 PGP 剪贴板加密？', answer: 'PGP 剪贴板加密是一种工作流：您将文本复制到剪贴板，通过快捷键或按钮进行加密或解密，然后粘贴结果。这种方式适用于任何应用——电子邮件、聊天、笔记或任何文本输入框。KeychainPGP 就是围绕这种方式设计的，提供全局快捷键：Ctrl+Shift+E 加密，Ctrl+Shift+D 解密。' },
-		{ question: 'KeychainPGP 真的是免费开源的吗？', answer: '是的。KeychainPGP 100% 免费开源，采用 MIT/Apache-2.0 双许可证。源代码在 GitHub 上公开可见。没有付费版本、没有高级功能、没有账户、没有遥测、没有追踪。' }
-	],
 	learnMoreTitle: '了解更多关于 PGP 加密的知识',
 	learnMoreLinks: [
 		{ href: '/zh-CN/docs/what-is-pgp/', title: '什么是 PGP？', text: '关于 Pretty Good Privacy、公钥密码学和数字签名的完整指南。' },
