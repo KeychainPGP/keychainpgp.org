@@ -8,7 +8,20 @@
 	function onChange() {
 		localStorage.setItem('locale', selected);
 		const hash = window.location.hash;
-		window.location.href = (selected === 'en' ? '/' : `/${selected}/`) + hash;
+
+		// Strip current locale prefix from pathname to get the base path
+		let path = window.location.pathname;
+		const currentLocaleMatch = path.match(/^\/([a-z]{2}(?:-[A-Z]{2})?)\//);
+		if (currentLocaleMatch && (locales as readonly string[]).includes(currentLocaleMatch[1])) {
+			path = path.slice(currentLocaleMatch[0].length - 1); // keep leading /
+		}
+
+		// Build new URL with selected locale prefix
+		if (selected === 'en') {
+			window.location.href = path + hash;
+		} else {
+			window.location.href = `/${selected}${path}` + hash;
+		}
 	}
 </script>
 

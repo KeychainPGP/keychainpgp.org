@@ -1,0 +1,164 @@
+---
+layout: docs
+title: "PGP for Beginners: A Simple Guide to Getting Started with PGP Encryption"
+description: "Learn PGP encryption from scratch. This beginner guide explains how PGP works, walks you through your first encrypted message, and covers key concepts."
+slug: "/docs/pgp-for-beginners/"
+lastUpdated: "2026-02-25"
+toc:
+  - { id: "why-encryption-matters", text: "Why Encryption Matters", level: 2 }
+  - { id: "what-is-pgp-explained-simply", text: "What Is PGP, Explained Simply", level: 2 }
+  - { id: "key-concepts-you-need-to-know", text: "Key Concepts You Need to Know", level: 2 }
+  - { id: "public-key-your-address", text: "Public Key: Your Address", level: 3 }
+  - { id: "private-key-your-password", text: "Private Key: Your Password", level: 3 }
+  - { id: "encryption-vs-signing", text: "Encryption vs. Signing", level: 3 }
+  - { id: "key-fingerprints", text: "Key Fingerprints", level: 3 }
+  - { id: "ascii-armor", text: "ASCII Armor", level: 3 }
+  - { id: "your-first-pgp-message", text: "Your First PGP Message", level: 2 }
+  - { id: "common-beginner-mistakes", text: "Common Beginner Mistakes", level: 2 }
+  - { id: "next-steps", text: "Next Steps", level: 2 }
+  - { id: "faq", text: "Frequently Asked Questions", level: 2 }
+---
+
+# PGP for Beginners: A Simple Guide to Getting Started
+
+Getting started with PGP is easier than you think. You generate a pair of keys -- one public, one private -- share the public key with the people you want to communicate with, and use the private key to decrypt messages they send you. You do not need to install any software to try it out. With a free [online PGP tool](/pgp-online-encrypt/) like KeychainPGP, you can encrypt your first message in under five minutes, right from your browser.
+
+This PGP encryption beginner guide will walk you through everything you need to know, step by step, using plain language and simple analogies. By the end, you will understand how PGP works, why it matters, and how to start using it today.
+
+## Why Encryption Matters
+
+Every day, billions of messages travel across the internet. Emails, chat messages, documents -- most of them are sent in plain text, meaning anyone who intercepts them can read them. That includes internet service providers, hackers on public Wi-Fi, and even government surveillance programs.
+
+**Data breaches are not rare events.** They happen constantly. In the last few years alone, billions of personal records have been leaked from major corporations, healthcare providers, and government agencies. If your messages are unencrypted, they are sitting in databases as readable text, waiting for the next breach.
+
+Encryption solves this problem. When you encrypt a message with PGP, it gets scrambled into unreadable gibberish. Only the person who holds the right private key can unscramble it. Even if someone intercepts the message in transit, or a server storing it gets hacked, they see nothing but random characters.
+
+You do not need to be a journalist, activist, or spy to benefit from encryption. Anyone who values their privacy -- whether you are sending financial information, medical details, business plans, or just a private note to a friend -- deserves the ability to communicate without being watched.
+
+## What Is PGP, Explained Simply
+
+PGP stands for **Pretty Good Privacy**. It was created in 1991 by Phil Zimmermann, and it has become the worldwide standard for encrypting messages and files. The modern version is defined by the **OpenPGP** standard, which ensures that different PGP tools can all work together.
+
+Here is the simplest way to understand how PGP works. Think of it like a **mailbox with a slot**.
+
+Imagine you have a special mailbox on the street. Anyone can walk up to it and drop a letter through the slot. But once the letter is inside the mailbox, only you can open it, because only you have the key to the mailbox door.
+
+In PGP terms:
+
+- The **mailbox slot** is your **public key**. You give it to anyone who wants to send you a private message. It is safe to share, post online, or print on your business card.
+- The **mailbox key** is your **private key**. You never share this with anyone. It is the only thing that can open messages encrypted with your public key.
+
+This is called **asymmetric encryption** -- one key locks, a different key unlocks. It is the foundation of PGP and what makes it so powerful. You can share your public key with the entire world, and your messages remain secure as long as your private key stays private.
+
+If you want a deeper technical explanation, read our full guide on [what is PGP](/docs/what-is-pgp/).
+
+## Key Concepts You Need to Know
+
+Before you encrypt your first message, here are five concepts that will make everything else click.
+
+### Public Key: Your Address
+
+Your public key is like your home address. You freely hand it out so people can send things to you. On its own, your address cannot be used to break into your house. In PGP, you share your public key so others can encrypt messages that only you can read.
+
+A public key looks like a block of text that starts with `-----BEGIN PGP PUBLIC KEY BLOCK-----` and ends with `-----END PGP PUBLIC KEY BLOCK-----`. You can paste it into an email, publish it on your website, or share it through a key server.
+
+### Private Key: Your Password
+
+Your private key is like the key to your front door. It is the one thing that lets you open messages encrypted with your public key. You must **never share your private key** with anyone, under any circumstances.
+
+Think of it this way: if someone gets your home address, they know where you live but cannot get inside. If someone gets your house key, they can walk right in. Protect your private key the same way you would protect a house key -- keep it somewhere safe and do not hand out copies.
+
+### Encryption vs. Signing
+
+PGP can do two things: **encrypt** and **sign**.
+
+- **Encryption** scrambles a message so only the recipient can read it. You use the recipient's public key to encrypt, and they use their private key to decrypt.
+- **Signing** proves that a message came from you and has not been tampered with. You use your own private key to sign, and anyone with your public key can verify the signature.
+
+A good analogy: encryption is like putting a letter in a locked box that only the recipient can open. Signing is like sealing the envelope with your unique wax stamp -- anyone can see the stamp and confirm it is yours, but nobody can forge it.
+
+You can encrypt a message, sign a message, or do both at the same time for maximum security.
+
+### Key Fingerprints
+
+A key fingerprint is a short string of characters that uniquely identifies a PGP key. It looks something like this:
+
+`A1B2 C3D4 E5F6 7890 1234 5678 9ABC DEF0 1234 5678`
+
+Fingerprints are used to **verify** that a public key actually belongs to the person you think it does. Before you encrypt a sensitive message to someone, you should compare the fingerprint of the key you have with the fingerprint they tell you in person, over a phone call, or through another trusted channel.
+
+This verification step prevents a "man-in-the-middle" attack, where someone gives you a fake public key and intercepts your messages.
+
+### ASCII Armor
+
+When you see a PGP key or encrypted message as a block of text starting with `-----BEGIN PGP MESSAGE-----`, that is called **ASCII armor**. It is simply a way of encoding binary data as printable text characters so you can copy and paste it into emails, chat windows, web forms, or any other text-based medium.
+
+Without ASCII armor, a PGP message would be raw binary data -- impossible to paste into an email. ASCII armor wraps the binary data in a text-safe format that works everywhere.
+
+## Your First PGP Message
+
+Let's walk through encrypting your first message using the [KeychainPGP web app](https://keychainpgp.github.io). This is a free [online PGP tool](/pgp-online-encrypt/) that runs entirely in your browser -- nothing is sent to any server.
+
+**Step 1: Open the web app.** Go to [keychainpgp.github.io](https://keychainpgp.github.io) in your browser. The app loads using WebAssembly, which means the PGP engine runs locally on your computer. No installation needed.
+
+**Step 2: Generate your key pair.** Navigate to the Keys tab and create a new key. Enter your name and email address. KeychainPGP will generate a modern Ed25519 + X25519 key pair for you. This gives you both a public key (to share) and a private key (keep secret).
+
+**Step 3: Export and share your public key.** After generating your key, use the export function to copy your public key in ASCII-armored format. Send this to the person you want to communicate with, or publish it wherever they can find it.
+
+**Step 4: Import your recipient's public key.** Ask the person you want to message for their public key. In the Keys tab, paste their public key block to import it. You now have their "mailbox slot" and can send them encrypted messages.
+
+**Step 5: Write and encrypt your message.** Go to the Encrypt tab. Type or paste the message you want to protect. Select your recipient from the key list and click **"Encrypt to Clipboard"**. The encrypted message is instantly copied to your clipboard.
+
+**Step 6: Send the encrypted message.** Paste the encrypted text into any email, chat, or messaging app. The message will look like a block of random characters wrapped in `-----BEGIN PGP MESSAGE-----` and `-----END PGP MESSAGE-----`. Only your recipient can decrypt it using their private key.
+
+**Step 7: Decrypt a reply.** When your recipient sends you an encrypted message, copy the entire PGP message block. In the KeychainPGP app, go to the Decrypt tab, paste the message, and click Decrypt. Your private key will unlock the message and show you the original text.
+
+That is it. You have just sent and received your first PGP-encrypted message. For a more detailed walkthrough with screenshots, check out our [how to use PGP](/docs/how-to-use-pgp/) guide.
+
+## Common Beginner Mistakes
+
+PGP is simple once you understand the basics, but there are a few mistakes that trip up nearly every beginner. Avoid these and you will be in great shape.
+
+**1. Sharing your private key.** This is the number one mistake. Your private key must never be sent to anyone, pasted into a website (other than your local PGP tool), or shared in any form. If someone asks for your private key, they either do not understand PGP or are trying to compromise you. Only share your **public** key.
+
+**2. Not verifying fingerprints.** When someone sends you their public key, how do you know it is really theirs? An attacker could intercept the key and replace it with their own. Always verify the key's fingerprint through a separate, trusted channel -- a phone call, a video chat, or an in-person meeting. This one step prevents the most dangerous attack against PGP.
+
+**3. Losing your private key without a backup.** If you lose your private key, every message ever encrypted to that key is gone forever. There is no "forgot my password" link, no recovery service, no backdoor. Back up your private key in a secure location, such as an encrypted USB drive stored in a safe place. KeychainPGP's desktop app can store keys in your operating system's credential store (Windows Credential Manager, macOS Keychain, or Linux Secret Service) for added safety.
+
+**4. Not backing up your revocation certificate.** When you generate a key pair, you should also generate a revocation certificate. This lets you publicly declare that your key is no longer valid if it ever gets compromised or lost. Without a revocation certificate, a compromised key could be used to impersonate you indefinitely.
+
+**5. Using outdated or weak keys.** If you are generating new keys today, use modern algorithms. KeychainPGP defaults to Ed25519 + X25519, which are fast, compact, and secure. Avoid old RSA-1024 or DSA keys, which no longer meet current security standards.
+
+## Next Steps
+
+Now that you understand the basics of PGP, here is where to go from here:
+
+- **Read the full guide:** Our [how to use PGP](/docs/how-to-use-pgp/) article covers signing, verification, key management, and more advanced topics in detail.
+- **Understand what PGP is:** For a deeper dive into the protocol and its history, read [what is PGP](/docs/what-is-pgp/).
+- **Learn clipboard encryption:** Discover how [clipboard-based encryption](/docs/clipboard-encryption/) lets you use PGP with any application through copy-and-paste.
+- **Try the online tool:** Open the [online PGP tool](/pgp-online-encrypt/) and practice encrypting and decrypting messages. Repetition builds confidence.
+- **Get the desktop app:** For daily use, the [KeychainPGP desktop app](https://github.com/keychainpgp/keychainpgp/releases/latest) adds global hotkeys (`Ctrl+Shift+E` to encrypt, `Ctrl+Shift+D` to decrypt), system tray integration, automatic clipboard clearing, and secure key storage.
+
+The most important step is simply to start. Generate a key, exchange public keys with a friend, and send each other a few encrypted messages. Within a few exchanges, PGP will feel natural.
+
+## Frequently Asked Questions
+
+### Is PGP hard to learn?
+
+No. The core concept is straightforward: one public key to share, one private key to keep secret. Encrypting a message takes just a few clicks with a modern tool like KeychainPGP. The most common confusion comes from mixing up public and private keys, but once you understand the mailbox analogy -- the slot is public, the key is private -- everything falls into place.
+
+### Do I need to install software to use PGP?
+
+Not necessarily. You can use KeychainPGP's [online PGP tool](/pgp-online-encrypt/) directly in your browser with zero installation. It runs entirely on your device using WebAssembly, so your messages and keys never leave your computer. For regular use, the desktop app adds convenience features like global hotkeys and automatic clipboard clearing.
+
+### Can someone crack my PGP-encrypted messages?
+
+With modern algorithms (like the Ed25519 + X25519 keys used by KeychainPGP), breaking the encryption through brute force would take longer than the age of the universe with current technology. The real risks are not mathematical -- they are practical: losing your private key, using a weak passphrase, or having malware on your device. Strong key management is far more important than worrying about cryptographic attacks.
+
+### What is the difference between PGP, GPG, and OpenPGP?
+
+**PGP** (Pretty Good Privacy) is the original program created by Phil Zimmermann in 1991. **OpenPGP** is the open standard (RFC 4880) that defines how PGP messages and keys are formatted. **GPG** (GNU Privacy Guard, also called GnuPG) is a free, open-source implementation of the OpenPGP standard. KeychainPGP is another implementation, built on the Sequoia-PGP library written in Rust. All of these tools are compatible because they follow the same OpenPGP standard.
+
+### How do I share my public key with someone?
+
+Export your public key from your PGP tool in ASCII-armored format -- it will be a block of text starting with `-----BEGIN PGP PUBLIC KEY BLOCK-----`. You can paste it directly into an email, post it on your website or social media profile, share it in a chat message, or upload it to a public key server. The public key is safe to share openly. Just remember to verify fingerprints with your contacts through a separate channel to confirm the key is authentic.

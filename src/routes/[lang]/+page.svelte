@@ -3,6 +3,7 @@
 	import Hero from '$lib/components/Hero.svelte';
 	import Features from '$lib/components/Features.svelte';
 	import HowItWorks from '$lib/components/HowItWorks.svelte';
+	import Faq from '$lib/components/Faq.svelte';
 	import Download from '$lib/components/Download.svelte';
 	import Donate from '$lib/components/Donate.svelte';
 	import type { PageData } from './$types';
@@ -51,6 +52,19 @@
 		}
 	})}</script>`}
 
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"mainEntity": Array.from({ length: 10 }, (_, i) => ({
+			"@type": "Question",
+			"name": t(locale, `faq.q${i + 1}`),
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": t(locale, `faq.a${i + 1}`)
+			}
+		}))
+	})}</script>`}
+
 	<link rel="alternate" hreflang="en" href="https://keychainpgp.org/" />
 	<link rel="alternate" hreflang="fr" href="https://keychainpgp.org/fr/" />
 	<link rel="alternate" hreflang="de" href="https://keychainpgp.org/de/" />
@@ -80,4 +94,5 @@
 <Features {locale} />
 <HowItWorks {locale} />
 <Download {locale} />
+<Faq {locale} />
 <Donate {locale} />

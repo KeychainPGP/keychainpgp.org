@@ -1,0 +1,214 @@
+---
+layout: docs
+title: "Best PGP Tools & Encryption Software in 2026 — Complete Guide"
+description: "Comprehensive guide to PGP tools and PGP encryption software. Compare desktop, web-based, mobile, and CLI OpenPGP tools to find the right one for your security needs."
+slug: "/docs/pgp-tools/"
+lastUpdated: "2026-02-25"
+toc:
+  - { id: "what-are-pgp-tools", text: "What Are PGP Tools?", level: 2 }
+  - { id: "desktop-pgp-software", text: "Desktop PGP Software", level: 2 }
+  - { id: "gnupg-gpg", text: "GnuPG (GPG)", level: 3 }
+  - { id: "gpg4win", text: "Gpg4win", level: 3 }
+  - { id: "gpg-suite", text: "GPG Suite", level: 3 }
+  - { id: "keychainpgp-desktop", text: "KeychainPGP Desktop", level: 3 }
+  - { id: "web-based-pgp-tools", text: "Web-Based PGP Tools", level: 2 }
+  - { id: "keychainpgp-web", text: "KeychainPGP Web", level: 3 }
+  - { id: "mailvelope", text: "Mailvelope", level: 3 }
+  - { id: "mobile-pgp-tools", text: "Mobile PGP Tools", level: 2 }
+  - { id: "openkeychain", text: "OpenKeychain", level: 3 }
+  - { id: "keychainpgp-android", text: "KeychainPGP Android", level: 3 }
+  - { id: "cli-pgp-tools", text: "CLI PGP Tools", level: 2 }
+  - { id: "email-pgp-integration", text: "Email PGP Integration", level: 2 }
+  - { id: "thunderbird-enigmail", text: "Thunderbird + Enigmail", level: 3 }
+  - { id: "protonmail", text: "ProtonMail", level: 3 }
+  - { id: "pgp-tools-comparison", text: "PGP Tools Comparison", level: 2 }
+  - { id: "choosing-the-right-pgp-tool", text: "Choosing the Right PGP Tool", level: 2 }
+  - { id: "why-keychainpgp", text: "Why KeychainPGP", level: 2 }
+  - { id: "getting-started", text: "Getting Started", level: 2 }
+---
+
+# Best PGP Tools & Encryption Software in 2026
+
+A wide range of PGP tools are available today for encrypting messages, signing files, and managing OpenPGP keys. These tools span desktop applications, web-based utilities, mobile apps, command-line interfaces, and email plugins. Whether you need a full-featured PGP encryption software suite for daily secure communication or a lightweight OpenPGP tool for occasional use, there is a solution for every platform and skill level. This guide covers every major category of PGP software so you can make an informed decision about which tool fits your workflow.
+
+## What Are PGP Tools?
+
+PGP tools are software applications that implement the [OpenPGP standard](/docs/what-is-pgp/) (RFC 4880 and its successors) for public-key cryptography. They allow you to generate key pairs, encrypt and decrypt messages, create and verify digital signatures, and manage keyrings. The term covers everything from traditional command-line utilities like GnuPG to modern graphical applications like KeychainPGP.
+
+All PGP encryption software works on the same fundamental principle: asymmetric cryptography. You share your public key openly, and anyone can use it to encrypt messages that only your private key can unlock. Understanding the [difference between PGP and GPG](/docs/pgp-vs-gpg/) helps clarify why so many different tools exist — PGP is the standard, and each tool is an implementation of that standard with its own design philosophy.
+
+## Desktop PGP Software
+
+Desktop applications provide the most complete PGP experience. They typically offer key management, encryption and decryption, digital signatures, and integration with the operating system.
+
+### GnuPG (GPG)
+
+**GnuPG** (GNU Privacy Guard) is the foundational open-source implementation of the OpenPGP standard. It is available on virtually every operating system and serves as the backend for many other PGP tools. GnuPG is extremely powerful but primarily command-line driven, which makes it challenging for users who prefer graphical interfaces. It supports RSA, DSA, ECDSA, EdDSA, and a broad range of symmetric ciphers. Most Linux distributions include it by default, and it is the reference implementation that other OpenPGP tools measure themselves against.
+
+- **Platforms:** Windows, macOS, Linux, BSD
+- **Interface:** Command-line (with optional GUI frontends)
+- **License:** GPLv3
+- **Best for:** Power users, developers, system administrators
+
+### Gpg4win
+
+**Gpg4win** bundles GnuPG with a Windows-native graphical interface called Kleopatra. It provides certificate management, file encryption via Windows Explorer integration, and support for S/MIME alongside OpenPGP. Gpg4win is the official GnuPG distribution for Windows and is recommended by the BSI (German Federal Office for Information Security). While Kleopatra offers more approachability than raw GnuPG, many users still find the interface dated and the certificate model confusing.
+
+- **Platforms:** Windows
+- **Interface:** GUI (Kleopatra) + CLI
+- **License:** GPLv3
+- **Best for:** Windows users who need S/MIME + OpenPGP
+
+### GPG Suite
+
+**GPG Suite** is the macOS counterpart to Gpg4win. It includes GPG Keychain for key management, a GPGServices context menu for encrypting text and files, and GPG Mail for Apple Mail integration. GPG Suite makes GnuPG feel native on macOS, though the Mail plugin is a paid component. It is a mature project that has been maintained for over a decade and tracks upstream GnuPG releases closely.
+
+- **Platforms:** macOS
+- **Interface:** GUI + CLI
+- **License:** Open source (Mail plugin is paid)
+- **Best for:** macOS users who use Apple Mail
+
+### KeychainPGP Desktop
+
+**KeychainPGP** takes a fundamentally different approach to PGP encryption software. Rather than wrapping GnuPG in a graphical shell, it uses the **Sequoia-PGP** library written in Rust to provide a modern, clipboard-first workflow. You copy text, press a global hotkey (`Ctrl+Shift+E` to encrypt, `Ctrl+Shift+D` to decrypt), and paste the result — it works with any application on your system. KeychainPGP defaults to **Ed25519 + X25519** keys, stores secrets in your OS credential manager, and includes OPSEC features like clipboard auto-clear, window title disguise, and a panic wipe button.
+
+- **Platforms:** Windows, macOS, Linux, Android, Web, CLI
+- **Interface:** GUI with system tray + global hotkeys + CLI
+- **License:** MIT / Apache-2.0
+- **Best for:** Anyone who wants PGP encryption that works across every application and platform
+
+## Web-Based PGP Tools
+
+Web-based OpenPGP tools run entirely in the browser, making them accessible without installation. The trade-off is that they depend on the browser's security model and cannot integrate with the operating system at the same level as native applications.
+
+### KeychainPGP Web
+
+The [KeychainPGP web app](/pgp-online-encrypt/) compiles the same Rust-based Sequoia-PGP engine to WebAssembly, so all cryptographic operations happen locally in your browser. No data is ever transmitted to a server. You can generate keys, encrypt and decrypt messages, and manage contacts — all without installing anything. It uses the same modern Ed25519/X25519 algorithms as the desktop version and shares a consistent interface. This makes it ideal for quick encryption tasks on shared or unfamiliar machines.
+
+- **Platforms:** Any modern browser
+- **Interface:** Web GUI
+- **License:** MIT / Apache-2.0
+- **Best for:** Quick encryption without installation, shared computers
+
+### Mailvelope
+
+**Mailvelope** is a browser extension that integrates OpenPGP encryption directly into webmail providers like Gmail, Outlook.com, and Yahoo Mail. It overlays an encryption interface on top of the compose window, allowing you to encrypt and decrypt emails without leaving your webmail. Mailvelope uses OpenPGP.js under the hood and supports key generation, key import from key servers, and encrypted file attachments. It is a practical choice for users who are committed to webmail but want end-to-end encryption.
+
+- **Platforms:** Chrome, Firefox, Edge (browser extension)
+- **Interface:** Integrated into webmail
+- **License:** AGPLv3
+- **Best for:** Webmail users (Gmail, Outlook.com)
+
+## Mobile PGP Tools
+
+Mobile PGP tools bring encryption to smartphones and tablets. The limited input methods on mobile devices make usability particularly important in this category.
+
+### OpenKeychain
+
+**OpenKeychain** is a mature, open-source OpenPGP app for Android. It provides key management, encryption, decryption, and digital signatures. OpenKeychain integrates with compatible email clients like K-9 Mail (now Thunderbird for Android) through the OpenPGP API, enabling seamless encrypted email. It supports NFC-based key transfer, hardware security tokens (like YubiKey), and key server lookup. OpenKeychain has been the standard Android PGP tool for years.
+
+- **Platforms:** Android
+- **Interface:** Native Android GUI
+- **License:** GPLv3
+- **Best for:** Android users who need full PGP key management
+
+### KeychainPGP Android
+
+**KeychainPGP for Android** brings the same modern cryptography and interface to mobile. Built with Tauri v2 and the same Sequoia-PGP Rust backend, it offers key generation with Ed25519/X25519, encryption and decryption, contact management, and QR code-based key sync with the desktop app. The interface is optimized for touch input while maintaining the simplicity of the desktop experience. Available via GitHub releases and Obtainium.
+
+- **Platforms:** Android (7.0+)
+- **Interface:** Native-like GUI (Tauri v2) with QR code key sync
+- **License:** MIT / Apache-2.0
+- **Best for:** Users who want consistent KeychainPGP experience on mobile with cross-device key sync
+
+## CLI PGP Tools
+
+Command-line PGP tools are favored by developers, system administrators, and security professionals who value scriptability and automation. **GnuPG** (`gpg`) is the dominant CLI tool, but newer alternatives have emerged. **KeychainPGP** provides its own CLI (`keychainpgp`) with commands for key generation, encryption, decryption, signing, verification, key inspection, and keyring management — all powered by the same Sequoia-PGP Rust engine as the desktop app. **Sequoia-PGP** also provides `sq`, another modern Rust-based CLI with a clean command structure. **age** is a simpler alternative focused exclusively on file encryption (not full OpenPGP), and **minisign** handles only signature verification. For most CLI PGP workflows — scripting automated encryption, managing keys, or integrating PGP into CI/CD pipelines — GnuPG, KeychainPGP CLI, or Sequoia's `sq` are the practical choices.
+
+## Email PGP Integration
+
+Email was the original use case for PGP, and dedicated email integrations remain essential for users who send encrypted correspondence regularly.
+
+### Thunderbird + Enigmail
+
+**Mozilla Thunderbird** has native OpenPGP support built in since version 78 (the standalone Enigmail add-on is no longer needed for current versions). Thunderbird can generate OpenPGP keys, encrypt and sign outgoing messages, and automatically decrypt incoming messages from contacts whose public keys you have imported. The setup process involves importing or generating a key in Thunderbird's account settings, then importing recipients' public keys. Thunderbird uses RNP (a C++ OpenPGP library) as its backend rather than GnuPG.
+
+- **Platforms:** Windows, macOS, Linux
+- **License:** MPL 2.0
+- **Best for:** Users who want integrated encrypted email in a desktop client
+
+### ProtonMail
+
+**ProtonMail** (now Proton Mail) provides end-to-end encrypted email using OpenPGP under the hood, but abstracts away all key management. Keys are generated automatically, and encryption between Proton users is transparent. You can also import external PGP public keys to send encrypted messages to non-Proton users, or export your own Proton key for use in other tools. ProtonMail is the easiest path to encrypted email, though you are tied to their platform and pricing tiers.
+
+- **Platforms:** Web, iOS, Android, Desktop (Bridge for IMAP)
+- **License:** Proprietary (client is open source)
+- **Best for:** Users who want effortless encrypted email without managing keys
+
+## PGP Tools Comparison
+
+The following table compares the most popular PGP encryption software across key criteria. For a deeper analysis of each tool, see our [PGP software comparison](/blog/pgp-software-comparison/) and [best PGP tools of 2026](/blog/best-pgp-tools-2026/) articles.
+
+| Tool | Platforms | Interface | Default Keys | Library | Open Source | Best For |
+|---|---|---|---|---|---|---|
+| **GnuPG** | Win/Mac/Linux | CLI | RSA-3072 | GnuPG (C) | Yes (GPLv3) | Power users, scripting |
+| **Gpg4win** | Windows | GUI + CLI | RSA-3072 | GnuPG (C) | Yes (GPLv3) | Windows + S/MIME |
+| **GPG Suite** | macOS | GUI + CLI | RSA-3072 | GnuPG (C) | Partial | macOS + Apple Mail |
+| **KeychainPGP** | Win/Mac/Linux/Android/Web/CLI | GUI + Hotkeys + CLI | Ed25519/X25519 | Sequoia-PGP (Rust) | Yes (MIT/Apache-2.0) | Clipboard workflow |
+| **Mailvelope** | Browser ext. | Webmail overlay | RSA-4096 | OpenPGP.js | Yes (AGPLv3) | Gmail/Outlook users |
+| **OpenKeychain** | Android | Native GUI | RSA-3072 | Bouncy Castle (Java) | Yes (GPLv3) | Android key mgmt |
+| **Thunderbird** | Win/Mac/Linux | Email client | RSA-3072 | RNP (C++) | Yes (MPL 2.0) | Encrypted email |
+| **ProtonMail** | Web/iOS/Android | Webmail | X25519 | OpenPGP.js | Partial | Zero-config email |
+| **Sequoia sq** | Win/Mac/Linux | CLI | Ed25519/X25519 | Sequoia-PGP (Rust) | Yes (GPLv2+) | Modern CLI workflows |
+
+## Choosing the Right PGP Tool
+
+Selecting the right PGP encryption software depends on your specific requirements. Consider these criteria when evaluating OpenPGP tools:
+
+### Ease of Use
+
+Traditional PGP software like GnuPG was designed for technical users. If you are new to PGP, look for tools that minimize configuration and guide you through key generation. ProtonMail requires zero PGP knowledge. KeychainPGP eliminates algorithm choices and configuration files — generate a key and start encrypting immediately. Gpg4win and GPG Suite fall in the middle, offering GUIs that still expose considerable complexity.
+
+### Security and Cryptographic Defaults
+
+The cryptographic defaults matter. Older tools default to RSA-3072 or RSA-2048 keys, which are secure but produce large keys and signatures. Modern tools like KeychainPGP and Sequoia's `sq` default to **Ed25519/X25519**, which provides equivalent or stronger security with dramatically smaller keys. The underlying library also matters: Sequoia-PGP (Rust) has strong memory safety guarantees compared to GnuPG's C codebase.
+
+### Platform Coverage
+
+If you work across multiple operating systems, cross-platform tools save you from maintaining different workflows. KeychainPGP covers Windows, macOS, Linux, Android, and the web with a consistent interface. GnuPG is available everywhere but requires different GUI frontends on each platform. Some tools like GPG Suite and Gpg4win are single-platform only.
+
+### Open Source and Auditability
+
+For security software, open source is not optional — it is a requirement. Verify that any PGP tool you adopt publishes its source code and has an active development community. All the tools listed in this guide are open source or partially open source. KeychainPGP, GnuPG, OpenKeychain, and Mailvelope are fully open source with permissive or copyleft licenses.
+
+### Integration with Your Workflow
+
+Consider how the tool fits into your daily routine. If you send encrypted email, Thunderbird or ProtonMail integrates naturally. If you need to encrypt text in chat apps, note-taking tools, or web forms, a clipboard-based tool like KeychainPGP is far more versatile than an email-only solution. If you automate encryption in scripts or CI/CD pipelines, a CLI tool like GnuPG or `sq` is the right choice.
+
+## Why KeychainPGP
+
+KeychainPGP was built to solve the problems that have kept PGP encryption inaccessible for decades. Traditional PGP software forces users to learn complex interfaces, choose cryptographic algorithms they do not understand, and restrict encryption to a single application (usually email). KeychainPGP rethinks the entire experience:
+
+**Clipboard-first workflow.** Instead of integrating with one application, KeychainPGP works with *every* application. Copy text from any source, encrypt or decrypt with a single hotkey, and paste the result. This means you can use PGP encryption in Signal, Slack, Notion, a web form, a terminal, or anywhere else you can paste text.
+
+**Modern cryptography by default.** KeychainPGP generates **Ed25519** signing keys and **X25519** encryption subkeys automatically. There are no algorithm menus, no key size dropdowns, no decisions to get wrong. These elliptic curve algorithms are the current best practice, offering stronger security than RSA at a fraction of the key size.
+
+**Cross-platform with a single codebase.** The desktop application is built with Tauri, running native system webviews with a Rust backend. The web application compiles the same Sequoia-PGP engine to WebAssembly. Whether you are on Windows, macOS, Linux, Android, or using a browser, the interface and cryptographic behavior are identical.
+
+**Powered by Sequoia-PGP.** The cryptographic engine is [Sequoia-PGP](https://sequoia-pgp.org/), a Rust implementation of OpenPGP developed by former GnuPG contributors. Rust's memory safety eliminates entire classes of vulnerabilities (buffer overflows, use-after-free) that have historically affected C-based PGP implementations. Sequoia is also fully compatible with the OpenPGP standard, so keys and messages interoperate with GnuPG and other tools.
+
+**Security-conscious design.** KeychainPGP stores private keys in your operating system's credential manager (Windows Credential Manager, macOS Keychain, or Linux Secret Service). Decrypted clipboard contents are automatically cleared after 30 seconds. OPSEC mode disguises the window title, and a panic wipe button erases all local data instantly.
+
+**Truly free and open source.** Licensed under MIT / Apache-2.0 with no paid tiers, no accounts, no telemetry, and no tracking. The entire codebase is available on GitHub for audit.
+
+## Getting Started
+
+Ready to try PGP encryption? Here are the fastest paths depending on your situation:
+
+- **Try it right now** with no installation: open the [KeychainPGP online PGP tool](/pgp-online-encrypt/) in your browser.
+- **Learn the fundamentals** first: read [What is PGP?](/docs/what-is-pgp/) for a thorough introduction to public-key cryptography.
+- **Understand the ecosystem**: our article on [PGP vs GPG](/docs/pgp-vs-gpg/) explains how the standard, the protocol, and the tools relate to each other.
+- **Compare your options**: see our [best PGP tools of 2026](/blog/best-pgp-tools-2026/) roundup for detailed ratings and recommendations, or read the full [PGP software comparison](/blog/pgp-software-comparison/) for side-by-side feature analysis.
+- **Download KeychainPGP**: get the desktop app from [GitHub releases](https://github.com/keychainpgp/keychainpgp/releases/latest) for Windows, macOS, or Linux.
+
+Whichever PGP tool you choose, the most important step is to start using encryption. Every encrypted message is a message that only its intended recipient can read.

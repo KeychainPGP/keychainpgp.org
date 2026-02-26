@@ -1,0 +1,158 @@
+---
+layout: docs
+title: "PGP vs GPG: What Is the Difference Between PGP and GPG?"
+description: "Learn the difference between PGP and GPG. Compare Pretty Good Privacy, GnuPG, and the OpenPGP standard to find the right encryption tool for your needs."
+slug: "/docs/pgp-vs-gpg/"
+lastUpdated: "2026-02-25"
+toc:
+  - { id: "what-is-the-difference-between-pgp-and-gpg", text: "What Is the Difference Between PGP and GPG?", level: 2 }
+  - { id: "what-is-pgp", text: "What Is PGP?", level: 2 }
+  - { id: "what-is-gpg-gnupg", text: "What Is GPG (GnuPG)?", level: 2 }
+  - { id: "what-is-openpgp", text: "What Is OpenPGP?", level: 2 }
+  - { id: "pgp-vs-gpg-comparison-table", text: "PGP vs GPG Comparison Table", level: 2 }
+  - { id: "key-differences-explained", text: "Key Differences Explained", level: 2 }
+  - { id: "licensing-and-cost", text: "Licensing and Cost", level: 3 }
+  - { id: "platform-support", text: "Platform Support", level: 3 }
+  - { id: "algorithm-and-key-format-support", text: "Algorithm and Key Format Support", level: 3 }
+  - { id: "user-experience", text: "User Experience", level: 3 }
+  - { id: "which-should-you-use", text: "Which Should You Use?", level: 2 }
+  - { id: "where-keychainpgp-fits-in", text: "Where KeychainPGP Fits In", level: 2 }
+  - { id: "frequently-asked-questions", text: "Frequently Asked Questions", level: 2 }
+---
+
+# PGP vs GPG: What Is the Difference Between PGP and GPG?
+
+## What Is the Difference Between PGP and GPG?
+
+The difference between PGP and GPG comes down to origin and licensing. **PGP** (Pretty Good Privacy) is the original proprietary encryption program created by Phil Zimmermann in 1991. **GPG** (GNU Privacy Guard, also called GnuPG) is a free, open-source reimplementation of the same concept, developed as part of the GNU project. Both programs implement the **OpenPGP** standard, which means they produce compatible encrypted messages and can work with each other's keys. In practical terms, GPG is the tool most people use today because it is free, actively maintained, and available on every major operating system. If you are new to encryption, our [PGP for beginners guide](/docs/pgp-for-beginners/) walks through the core concepts step by step.
+
+Understanding the relationship between PGP, GPG, and OpenPGP is essential before choosing an encryption tool. The three terms are often used interchangeably in casual conversation, but they refer to distinct things: a commercial product, a free software project, and an open standard, respectively.
+
+## What Is PGP?
+
+PGP stands for **Pretty Good Privacy**. Phil Zimmermann wrote the first version in 1991 and released it as a free tool for activists and ordinary citizens who needed strong encryption. The software combined symmetric-key encryption with public-key cryptography, allowing anyone to send a confidential message to a recipient without having to share a secret passphrase in advance.
+
+Zimmermann's release was controversial. The United States government classified strong cryptographic software as a munition at the time, and Zimmermann faced a three-year federal investigation before the case was dropped in 1996. Despite the legal pressure, PGP spread rapidly across the early internet and became the de facto standard for email encryption.
+
+After the investigation, Zimmermann founded PGP Inc. to commercialize the software. The company changed hands several times: Network Associates acquired it in 1997, PGP Corporation was formed in 2002 to buy it back, and Symantec (now Broadcom) purchased PGP Corporation in 2010. Today, PGP exists as a commercial product suite marketed primarily to enterprises under the Broadcom umbrella.
+
+Key facts about PGP:
+
+- **Created:** 1991 by Phil Zimmermann
+- **License:** Proprietary (commercial)
+- **Current owner:** Broadcom (via Symantec acquisition)
+- **Primary audience:** Enterprise customers
+- **Status:** Still sold commercially, but the brand name is less visible than it once was
+
+To learn more about the underlying technology, see our full article on [what PGP is and how it works](/docs/what-is-pgp/).
+
+## What Is GPG (GnuPG)?
+
+GPG, or **GNU Privacy Guard (GnuPG)**, is a free and open-source implementation of the OpenPGP standard. Werner Koch started the project in 1997 with funding from the German government, and released version 1.0 in 1999. GnuPG was created specifically to provide a completely free alternative to the proprietary PGP software, one that anyone could inspect, modify, and distribute.
+
+GnuPG is part of the GNU project and is licensed under the GNU General Public License (GPL). It is included by default in most Linux distributions, and official builds are available for macOS and Windows. The `gpg` command-line tool is the interface most developers and system administrators interact with directly.
+
+Over the years GnuPG has become the dominant PGP implementation in the open-source ecosystem. It is used to sign Linux distribution packages, verify Git commits, encrypt email in clients like Thunderbird, and manage cryptographic keys for a wide range of security workflows. Several graphical front-ends exist for GnuPG, including Kleopatra (on KDE/Windows) and GPG Suite (on macOS), though the user experience can be steep for newcomers. For an overview of available tools, see our [PGP tools comparison](/docs/pgp-tools/).
+
+Key facts about GnuPG:
+
+- **Created:** 1997 by Werner Koch
+- **License:** GNU General Public License (GPL), free and open source
+- **Maintained by:** The GnuPG Project (g10 Code GmbH)
+- **Primary audience:** Developers, system administrators, privacy-conscious users
+- **Status:** Actively maintained, with stable and long-term-support branches
+
+## What Is OpenPGP?
+
+**OpenPGP** is neither a product nor a piece of software. It is an open standard that defines the message formats, key formats, and cryptographic procedures that PGP-compatible tools must follow. The Internet Engineering Task Force (IETF) published the original OpenPGP specification as **RFC 2440** in 1998, and the most widely referenced version is **RFC 4880**, published in 2007. A major update, **RFC 9580** (sometimes referred to as "crypto-refresh"), was published in 2024 to modernize the standard with support for newer algorithms like Ed25519 and AEAD encryption.
+
+The existence of OpenPGP is what makes interoperability possible. Because both PGP and GPG implement the same standard, a message encrypted with GPG can be decrypted by PGP, and vice versa. Any software that conforms to the OpenPGP specification can participate in the same ecosystem of keys and encrypted messages.
+
+Several modern libraries implement OpenPGP independently of both PGP and GnuPG, including Sequoia-PGP (Rust), OpenPGP.js (JavaScript), and Bouncy Castle (Java). These libraries are the foundation for a new generation of OpenPGP tools, including [KeychainPGP](/).
+
+## PGP vs GPG Comparison Table
+
+| Feature | PGP (Broadcom) | GPG (GnuPG) | OpenPGP |
+|---|---|---|---|
+| **Type** | Commercial software | Free/open-source software | Open standard |
+| **License** | Proprietary | GPL (free) | IETF specification |
+| **Cost** | Paid license | Free | N/A |
+| **Platforms** | Windows, macOS | Windows, macOS, Linux, BSD, others | N/A (implemented by software) |
+| **Key formats** | OpenPGP-compatible | OpenPGP-compatible | Defines the format |
+| **Algorithms** | RSA, AES, others | RSA, DSA, ECC, AES, Camellia, others | Specifies mandatory and optional algorithms |
+| **GUI included** | Yes (enterprise console) | No (third-party GUIs available) | N/A |
+| **Ease of use** | Designed for managed enterprise deployment | Command-line focused; learning curve for beginners | N/A |
+| **Source available** | No | Yes | Standard is public |
+| **Active development** | Limited public visibility | Yes (ongoing) | Yes (RFC 9580 published 2024) |
+
+## Key Differences Explained
+
+### Licensing and Cost
+
+PGP is proprietary software sold under commercial licenses. Organizations typically purchase it as part of a broader Broadcom security suite, and individual licenses are not widely available. GPG is released under the GPL, which means anyone can download, use, modify, and redistribute it at no cost. For individuals, small teams, and open-source projects, GPG is the clear choice from a cost perspective.
+
+### Platform Support
+
+GnuPG runs on virtually every Unix-like system and has official Windows and macOS builds. PGP's commercial product focuses on Windows and macOS, with enterprise management features. If you work on Linux or BSD, GPG (or another OpenPGP implementation) is effectively your only option. For cross-platform needs, modern OpenPGP tools like KeychainPGP provide native builds for Windows, macOS, Linux, and Android from a single codebase.
+
+### Algorithm and Key Format Support
+
+Both PGP and GPG support the core algorithms required by the OpenPGP standard, including RSA and AES. GnuPG tends to adopt new algorithms faster because it is open-source and has a shorter release cycle. GnuPG supports elliptic curve cryptography (ECC) with Curve25519 and Ed25519, which provide strong security with shorter key sizes and better performance. The latest OpenPGP specification (RFC 9580) mandates support for these modern algorithms, and newer implementations like Sequoia-PGP have adopted them from the start.
+
+Because both PGP and GPG follow the OpenPGP standard, their key formats are interoperable. You can export a public key from GPG and import it into PGP, or into any other OpenPGP-compliant tool.
+
+### User Experience
+
+PGP's commercial product includes a graphical interface and is designed for enterprise deployment, where administrators manage encryption policies centrally. GnuPG is fundamentally a command-line tool. While graphical front-ends like Kleopatra and GPG Suite exist, the overall experience can be intimidating for users who are not comfortable with the terminal.
+
+This is one of the areas where modern OpenPGP applications aim to improve. Tools like KeychainPGP offer a native graphical interface that handles key management, encryption, decryption, and signing without requiring users to memorize command-line flags. You can try PGP encryption right in the browser with our [online PGP encryption tool](/pgp-online-encrypt/).
+
+## Which Should You Use?
+
+The answer depends on your situation:
+
+- **Enterprise with existing Broadcom/Symantec infrastructure:** Commercial PGP may be the path of least resistance if your organization already has a license and management tools in place.
+- **Developers and system administrators:** GnuPG is the standard tool. It is installed on most servers by default, has deep integration with package managers and Git, and is well documented.
+- **Privacy-conscious individuals who want a GUI:** Consider a modern OpenPGP application like KeychainPGP that provides a user-friendly interface on top of a standards-compliant library.
+- **Web-based or quick encryption needs:** An [online PGP encryption tool](/pgp-online-encrypt/) can handle one-off encryption and decryption tasks without installing anything.
+
+In most cases, the specific software matters less than the standard it implements. As long as you are using an OpenPGP-compliant tool, your keys and encrypted messages will be compatible with other OpenPGP tools. The choice is really about usability, platform support, and whether you prefer open-source or commercial software.
+
+## Where KeychainPGP Fits In
+
+[KeychainPGP](/) is a modern, open-source desktop application that implements the OpenPGP standard using **Sequoia-PGP**, a from-scratch OpenPGP library written in Rust. It is neither PGP (the commercial product) nor GPG (GnuPG). Instead, it is an independent implementation that sits alongside both in the OpenPGP ecosystem.
+
+KeychainPGP was built to solve the usability problem that has held back PGP adoption for decades. Rather than wrapping GnuPG in a GUI, it uses Sequoia-PGP as its cryptographic engine, gaining the benefits of Rust's memory safety guarantees and a modern, well-audited codebase. The result is a native desktop application with a straightforward interface for key management, file encryption, clipboard encryption, and digital signatures.
+
+Key reasons to consider KeychainPGP:
+
+- **Cross-platform:** Native builds for Windows, macOS, Linux, and Android, plus a web app and CLI
+- **Modern cryptography:** Built on Sequoia-PGP with support for Curve25519/Ed25519 and AEAD
+- **Open source:** Dual MIT / Apache-2.0 licensed, fully auditable
+- **User-friendly:** Graphical interface with clipboard-first workflow and global hotkeys
+- **CLI for automation:** The `keychainpgp` CLI supports key generation, encryption, decryption, signing, verification, and keyring management
+- **OpenPGP-compliant:** Keys and messages are interoperable with GPG, PGP, and any other OpenPGP tool
+
+If you are deciding between PGP and GPG and neither feels like the right fit, KeychainPGP offers a third path: a modern implementation of the same standard, designed for today's users.
+
+## Frequently Asked Questions
+
+### Is GPG the same as PGP?
+
+No. GPG (GnuPG) and PGP are separate software programs created by different people. PGP was created by Phil Zimmermann in 1991 and is now a commercial product owned by Broadcom. GPG was created by Werner Koch in 1997 as a free, open-source alternative. Both implement the OpenPGP standard, so they are functionally compatible, meaning a message encrypted with GPG can be decrypted by PGP and vice versa, but they are distinct codebases with different licenses.
+
+### Can GPG and PGP keys work together?
+
+Yes. Both GPG and PGP use the OpenPGP key format defined by the IETF standard. You can export a public key from GPG and import it into PGP, or into any other OpenPGP-compliant tool like KeychainPGP. Private keys can also be transferred between implementations, though you should always handle private key material with care and use strong passphrases.
+
+### Is GPG still secure in 2026?
+
+GnuPG remains a secure and actively maintained tool. The project receives regular updates, and its codebase has been scrutinized by security researchers for over two decades. That said, using any cryptographic tool securely depends on configuration: you should use modern key types (such as Ed25519), keep your software updated, and follow best practices for key management. For a step-by-step guide, see our [PGP for beginners](/docs/pgp-for-beginners/) article.
+
+### What does OpenPGP mean?
+
+OpenPGP is an open standard published by the IETF that defines how PGP-compatible encryption works. It specifies message formats, key formats, algorithm requirements, and signature structures. The most referenced version is RFC 4880 (2007), with RFC 9580 (2024) introducing modern algorithms. Any software that follows the OpenPGP standard can encrypt and decrypt messages interoperably, regardless of whether it is PGP, GPG, Sequoia-PGP, or another implementation.
+
+### Do I need PGP or GPG to use KeychainPGP?
+
+No. KeychainPGP is a standalone application that does not depend on PGP or GnuPG being installed on your system. It uses the Sequoia-PGP library, which is an independent implementation of the OpenPGP standard written in Rust. However, because all three tools follow the same standard, keys and encrypted messages created in KeychainPGP are fully compatible with GPG and PGP.

@@ -1,16 +1,21 @@
 <script lang="ts">
 	import { t, type Locale } from '$lib/i18n';
+	import { contentLocales } from '$lib/content';
 	import ThemeToggle from './ThemeToggle.svelte';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
 
 	let { locale = 'en' }: { locale: Locale } = $props();
 
 	let mobileOpen = $state(false);
+
+	const lp = $derived(locale === 'en' ? '' : `/${locale}`);
+	// For docs/blog/pgp-online-encrypt, only use locale prefix if content exists for that locale
+	const clp = $derived(locale !== 'en' && contentLocales.includes(locale) ? `/${locale}` : '');
 </script>
 
 <nav class="nav">
 	<div class="nav-inner">
-		<a href={locale === 'en' ? '/' : `/${locale}`} class="nav-brand">
+		<a href={`${lp}/`} class="nav-brand">
 			<img src="/icons/icon-64.png" alt="KeychainPGP" width="32" height="32" />
 			<span>KeychainPGP</span>
 		</a>
@@ -26,12 +31,13 @@
 		</button>
 
 		<div class="nav-links" class:open={mobileOpen}>
-			<a href="#features" onclick={() => mobileOpen = false}>{t(locale, 'nav.features')}</a>
-			<a href="#how-it-works" onclick={() => mobileOpen = false}>{t(locale, 'nav.howItWorks')}</a>
-			<a href="#download" onclick={() => mobileOpen = false}>{t(locale, 'nav.download')}</a>
-			<a href="#donate" onclick={() => mobileOpen = false}>{t(locale, 'nav.donate')}</a>
+			<a href={`${lp}/#features`} onclick={() => mobileOpen = false}>{t(locale, 'nav.features')}</a>
+			<a href={`${lp}/#how-it-works`} onclick={() => mobileOpen = false}>{t(locale, 'nav.howItWorks')}</a>
+			<a href={`${lp}/#download`} onclick={() => mobileOpen = false}>{t(locale, 'nav.download')}</a>
+			<a href={`${clp}/docs/`} onclick={() => mobileOpen = false}>Docs</a>
+			<a href={`${clp}/blog/`} onclick={() => mobileOpen = false}>Blog</a>
 			<a href="https://github.com/keychainpgp/keychainpgp" target="_blank" rel="noopener">{t(locale, 'nav.github')}</a>
-			<a href="https://keychainpgp.github.io" target="_blank" rel="noopener" class="nav-cta">{t(locale, 'nav.tryBrowser')}</a>
+			<a href={`${clp}/pgp-online-encrypt/`} onclick={() => mobileOpen = false} class="nav-cta">{t(locale, 'nav.onlineTool')}</a>
 			<div class="nav-controls">
 				<LanguageSwitcher {locale} />
 				<ThemeToggle />
@@ -100,7 +106,7 @@
 	}
 
 	.nav-cta {
-		background: var(--primary);
+		background: var(--primary-bg);
 		color: white !important;
 		padding: 0.5rem 1rem;
 		border-radius: 8px;
